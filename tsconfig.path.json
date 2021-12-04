@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@storeApp/*": ["./src/store/app/*"],
+      "@features/*": ["./src/store/features/*"]
+    }
+  }
+}
