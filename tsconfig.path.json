@@ -5,6 +5,7 @@
       "@": ["./src/*"],
       "@_data/*": ["./src/_data/*"],
       "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
       "@storeApp/*": ["./src/store/app/*"],
       "@features/*": ["./src/store/features/*"],
       "@config/*": ["./src/config/*"]

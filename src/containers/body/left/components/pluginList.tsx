@@ -1,5 +1,6 @@
 import React from 'react'
 import { Plug } from '@_data/Plugin'
+import DragItem from '@components/dragItem'
 import style from './pluginList.module.less'
 
 interface Plugs {
@@ -12,9 +13,9 @@ const PluginList = (props: Plugs) => {
     <div className={style.pluginList}>
       {data.map((item, i) => {
         return (
-          <div key={i} className={style.plugin}>
-            {item.name}
-          </div>
+          <DragItem key={i} data={{ a: 1 }}>
+            <div className={style.plugin}>{item.name}</div>
+          </DragItem>
         )
       })}
     </div>

@@ -1,11 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import counterReducer from '@features/counterSlice'
+import dropDragReducer from '@features/dropDragSlice'
 // import movieSlice from './features/movieSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    //  movie: movieSlice,
+    dropDrag: dropDragReducer,
   },
 })
 

@@ -1,10 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import Drop from '@components/drop'
+import style from './index.module.less'
 
 const Center = (props) => {
-    return <div></div>
+  return (
+    <div className={style.center}>
+      <Drop>aaa</Drop>
+    </div>
+  )
 }
-
-Center.propTypes = {}
 
 export default Center
