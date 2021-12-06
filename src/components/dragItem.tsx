@@ -19,7 +19,7 @@ const DragItem = ({ children, data }: Drag) => {
       }
     },
     onDragEnd: () => {
-      dispatch(setStatus('draggEnd'))
+      dispatch(setStatus(''))
     },
   })
   return <div ref={dragRef}>{children}</div>

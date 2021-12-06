@@ -3,6 +3,10 @@ import { useDrop, useDrag } from 'ahooks'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice' // 引入actions
 
+const style: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+}
 interface Drag {
   children?: React.ReactNode
 }
@@ -22,8 +26,8 @@ const Drop = ({ children }: Drag) => {
     },
   })
   return (
-    <div ref={dropRef} style={{ border: '1px dashed #e8e8e8', padding: 16, textAlign: 'center' }}>
-      {status}
+    <div ref={dropRef} style={style}>
+      {status}---
       {children}
     </div>
   )
