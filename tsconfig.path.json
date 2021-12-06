@@ -3,9 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@": ["./src/*"],
+      "@_data/*": ["./src/_data/*"],
       "@assets/*": ["./src/assets/*"],
       "@storeApp/*": ["./src/store/app/*"],
-      "@features/*": ["./src/store/features/*"]
+      "@features/*": ["./src/store/features/*"],
+      "@config/*": ["./src/config/*"]
     }
   }
 }

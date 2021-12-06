@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import '@assets/index.less'
-import App from './App'
+import './index.module.less'
+import App from './containers'
 import reportWebVitals from './reportWebVitals'
 import { store } from '@storeApp/store'
 

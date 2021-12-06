@@ -1,10 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Plug } from '@_data/Plugin'
+import style from './pluginList.module.less'
 
-const PlugList = (props) => {
-    return <div></div>
+interface Plugs {
+  data: Array<Plug>
 }
 
-PlugList.propTypes = {}
+const PluginList = (props: Plugs) => {
+  const { data } = props
+  return (
+    <div className={style.pluginList}>
+      {data.map((item, i) => {
+        return (
+          <div key={i} className={style.plugin}>
+            {item.name}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
-export default PlugList
+export default PluginList

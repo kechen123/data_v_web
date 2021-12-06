@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const PluginList = (props) => {
-    return <div></div>
+const PluginList1 = (props) => {
+  return <div></div>
 }
 
-PluginList.propTypes = {}
+PluginList1.propTypes = {}
 
-export default PluginList
+export default PluginList1

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Food = (props) => {
+const Footer = (props) => {
     return <div></div>
 }
 
-Food.propTypes = {}
+Footer.propTypes = {}
 
-export default Food
+export default Footer

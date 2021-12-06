@@ -1,3 +1,1 @@
-{
-  "name": "datav3"
-}
+export const APPNAME = 'datav3'

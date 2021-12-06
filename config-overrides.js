@@ -29,8 +29,10 @@ module.exports = override(
   //https://github.com/arackaf/customize-cra/issues/207
   addWebpackAlias({
     '@': path.resolve(__dirname, './src'),
+    '@_data': path.resolve(__dirname, './src/_data'),
     '@assets': path.resolve(__dirname, './src/assets'),
     '@storeApp': path.resolve(__dirname, './src/store/app'),
     '@features': path.resolve(__dirname, './src/store/features'),
+    '@config': path.resolve(__dirname, './src/config'),
   })
 )
