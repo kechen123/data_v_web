@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
+import { SCREENWIDTH,SCREENHEIGHT } from '@config/index'
 
 export interface screenState {
   width:number
@@ -8,8 +9,8 @@ export interface screenState {
 }
 
 const initialState: screenState = {
-  width: 1360,
-  height:720,
+  width: SCREENWIDTH,
+  height:SCREENHEIGHT,
   scale:1
 }
 export const screenSlice = createSlice({
