@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import style from './index.module.less'
 
 const Right = (props) => {
-  return <div></div>
+  return <div className={style.right}>
+    <div style={{width:'40px'}}></div>
+  </div>
 }
 
 Right.propTypes = {}

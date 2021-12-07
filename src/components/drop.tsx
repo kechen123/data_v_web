@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { useDrop, useDrag } from 'ahooks'
+import React, { useRef,useState  } from 'react'
+import { useDrop } from 'ahooks'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice' // 引入actions
 
@@ -9,8 +9,11 @@ const style: React.CSSProperties = {
 }
 interface Drag {
   children?: React.ReactNode
+  className?:string
+  style?:Object
 }
-const Drop = ({ children }: Drag) => {
+const Drop = ({ children,className,style:pstyle }: Drag) => {
+  const [isHovering, setIsHovering] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null)
   const { status } = useAppSelector(dropDrag)
   const dispatch = useAppDispatch()
@@ -19,14 +22,17 @@ const Drop = ({ children }: Drag) => {
       console.log(content)
     },
     onDragEnter: () => {
+      setIsHovering(true)
       dispatch(setStatus('dragEnter'))
     },
     onDragLeave: () => {
+      setIsHovering(false)
       dispatch(setStatus('dragLeave'))
     },
   })
+  const opacity = isHovering ? 0.8 : 1
   return (
-    <div ref={dropRef} style={style}>
+    <div ref={dropRef} className={className} style={{...style,...pstyle,opacity}}>
       {status}---
       {children}
     </div>

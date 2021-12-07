@@ -13,7 +13,7 @@ const PluginList = (props: Plugs) => {
     <div className={style.pluginList}>
       {data.map((item, i) => {
         return (
-          <DragItem key={i} data={{ a: 1 }}>
+          <DragItem key={i} data={item}>
             <div className={style.plugin}>{item.name}</div>
           </DragItem>
         )
