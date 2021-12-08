@@ -21,12 +21,17 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   const { status } = useAppSelector(dropDrag)
   const dispatch = useAppDispatch()
   useDrop(dropRef, {
-    onDom: (content: Plug, e: any) => {
+    onDom: (plug: Plug, e: any) => {
+      const { rect } = plug
       let left = e?.offsetX
       let top = e?.offsetY
+      console.log(left, top)
+      left -= rect.width / 2
+      top -= rect.height / 2
+      console.log(left, top)
       let widget: Plug = {
-        name: content.name,
-        url: content.url,
+        name: plug.name,
+        url: plug.url,
         rect: {
           width: 100,
           height: 100,
@@ -53,7 +58,6 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   const opacity = isHovering ? 0.8 : 1
   return (
     <div ref={dropRef} className={className} style={{ ...style, ...pstyle, opacity }}>
-      {status}---
       {children}
     </div>
   )

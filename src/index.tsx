@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import '@assets/less/global.less'
 import './index.module.less'
 import App from './containers'
 import reportWebVitals from './reportWebVitals'

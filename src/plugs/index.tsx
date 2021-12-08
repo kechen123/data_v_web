@@ -13,6 +13,6 @@ const Widget = (plug: Plug) => {
      */
     cacheKey: (props) => props.url,
   })
-  return <OtherComponent plug={plug} />
+  return <OtherComponent {...plug} />
 }
 export default Widget

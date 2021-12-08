@@ -1,6 +1,6 @@
 export interface Rect {
-  left: number
-  top: number
+  left?: number
+  top?: number
   width: number
   height: number
 }
@@ -8,7 +8,7 @@ export interface Rect {
 export interface Plug {
   name: string
   url: string
-  rect?: Rect
+  rect: Rect
 }
 
 export interface Widget {
