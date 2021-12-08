@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useEffect } from 'react'
 import { useDrop } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
@@ -19,7 +19,13 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   const [isHovering, setIsHovering] = useState(false)
   const dropRef = useRef<HTMLDivElement | null>(null)
   const { status } = useAppSelector(dropDrag)
+
   const dispatch = useAppDispatch()
+  useEffect(()=>{
+    if(status === ''){
+      setIsHovering(false)
+    }
+  },[status])
   useDrop(dropRef, {
     onDom: (plug: Plug, e: any) => {
       const { rect } = plug
@@ -28,7 +34,6 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
       console.log(left, top)
       left -= rect.width / 2
       top -= rect.height / 2
-      console.log(left, top)
       let widget: Plug = {
         name: plug.name,
         url: plug.url,
@@ -41,7 +46,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
       }
       const uid: string = uuidv4().substring(0, 8)
       let obj: SetWidget = {
-        key: uid,
+        id: uid,
         plug: widget,
       }
       dispatch(setWidget(obj))

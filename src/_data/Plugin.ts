@@ -16,6 +16,6 @@ export interface Widget {
 }
 
 export interface SetWidget {
-  key: string
+  id: string
   plug: Plug
 }

@@ -1,10 +1,14 @@
 import React from 'react'
-import { Plug } from '@_data/Plugin'
+import { SetWidget } from '@_data/Plugin'
 import style from './index.module.less'
-const index = (props: Plug) => {
-  const { rect, name } = props
+const index = (props: SetWidget) => {
+  const {
+    id,
+    plug: { rect, name },
+  } = props
   return (
     <div
+      id={id}
       className={`widget ${style.rect} `}
       style={{
         width: rect.width + 'px',
