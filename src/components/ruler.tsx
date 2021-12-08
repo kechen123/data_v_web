@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import Guides from '@scena/guides'
 
 const Ruler = (props) => {
   const ruler = useRef<HTMLDivElement | null>(null)

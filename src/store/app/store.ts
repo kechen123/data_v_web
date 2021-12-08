@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import counterReducer from '@features/counterSlice'
 import dropDragReducer from '@features/dropDragSlice'
 import screenReducer from '@features/screenSlice'
+import widgetReducer from "@features/widgetSlice";
 // import movieSlice from './features/movieSlice';
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     counter: counterReducer,
     dropDrag: dropDragReducer,
     screen: screenReducer,
+    widget: widgetReducer,
   },
 })
 
