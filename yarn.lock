@@ -1227,6 +1227,28 @@
   resolved "https://registry.nlark.com/@csstools/normalize.css/download/@csstools/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha1-8JULuhiBlRLUL3GX5WxRiqSRzxg=
 
+"@daybrush/utils@1.6.0", "@daybrush/utils@^1.0.0", "@daybrush/utils@^1.1.1", "@daybrush/utils@^1.3.1", "@daybrush/utils@^1.4.0", "@daybrush/utils@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.nlark.com/@daybrush/utils/download/@daybrush/utils-1.6.0.tgz#0dfd2c360764f63380df4ec0d44e176c69f7bbc3"
+  integrity sha1-Df0sNgdk9jOA307A1E4XbGn3u8M=
+
+"@egjs/agent@^2.2.1":
+  version "2.3.0"
+  resolved "https://registry.nlark.com/@egjs/agent/download/@egjs/agent-2.3.0.tgz#5a18150ce46a2ba1d237a847db44b0a234bd96f0"
+  integrity sha1-WhgVDORqK6HSN6hH20SwojS9lvA=
+
+"@egjs/children-differ@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.nlark.com/@egjs/children-differ/download/@egjs/children-differ-1.0.1.tgz#5465fa80671d5ca3564ebe912f48b05b3e8a14fd"
+  integrity sha1-VGX6gGcdXKNWTr6RL0iwWz6KFP0=
+  dependencies:
+    "@egjs/list-differ" "^1.0.0"
+
+"@egjs/list-differ@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.nlark.com/@egjs/list-differ/download/@egjs/list-differ-1.0.0.tgz#2277aff52e3e4bd9318d5c30ffc3ba3b6216f05e"
+  integrity sha1-Inev9S4+S9kxjVww/8O6O2IW8F4=
+
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
   resolved "https://registry.npmmirror.com/@eslint/eslintrc/download/@eslint/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"
@@ -1586,6 +1608,28 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
+
+"@scena/dragscroll@^1.0.1", "@scena/dragscroll@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmmirror.com/@scena/dragscroll/download/@scena/dragscroll-1.0.3.tgz#9671188ea6c37fb35c5d56185d9c6c729de19678"
+  integrity sha512-jkQ6i9+a4mNBQRQUPtagyV5/P2NauHKp5on4pcnHIRLFG25sPFy3h/VwwgNXwtQFRS1S6taBpnA5Nk87zwg42w==
+  dependencies:
+    "@daybrush/utils" "1.6.0"
+    "@scena/event-emitter" "^1.0.2"
+
+"@scena/event-emitter@^1.0.2", "@scena/event-emitter@^1.0.3":
+  version "1.0.5"
+  resolved "https://registry.nlark.com/@scena/event-emitter/download/@scena/event-emitter-1.0.5.tgz#047e3acef93cf238d7ce3a8cc5a12ec6bd9c3bb1"
+  integrity sha1-BH46zvk88jjXzjqMxaEuxr2cO7E=
+  dependencies:
+    "@daybrush/utils" "^1.1.1"
+
+"@scena/matrix@^1.0.0", "@scena/matrix@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.nlark.com/@scena/matrix/download/@scena/matrix-1.1.1.tgz#5297f71825c72e2c2c8f802f924f482ed200c43c"
+  integrity sha1-Upf3GCXHLiwsj4Avkk9ILtIAxDw=
+  dependencies:
+    "@daybrush/utils" "^1.4.0"
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
@@ -2419,6 +2463,11 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
+
+animejs@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.nlark.com/animejs/download/animejs-3.2.1.tgz#de9fe2e792f44a777a7fdf6ae160e26604b0cdda"
+  integrity sha1-3p/i55L0Snd6f99q4WDiZgSwzdo=
 
 ansi-colors@^3.0.0:
   version "3.2.4"
@@ -3891,6 +3940,22 @@ css-select@^4.1.3:
     domutils "^2.6.0"
     nth-check "^2.0.0"
 
+css-styled@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.nlark.com/css-styled/download/css-styled-1.0.0.tgz#6fe10a98f95c24fa66cb1c41e11e7c00bcedac13"
+  integrity sha1-b+EKmPlcJPpmyxxB4R58ALztrBM=
+  dependencies:
+    "@daybrush/utils" "^1.0.0"
+    string-hash "^1.1.3"
+
+css-to-mat@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.nlark.com/css-to-mat/download/css-to-mat-1.0.3.tgz#5c0d9b572b68b57fa8ba0b1a4c572c18ce3b2b60"
+  integrity sha1-XA2bVytotX+ougsaTFcsGM47K2A=
+  dependencies:
+    "@daybrush/utils" "^1.3.1"
+    "@scena/matrix" "^1.0.0"
+
 css-tree@1.0.0-alpha.37:
   version "1.0.0-alpha.37"
   resolved "https://registry.nlark.com/css-tree/download/css-tree-1.0.0-alpha.37.tgz#98bebd62c4c1d9f960ec340cf9f7522e30709a22"
@@ -5272,6 +5337,11 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framework-utils@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.nlark.com/framework-utils/download/framework-utils-1.1.0.tgz#a3b528bce838dfd623148847dc92371b09d0da2d"
+  integrity sha1-o7UovOg439YjFIhH3JI3GwnQ2i0=
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.nlark.com/fresh/download/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -5362,6 +5432,14 @@ gensync@^1.0.0-beta.1, gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.nlark.com/gensync/download/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha1-MqbudsPX9S1GsrGuXZP+qFgKJeA=
+
+gesto@^1.2.1:
+  version "1.5.0"
+  resolved "https://registry.npmmirror.com/gesto/download/gesto-1.5.0.tgz#21b737a40ecc8864d2e3136d36094142959efe0a"
+  integrity sha512-1spR2y85HCNol4i8J5CXOI0BtQYzpgCq7PRCcdlieUw80wfl7dFc7K/Zy5ocKZRomV9yFLCEBndwDGFLpucFOA==
+  dependencies:
+    "@daybrush/utils" "^1.0.0"
+    "@scena/event-emitter" "^1.0.2"
 
 get-caller-file@^2.0.1:
   version "2.0.5"
@@ -7582,6 +7660,15 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
+moveable@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.npmmirror.com/moveable/download/moveable-0.27.2.tgz#710697982735e6979ab77e0fb8578c890ac8449a"
+  integrity sha512-9bKk9mIu1kG78y9tQzgQBZEtk0CTb+lac6OrGazl/z+R4fyhdi15sGkG/MLCAQDFsTssoksjBuf0F2iQN7DO+w==
+  dependencies:
+    "@scena/event-emitter" "^1.0.3"
+    react-compat-moveable "~0.15.2"
+    react-simple-compat "^1.2.1"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -8026,6 +8113,13 @@ os-browserify@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npm.taobao.org/os-browserify/download/os-browserify-0.3.0.tgz#854373c7f5c2315914fc9bfc6bd8238fdda1ec27"
   integrity sha1-hUNzx/XCMVkU/Jv8a9gjj92h7Cc=
+
+overlap-area@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.nlark.com/overlap-area/download/overlap-area-1.0.0.tgz#d44db45b810ec05c4c2c9f430ab60c9473f2101b"
+  integrity sha1-1E20W4EOwFxMLJ9DCrYMlHPyEBs=
+  dependencies:
+    "@daybrush/utils" "^1.3.1"
 
 p-each-series@^2.1.0:
   version "2.2.0"
@@ -9293,6 +9387,34 @@ react-app-rewired@^2.1.8:
   dependencies:
     semver "^5.6.0"
 
+react-compat-css-styled@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmmirror.com/react-compat-css-styled/download/react-compat-css-styled-1.0.8.tgz#a6735a9a362b47bc12535e6d2c0f57262704f382"
+  integrity sha512-CG0kVbpKjiLMQc85pP50+Z0R9PGp7NIkkGqO88QTjEsSMOGKYlCXIAnXdKR2ZII23NJmA4XrJry03jkXOxTUkg==
+  dependencies:
+    "@daybrush/utils" "^1.0.0"
+    css-styled "^1.0.0"
+    framework-utils "^1.1.0"
+    react-css-styled "^1.0.3"
+
+react-compat-moveable@~0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/react-compat-moveable/download/react-compat-moveable-0.15.2.tgz#d53076dd882f8452a28d9ccc436e62d373c97348"
+  integrity sha512-p2ZD3+6MqUsPFQiYBVsOpNqMs8ViNlEMCv4Yh0W4i/NpFSXmwoe5k4avRJtGbxsACgfOM/4v/DzaFBniNlXC5A==
+  dependencies:
+    "@daybrush/utils" "^1.6.0"
+    "@scena/dragscroll" "^1.0.1"
+    react-compat-css-styled "^1.0.8"
+    react-moveable "~0.30.3"
+
+react-css-styled@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmmirror.com/react-css-styled/download/react-css-styled-1.0.3.tgz#f6dda995f41e4777567d2464b7d12ed1373b4f1d"
+  integrity sha512-6H3aZPO66PYmYg9wx12WzOJpPlBEdA7O5JefCh+4SldlihVKBCxA6mityfWSGWL5ldOkJdHJWGwHR6nGPcVm+A==
+  dependencies:
+    css-styled "^1.0.0"
+    framework-utils "^1.1.0"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.npmmirror.com/react-dev-utils/download/react-dev-utils-11.0.4.tgz?cache=0&sync_timestamp=1633373610539&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Freact-dev-utils%2Fdownload%2Freact-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
@@ -9346,6 +9468,22 @@ react-is@^17.0.1, react-is@^17.0.2:
   version "17.0.2"
   resolved "https://registry.npmmirror.com/react-is/download/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha1-5pHUqOnHiTZWVVOas3J2Kw77VPA=
+
+react-moveable@~0.30.3:
+  version "0.30.3"
+  resolved "https://registry.npmmirror.com/react-moveable/download/react-moveable-0.30.3.tgz#fe5184e6349cfc7829396c34dafd9bcf7f3e171a"
+  integrity sha512-kSE0s9at2ku0sSlzrCzuRWFOfd0V9JQR6G5gsjiWytPAOsBmCl4p4KhqGvoyTcCxaMg9t/q73WZ6Es9yhOifKg==
+  dependencies:
+    "@daybrush/utils" "^1.6.0"
+    "@egjs/agent" "^2.2.1"
+    "@egjs/children-differ" "^1.0.1"
+    "@scena/dragscroll" "^1.0.3"
+    "@scena/matrix" "^1.1.1"
+    css-to-mat "^1.0.3"
+    framework-utils "^1.1.0"
+    gesto "^1.2.1"
+    overlap-area "^1.0.0"
+    react-css-styled "^1.0.3"
 
 react-redux@^7.2.6:
   version "7.2.6"
@@ -9429,6 +9567,14 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-simple-compat@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.npmmirror.com/react-simple-compat/download/react-simple-compat-1.2.2.tgz#e62cd33d2053ce023c4d2a204a5f1d5c8499c933"
+  integrity sha512-DYa9MHplwzjL/9xDKmTvM70umky8R162aZsKsWC2XRD7d+mIXyr8IQmAoRMlH2uwl4yGGgZbg7bj20qlCMhIYA==
+  dependencies:
+    "@daybrush/utils" "^1.0.0"
+    "@egjs/list-differ" "^1.0.0"
 
 react@^17.0.2:
   version "17.0.2"
@@ -10423,6 +10569,11 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/strict-uri-encode/download/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+
+string-hash@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npm.taobao.org/string-hash/download/string-hash-1.1.3.tgz#e8aafc0ac1855b4666929ed7dd1275df5d6c811b"
+  integrity sha1-6Kr8CsGFW0Zmkp7X3RJ1311sgRs=
 
 string-length@^4.0.1:
   version "4.0.2"

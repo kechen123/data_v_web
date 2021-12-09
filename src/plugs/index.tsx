@@ -16,7 +16,7 @@ const Widget = (props: SetWidget) => {
      */
     cacheKey: (props) => props.url,
   })
-  return <OtherComponent {...props} />
-  // return <div></div>
+  // return <OtherComponent {...props} />
+  return <Loading {...props} />
 }
 export default Widget
