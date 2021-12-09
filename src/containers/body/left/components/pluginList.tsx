@@ -10,14 +10,18 @@ interface Plugs {
 const PluginList = (props: Plugs) => {
   const { data } = props
   return (
-    <div className={style.pluginList}>
-      {data.map((item, i) => {
-        return (
-          <DragItem key={i} data={item}>
-            <div className={style.plugin}>{item.name}</div>
-          </DragItem>
-        )
-      })}
+    <div className={style.pluginView}>
+      <div className={style.pluginList}>
+        {data.map((item, i) => {
+          return (
+            <DragItem key={i} data={item}>
+              <div className={style.plugin}>
+                <img src={item.img} />
+              </div>
+            </DragItem>
+          )
+        })}
+      </div>
     </div>
   )
 }

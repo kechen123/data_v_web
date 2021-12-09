@@ -9,6 +9,7 @@ export interface Plug {
   name: string
   url: string
   rect: Rect
+  img: string
 }
 
 export interface Widget {
