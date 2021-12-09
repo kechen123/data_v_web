@@ -5,10 +5,10 @@ import style from './index.module.less'
 
 const Content = (props: ScrollInterface) => {
   return (
-    <>
+    <div className={style.contentView}>
       <Ruler />
       <Scroll {...props} />
-    </>
+    </div>
   )
 }
 

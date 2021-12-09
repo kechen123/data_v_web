@@ -75,7 +75,7 @@ const Scroll = (props: ScrollInterface) => {
         setSy(top)
       }
     },
-    { target: ref }
+    { target: document.body }
   )
   useEventListener('mouseup', upHandler)
   useEventListener('mousedown', downHandler, { target: refY })

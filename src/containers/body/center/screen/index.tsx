@@ -15,7 +15,7 @@ const Screen = (props: ScrollInterface) => {
   const widgets = useAppSelector(widgetSlice)
   return (
     <div
-      className={style.viewport}
+      className={style.screenView}
       style={{
         width: width + 'px',
         height: height + 'px',
