@@ -1,0 +1,30 @@
+{
+  "id": "3001689",
+  "name": "datav3",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "15838479",
+      "name": "fabulous",
+      "font_class": "fabulous",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "4354248",
+      "name": "图表-折线图",
+      "font_class": "tubiao-zhexiantu",
+      "unicode": "eb96",
+      "unicode_decimal": 60310
+    },
+    {
+      "icon_id": "11488027",
+      "name": "customization",
+      "font_class": "customization",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    }
+  ]
+}

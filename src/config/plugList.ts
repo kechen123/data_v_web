@@ -37,3 +37,21 @@ export const PLUGLIST: Array<Plug> = [
     img: 'datavImage/border4.png',
   },
 ]
+
+export const MENU: Array<any> = [
+  {
+    name: 'basics',
+    icon: 'icon-fabulous',
+    plugs: 'PLUGLIST',
+  },
+  {
+    name: 'chart',
+    icon: 'icon-tubiao-zhexiantu',
+    plugs: '',
+  },
+  {
+    name: 'favourite',
+    icon: 'icon-customization',
+    plugs: '',
+  },
+]

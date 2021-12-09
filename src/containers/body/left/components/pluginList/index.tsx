@@ -1,13 +1,13 @@
 import React from 'react'
 import { Plug } from '@_data/Plugin'
 import DragItem from '@components/dragItem'
-import style from './pluginList.module.less'
+import style from './index.module.less'
 
-interface Plugs {
+interface Props {
   data: Array<Plug>
 }
 
-const PluginList = (props: Plugs) => {
+const PluginList = (props: Props) => {
   const { data } = props
   return (
     <div className={style.pluginView}>

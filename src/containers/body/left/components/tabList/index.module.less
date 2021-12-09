@@ -1,0 +1,26 @@
+.tabListView {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: solid 1px var(--scroll-bg-color);
+  background-color: var(--tools-bar);
+  .toolBar {
+    height: 50px;
+    cursor: pointer;
+    line-height: 50px;
+    text-align: center;
+    &:hover {
+      background-color: var(--page-bg-color);
+    }
+    i {
+      font-size: 22px;
+      color: var(--font-color);
+    }
+  }
+  .active {
+    i {
+      color: var(--green);
+    }
+  }
+}
