@@ -1,17 +1,13 @@
 import React from 'react'
-import Ruler from '@components/ruler'
-import Background from '@components/background'
+import { Ruler, Scroll } from './components'
+import { Scroll as ScrollInterface } from '@_data/Scroll'
 import style from './index.module.less'
 
-const Content = (props) => {
+const Content = (props: ScrollInterface) => {
   return (
     <>
-      <div className={style.ruler}>
-        <Ruler />
-      </div>
-      <div className={style.background}>
-        <Background />
-      </div>
+      <Ruler />
+      <Scroll {...props} />
     </>
   )
 }

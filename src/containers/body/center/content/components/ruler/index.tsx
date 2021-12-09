@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import style from './index.module.less'
 
 const Ruler = (props) => {
   const ruler = useRef<HTMLDivElement | null>(null)
@@ -17,7 +18,11 @@ const Ruler = (props) => {
       // })
     }
   }, [])
-  return <div id="ruler"></div>
+  return (
+    <div className={style.ruler}>
+      <div id="ruler"></div>
+    </div>
+  )
 }
 
 export default Ruler

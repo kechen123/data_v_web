@@ -1,4 +1,4 @@
-const background = () => {
+const GridDiv = () => {
   return (
     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -15,4 +15,4 @@ const background = () => {
   )
 }
 
-export default background
+export default GridDiv
