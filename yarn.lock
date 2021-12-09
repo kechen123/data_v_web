@@ -1513,6 +1513,52 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@jiaminghi/bezier-curve@*":
+  version "0.0.9"
+  resolved "https://registry.nlark.com/@jiaminghi/bezier-curve/download/@jiaminghi/bezier-curve-0.0.9.tgz#5196aca93c8b061a612b4c3eabcedf9490cef6ee"
+  integrity sha1-UZasqTyLBhphK0w+q87flJDO9u4=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
+"@jiaminghi/c-render@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.nlark.com/@jiaminghi/c-render/download/@jiaminghi/c-render-0.4.3.tgz?cache=0&sync_timestamp=1621079444720&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jiaminghi%2Fc-render%2Fdownload%2F%40jiaminghi%2Fc-render-0.4.3.tgz#982ebd8f71b443bb9507834227834973ebd9b6d8"
+  integrity sha1-mC69j3G0Q7uVB4NCJ4NJc+vZttg=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@jiaminghi/bezier-curve" "*"
+    "@jiaminghi/color" "*"
+    "@jiaminghi/transition" "*"
+
+"@jiaminghi/charts@^0.2":
+  version "0.2.18"
+  resolved "https://registry.npm.taobao.org/@jiaminghi/charts/download/@jiaminghi/charts-0.2.18.tgz#63ded95200789fc1a1fd04b7fd9e56f58d22d90f"
+  integrity sha1-Y97ZUgB4n8Gh/QS3/Z5W9Y0i2Q8=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@jiaminghi/c-render" "^0.4.3"
+
+"@jiaminghi/color@*":
+  version "0.1.1"
+  resolved "https://registry.npm.taobao.org/@jiaminghi/color/download/@jiaminghi/color-0.1.1.tgz#bddf9012dfce6982d3829a983ffeb91ee9dda7b6"
+  integrity sha1-vd+QEt/OaYLTgpqYP/65Hundp7Y=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
+"@jiaminghi/data-view-react@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.nlark.com/@jiaminghi/data-view-react/download/@jiaminghi/data-view-react-1.2.5.tgz#8817eaf83377b186ee32552dad9901547742ea0a"
+  integrity sha1-iBfq+DN3sYbuMlUtrZkBVHdC6go=
+  dependencies:
+    "@jiaminghi/charts" "^0.2"
+
+"@jiaminghi/transition@*":
+  version "1.1.11"
+  resolved "https://registry.npm.taobao.org/@jiaminghi/transition/download/@jiaminghi/transition-1.1.11.tgz#576d8af092434b34201eba5eaecc79dd33c8ad8c"
+  integrity sha1-V22K8JJDSzQgHrpersx53TPIrYw=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
 "@loadable/component@^5.15.0":
   version "5.15.0"
   resolved "https://registry.nlark.com/@loadable/component/download/@loadable/component-5.15.0.tgz#48b9524237be553f48b158f8c9152593f3f3fded"
