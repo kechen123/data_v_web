@@ -20,7 +20,8 @@ const Ruler = (props) => {
   }, [])
   return (
     <div className={style.ruler}>
-      <div id="ruler"></div>
+      <div className={style.hContainer}></div>
+      <div className={style.vContainer}></div>
     </div>
   )
 }
