@@ -56,11 +56,6 @@ const Scroll = (props: ScrollInterface) => {
           setSx(l)
         }
       }
-
-      // move.self = {
-      //   left: ev.offsetX,
-      //   top: ev.offsetY,
-      // }
     }
   }
 
@@ -68,10 +63,16 @@ const Scroll = (props: ScrollInterface) => {
     'wheel',
     (e) => {
       e = e || window.event
+      let val = 0
       if (e.deltaY > 0) {
-        setSy(sy + 20)
+        val = 20
       } else {
-        setSy(sy - 20)
+        val = -20
+      }
+      let top = sy + val
+      let limit = top + screenWH[3] >= screenWH[1]
+      if (top >= 0 && !limit) {
+        setSy(top)
       }
     },
     { target: ref }
