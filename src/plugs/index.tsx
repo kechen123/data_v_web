@@ -6,8 +6,10 @@ import { SetWidget } from '@_data/Plugin'
 const Widget = (props: SetWidget) => {
   const {
     plug,
-    plug: { url },
+    id,
+    plug: { url, rect },
   } = props
+  console.log(props)
   const OtherComponent = loadable(() => import(`./${url}/index.tsx`), {
     fallback: <Loading {...props} />,
     /**
@@ -16,7 +18,19 @@ const Widget = (props: SetWidget) => {
      */
     cacheKey: (props) => props.url,
   })
-  return <OtherComponent {...props} />
+  return (
+    <div
+      data-id={id}
+      className={`widget `}
+      style={{
+        width: rect.width + 'px',
+        height: rect.height + 'px',
+        transform: `translate(${rect.left}px, ${rect.top}px) rotate(0deg)`,
+      }}
+    >
+      <OtherComponent {...props} />
+    </div>
+  )
   // return <Loading {...props} />
 }
 export default Widget

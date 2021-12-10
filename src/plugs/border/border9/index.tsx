@@ -9,18 +9,7 @@ const Index = (props: SetWidget) => {
     plug: { rect, name },
   } = props
 
-  return (
-    <div
-      className={`widget `}
-      style={{
-        width: rect.width + 'px',
-        height: rect.height + 'px',
-        transform: `translate(${rect.left}px, ${rect.top}px) rotate(0deg)`,
-      }}
-    >
-      <BorderBox9 color={['#235fa7', '#4fd2dd']} backgroundColor="transparent" />
-    </div>
-  )
+  return <BorderBox9 color={['#235fa7', '#4fd2dd']} backgroundColor="transparent" />
 }
 
 export default Index

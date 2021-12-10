@@ -10,14 +10,7 @@ const Loading = (props: SetWidget) => {
   } = props
 
   return (
-    <div
-      className={`widget ${style.loading}`}
-      style={{
-        width: rect.width + 'px',
-        height: rect.height + 'px',
-        transform: `translate(${rect.left}px, ${rect.top}px) rotate(0deg)`,
-      }}
-    >
+    <div className={style.loading}>
       <DVLoading>Loading...</DVLoading>
     </div>
   )
