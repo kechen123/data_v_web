@@ -13,7 +13,7 @@ export const widgetSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     setWidget: (state, action: PayloadAction<SetWidget>) => {
-      state[action.payload.id] = action.payload.plug
+      state[action.payload.id] = action.payload.widget
     },
   },
 })

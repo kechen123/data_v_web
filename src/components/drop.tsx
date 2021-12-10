@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
 import { Plug, SetWidget } from '@_data/Plugin'
 import { setWidget } from '@features/widgetSlice'
+import { drop } from '@features/screenSlice'
 
 const style: React.CSSProperties = {
   width: '100%',
@@ -31,7 +32,6 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
       const { rect } = plug
       let left = e?.offsetX
       let top = e?.offsetY
-      console.log(left, top)
       left -= rect.width / 2
       top -= rect.height / 2
       let widget: Plug = {
@@ -48,9 +48,10 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
       const uid: string = uuidv4().substring(0, 8)
       let obj: SetWidget = {
         id: uid,
-        plug: widget,
+        widget: widget,
       }
       dispatch(setWidget(obj))
+      dispatch(drop(obj))
     },
     onDragEnter: () => {
       setIsHovering(true)

@@ -5,11 +5,10 @@ import { SetWidget } from '@_data/Plugin'
 
 const Widget = (props: SetWidget) => {
   const {
-    plug,
+    widget,
     id,
-    plug: { url, rect },
+    widget: { url, rect },
   } = props
-  console.log(props)
   const OtherComponent = loadable(() => import(`./${url}/index.tsx`), {
     fallback: <Loading {...props} />,
     /**

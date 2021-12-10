@@ -4,11 +4,6 @@ import { SetWidget } from '@_data/Plugin'
 import style from './index.module.less'
 
 const Loading = (props: SetWidget) => {
-  const {
-    id,
-    plug: { rect, name },
-  } = props
-
   return (
     <div className={style.loading}>
       <DVLoading>Loading...</DVLoading>

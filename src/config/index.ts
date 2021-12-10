@@ -1,3 +1,3 @@
-export const APPNAME = 'datav3'
-export const SCREENWIDTH = 1920
-export const SCREENHEIGHT = 1080
+export const APPNAME: string = 'datav3'
+export const SCREENWIDTH: number = 1920
+export const SCREENHEIGHT: number = 1080

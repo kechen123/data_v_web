@@ -1,17 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
-import { SCREENWIDTH,SCREENHEIGHT } from '@config/index'
+import { SetWidget } from '@_data/Plugin'
+import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
+interface screenWidget {
+  widget: SetWidget
+  zIndex: number
+  children?: screenWidget[]
+}
 export interface screenState {
-  width:number
-  height:number
-  scale:number
+  width: number
+  height: number
+  scale: number
+  //大屏组件列表
+  screenWidget: screenWidget[]
+  //大屏组件层级
+  widgetIndex: number
 }
 
 const initialState: screenState = {
   width: SCREENWIDTH,
-  height:SCREENHEIGHT,
-  scale:1
+  height: SCREENHEIGHT,
+  scale: 1,
+  screenWidget: [],
+  widgetIndex: 3,
 }
 export const screenSlice = createSlice({
   name: 'screen', // 命名空间，在调用action的时候会默认的设置为action的前缀
@@ -23,10 +35,19 @@ export const screenSlice = createSlice({
     setWidth: (state, action: PayloadAction<number>) => {
       state.width = action.payload
     },
+    drop: (state, action: PayloadAction<SetWidget>) => {
+      state.widgetIndex += 1
+      const screenWidgetItem: screenWidget = {
+        widget: action.payload,
+        zIndex: state.widgetIndex,
+        children: [],
+      }
+      state.screenWidget.push(screenWidgetItem)
+    },
   },
 })
 // 导出actions
-export const { setWidth } = screenSlice.actions
+export const { setWidth, drop } = screenSlice.actions
 
 // 导出initialState
 export const screen = (state: RootState) => state.screen

@@ -6,7 +6,7 @@ import style from './index.module.less'
 const Index = (props: SetWidget) => {
   const {
     id,
-    plug: { rect, name },
+    widget: { rect, name },
   } = props
 
   return <BorderBox1 color={['#235fa7', '#4fd2dd']} backgroundColor="transparent" />

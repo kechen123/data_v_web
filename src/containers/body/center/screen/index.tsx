@@ -11,7 +11,8 @@ import style from './index.module.less'
 
 const Screen = (props: ScrollInterface) => {
   const { x, y } = props
-  const { width, height, scale } = useAppSelector(screen)
+  const { width, height, scale, screenWidget } = useAppSelector(screen)
+  console.log(screenWidget)
   const widgets = useAppSelector(widgetSlice)
   return (
     <div
@@ -32,7 +33,7 @@ const Screen = (props: ScrollInterface) => {
           let item = widgets[key]
           let plug: SetWidget = {
             id: key,
-            plug: item,
+            widget: item,
           }
           return <Widget key={key} {...plug} />
         })}
