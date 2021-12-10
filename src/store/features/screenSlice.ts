@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
-import { SetWidget } from '@_data/Plugin'
+import { WidgetObj } from '@_data/Plugin'
 import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
 interface screenWidget {
-  widget: SetWidget
+  widget: WidgetObj
   zIndex: number
   children?: screenWidget[]
 }
@@ -35,7 +35,7 @@ export const screenSlice = createSlice({
     setWidth: (state, action: PayloadAction<number>) => {
       state.width = action.payload
     },
-    drop: (state, action: PayloadAction<SetWidget>) => {
+    drop: (state, action: PayloadAction<WidgetObj>) => {
       state.widgetIndex += 1
       const screenWidgetItem: screenWidget = {
         widget: action.payload,

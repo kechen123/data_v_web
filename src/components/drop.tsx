@@ -3,7 +3,7 @@ import { useDrop } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
-import { Plug, SetWidget } from '@_data/Plugin'
+import { Plug, WidgetObj } from '@_data/Plugin'
 import { setWidget } from '@features/widgetSlice'
 import { drop } from '@features/screenSlice'
 
@@ -46,7 +46,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
         },
       }
       const uid: string = uuidv4().substring(0, 8)
-      let obj: SetWidget = {
+      let obj: WidgetObj = {
         id: uid,
         widget: widget,
       }

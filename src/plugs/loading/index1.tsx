@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import anime from 'animejs'
-import { SetWidget } from '@_data/Plugin'
+import { WidgetObj } from '@_data/Plugin'
 import style from './index1.module.less'
 
-const Loading = (props: SetWidget) => {
+const Loading = (props: WidgetObj) => {
   const {
     id,
     widget: { rect, name },

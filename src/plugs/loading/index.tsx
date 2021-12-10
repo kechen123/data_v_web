@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Loading as DVLoading } from '@jiaminghi/data-view-react'
-import { SetWidget } from '@_data/Plugin'
+import { WidgetObj } from '@_data/Plugin'
 import style from './index.module.less'
 
-const Loading = (props: SetWidget) => {
+const Loading = (props: WidgetObj) => {
   return (
     <div className={style.loading}>
       <DVLoading>Loading...</DVLoading>

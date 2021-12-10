@@ -1,19 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Drop from '@components/drop'
 import GridDiv from '@components/gridDiv'
+import MoveableBox from '@components/moveableBox'
 import { useAppSelector } from '@storeApp/hooks'
 import { screen } from '@features/screenSlice'
 import { widget as widgetSlice } from '@features/widgetSlice'
 import Widget from '@plugs/index'
-import { SetWidget } from '@_data/Plugin'
+import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
 import { Scroll as ScrollInterface } from '@_data/Scroll'
 import style from './index.module.less'
 
 const Screen = (props: ScrollInterface) => {
   const { x, y } = props
+  const [target, setTarget] = useState<Array<HTMLDivElement>>([])
   const { width, height, scale, screenWidget } = useAppSelector(screen)
-  console.log(screenWidget)
-  const widgets = useAppSelector(widgetSlice)
+  const widgetMap = useAppSelector(widgetSlice)
+
+  const widgetOnClick = (e) => {
+    e.stopPropagation()
+    const target = e.currentTarget
+    setTarget([target])
+  }
+
+  const WidgetObjList: Array<WidgetObj> = useMemo(() => {
+    return Object.keys(widgetMap).map((key) => {
+      return {
+        id: key,
+        widget: widgetMap[key],
+      }
+    })
+  }, [widgetMap])
+
+  const moveableBoxProps: MoveableBoxProps = useMemo(() => {
+    let widgetList: Array<WidgetObj> = []
+    target.forEach((dom) => {
+      let id = dom.getAttribute('data-id')
+      if (id) {
+        widgetList.push({
+          id,
+          widget: widgetMap[id],
+        })
+      }
+    })
+    return {
+      target,
+      setTarget,
+      widgetList: widgetList,
+    }
+  }, [target])
+
   return (
     <div
       className={style.screenView}
@@ -29,15 +64,15 @@ const Screen = (props: ScrollInterface) => {
         <GridDiv />
       </div>
       <Drop className={style.screen} style={{ width: width + 'px', height: height + 'px' }}>
-        {Object.keys(widgets).map((key) => {
-          let item = widgets[key]
-          let plug: SetWidget = {
-            id: key,
-            widget: item,
+        {WidgetObjList.map((item) => {
+          let data = {
+            widgetObj: item,
+            onclick: widgetOnClick,
           }
-          return <Widget key={key} {...plug} />
+          return <Widget key={item.id} {...data} />
         })}
       </Drop>
+      <MoveableBox {...moveableBoxProps} />
     </div>
   )
 }

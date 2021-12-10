@@ -12,11 +12,17 @@ export interface Plug {
   img: string
 }
 
-export interface Widget {
+export interface WidgetMap {
   [key: string]: Plug
 }
 
-export interface SetWidget {
+export interface WidgetObj {
   id: string
   widget: Plug
+}
+
+export interface MoveableBox {
+  target: Array<HTMLDivElement>
+  setTarget: Function
+  widgetList: Array<WidgetObj>
 }
