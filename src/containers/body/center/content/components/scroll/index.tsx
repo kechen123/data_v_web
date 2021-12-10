@@ -45,12 +45,18 @@ const Scroll = (props: ScrollInterface) => {
       const top = t - move.self.top
       if (move.xy === 'y') {
         let t = move.y + top
+        if (t < 0) {
+          t = 0
+        }
         let limit = t + screenWH[3] >= screenWH[1]
         if (t >= 0 && !limit) {
           setSy(t)
         }
       } else if (move.xy === 'x') {
         let l = move.x + left
+        if (l < 0) {
+          l = 0
+        }
         let limit = l + screenWH[2] >= screenWH[0]
         if (l >= 0 && !limit) {
           setSx(l)
@@ -70,8 +76,12 @@ const Scroll = (props: ScrollInterface) => {
         val = -20
       }
       let top = sy + val
+      if (top < 0) {
+        top = 0
+      }
       let limit = top + screenWH[3] >= screenWH[1]
-      if (top >= 0 && !limit) {
+
+      if (!limit) {
         setSy(top)
       }
     },

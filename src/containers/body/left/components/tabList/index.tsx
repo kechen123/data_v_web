@@ -5,14 +5,12 @@ import style from './index.module.less'
 
 const TabList = (props: ChosenInterface) => {
   const { chosen, setChosen } = props
-  console.log(chosen)
   const handlerClick = ({ name }) => {
-    console.log('>>>', name)
     setChosen(name)
   }
   return (
     <div className={style.tabListView}>
-      {MENU.map((item, i) => {
+      {MENU.sort((a, b) => a.index - b.index).map((item, i) => {
         return (
           <div
             onClick={(e) => {

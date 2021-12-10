@@ -3,22 +3,23 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: solid 1px var(--scroll-bg-color);
-  background-color: var(--tools-bar);
+  border-right: solid 1px var(--lightest-navy);
+  background-color: var(--light-navy);
   .toolBar {
     height: 50px;
     cursor: pointer;
     line-height: 50px;
     text-align: center;
     &:hover {
-      background-color: var(--page-bg-color);
+      background-color: var(--navy);
     }
     i {
       font-size: 22px;
-      color: var(--font-color);
+      color: var(--lightest-slate);
     }
   }
   .active {
+    border-left: solid 2px var(--green);
     i {
       color: var(--green);
     }
