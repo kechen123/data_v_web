@@ -36,5 +36,6 @@ module.exports = override(
     '@features': path.resolve(__dirname, './src/store/features'),
     '@config': path.resolve(__dirname, './src/config'),
     '@plugs': path.resolve(__dirname, './src/plugs'),
+    '@page': path.resolve(__dirname, './src/page'),
   })
 )

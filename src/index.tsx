@@ -1,17 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 import '@assets/less/global.less'
 import '@assets/iconfont/iconfont.css'
 import './index.module.less'
-import App from './containers'
+import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { store } from '@storeApp/store'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
