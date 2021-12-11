@@ -20,7 +20,8 @@ const Screen = (props: ScrollInterface) => {
   const widgetMap = useAppSelector(widgetSlice)
   const childRef = useRef<cRef>(null)
   const viewClick = (e) => {
-    if (e.target.parentElement.getAttribute('class').indexOf('moveable') > -1) {
+    let el = e.target.parentElement
+    if (el && el.getAttribute('class') !== null && el.getAttribute('class').indexOf('moveable') > -1) {
       return
     }
     setTarget([])
