@@ -4,7 +4,7 @@ import { WidgetObj } from '@_data/Plugin'
 import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
 interface screenWidget {
-  widget: WidgetObj
+  widgetId: string
   zIndex: number
   children?: screenWidget[]
 }
@@ -35,10 +35,10 @@ export const screenSlice = createSlice({
     setWidth: (state, action: PayloadAction<number>) => {
       state.width = action.payload
     },
-    drop: (state, action: PayloadAction<WidgetObj>) => {
+    drop: (state, action: PayloadAction<string>) => {
       state.widgetIndex += 1
       const screenWidgetItem: screenWidget = {
-        widget: action.payload,
+        widgetId: action.payload,
         zIndex: state.widgetIndex,
         children: [],
       }

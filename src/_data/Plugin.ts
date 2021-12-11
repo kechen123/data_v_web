@@ -9,6 +9,7 @@ export interface Plug {
   name: string
   url: string
   rect: Rect
+  rotate?: number
   img: string
 }
 
@@ -22,6 +23,7 @@ export interface WidgetObj {
 }
 
 export interface MoveableBox {
+  container: HTMLDivElement | null
   target: Array<HTMLDivElement>
   setTarget: Function
   widgetList: Array<WidgetObj>

@@ -1,14 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import Moveable from 'react-moveable'
+import update from 'react-addons-update'
 import { useThrottleFn } from 'ahooks'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { widget as widgetSlice, setWidget } from '@features/widgetSlice'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
-
-const MoveableBox = ({ target, widgetList }: MoveableBoxProps) => {
-  console.log(widgetList)
+export interface cRef {
+  moveable: any
+}
+// const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
+const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
+  const moveRef = useRef<any>(null)
   const dispatch = useAppDispatch()
+  const [moveable, setMoveable] = useState<any>(null)
   const [frame, setFrame] = useState<WidgetObj>(widgetList[0])
+
   const { run } = useThrottleFn(
     (widget: WidgetObj) => {
       dispatch(setWidget(widget))
@@ -21,46 +27,111 @@ const MoveableBox = ({ target, widgetList }: MoveableBoxProps) => {
       setFrame(widget)
     }
   }, [widgetList])
-  const frameCopy = useMemo(() => {
-    try {
-      return JSON.parse(JSON.stringify(frame))
-    } catch (error) {}
-  }, [frame])
+
+  // useEffect(() => {
+  //   if (moveRef.current && target.length === 1) {
+  //     const moveable = moveRef.current.moveable
+  //     moveable.trigger('dragStart')
+  //   }
+  // }, [target])
+
+  useImperativeHandle(childRef, () => ({
+    moveable: moveable,
+  }))
+
+  const onDrag = (param) => {
+    const { translate } = param
+    let newFrame = update(frame, {
+      widget: {
+        rect: {
+          left: {
+            $set: translate[0],
+          },
+          top: {
+            $set: translate[1],
+          },
+        },
+      },
+    })
+    setFrame(newFrame)
+    run(newFrame)
+  }
+
+  const onResize = (args) => {
+    const {
+      offsetWidth,
+      offsetHeight,
+      drag: { translate },
+    } = args
+    let newFrame = update(frame, {
+      widget: {
+        rect: {
+          left: {
+            $set: translate[0],
+          },
+          top: {
+            $set: translate[1],
+          },
+          width: {
+            $set: offsetWidth,
+          },
+          height: {
+            $set: offsetHeight,
+          },
+        },
+      },
+    })
+    setFrame(newFrame)
+    run(newFrame)
+  }
+
+  const onRotate = (args) => {
+    const { rotate } = args
+    let newFrame = update(frame, {
+      widget: {
+        rotate: {
+          $set: rotate,
+        },
+      },
+    })
+    setFrame(newFrame)
+    run(newFrame)
+  }
   return (
     <Moveable
+      ref={(e) => {
+        setMoveable(e)
+      }}
       target={target}
-      resizable={true}
-      keepRatio={false}
       throttleResize={0}
       renderDirections={['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se']}
       edge={false}
       zoom={1}
-      origin={true}
+      origin={false}
       padding={{ left: 0, top: 0, right: 0, bottom: 0 }}
-      onResizeStart={(e) => {
-        e.setOrigin(['%', '%'])
-        e.dragStart && e.dragStart.set([frameCopy.widget.rect.left || 0, frameCopy.widget.rect.top || 0])
+      draggable={true}
+      resizable={true}
+      rotatable={true}
+      onDrag={(e) => {
+        e.target.style.transform = e.transform
+        onDrag(e)
       }}
       onResize={(e) => {
         const beforeTranslate = e.drag.beforeTranslate
-        // let frameCopy:WidgetObj = JSON.parse(JSON.stringify(frame)
-        console.log(frameCopy)
-        // try {
-        //   frameCopy.widget.rect.left = beforeTranslate[0]
-        //   frameCopy.widget.rect.top = beforeTranslate[1]
-        //   frameCopy.widget.rect.width = e.width
-        //   frameCopy.widget.rect.height = e.height
-        //   run(frameCopy)
-        // } catch (error) {
-        //   debugger
-        // }
-
         e.target.style.width = `${e.width}px`
         e.target.style.height = `${e.height}px`
-        e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
+        e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px) rotate(${frame.widget.rotate}deg)`
+        onResize(e)
+      }}
+      onRotateStart={(e) => {
+        let rotate = frame.widget.rotate || 0
+        e.set(rotate)
+      }}
+      onRotate={(e) => {
+        e.target.style.transform = e.transform
+        onRotate(e)
       }}
     />
   )
 }
-
-export default MoveableBox
+export default forwardRef(MoveableBox)

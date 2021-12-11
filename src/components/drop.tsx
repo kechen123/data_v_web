@@ -44,6 +44,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
           left: left,
           top: top,
         },
+        rotate: 0,
       }
       const uid: string = uuidv4().substring(0, 8)
       let obj: WidgetObj = {
@@ -51,7 +52,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
         widget: widget,
       }
       dispatch(setWidget(obj))
-      dispatch(drop(obj))
+      dispatch(drop(uid))
     },
     onDragEnter: () => {
       setIsHovering(true)

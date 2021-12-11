@@ -6,18 +6,18 @@ import { useSize } from 'ahooks'
 
 interface Props {
   widgetObj: WidgetObj
-  onclick: Function
+  select: Function
 }
 
 const Widget = (props: Props) => {
-  const { onclick, widgetObj } = props
+  const { select, widgetObj } = props
   const {
     widget,
     id,
-    widget: { url, rect },
+    widget: { url, rect, rotate },
   } = widgetObj
   const ref = useRef<HTMLDivElement | null>(null)
-  useSize(ref)
+  // useSize(ref)
   const OtherComponent = loadable(() => import(`./${url}/index.tsx`), {
     fallback: <Loading {...widgetObj} />,
     /**
@@ -26,22 +26,20 @@ const Widget = (props: Props) => {
      */
     cacheKey: (props) => props.url,
   })
-  const widgetOnClick = (e) => {
-    onclick(e)
+  const widgetSelect = (e) => {
+    select(e)
   }
-  // useEffect(()=>{
-
-  // },[size])
   return (
     <div
       ref={ref}
-      onClick={widgetOnClick}
+      onMouseDown={widgetSelect}
       data-id={id}
       className={`widget `}
       style={{
+        cursor: 'move',
         width: rect.width + 'px',
         height: rect.height + 'px',
-        transform: `translate(${rect.left}px, ${rect.top}px) rotate(0deg)`,
+        transform: `translate(${rect.left}px, ${rect.top}px) rotate(${rotate}deg)`,
       }}
     >
       <OtherComponent {...widgetObj} />

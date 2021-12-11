@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
+import { useEventListener } from 'ahooks'
 import Drop from '@components/drop'
 import GridDiv from '@components/gridDiv'
-import MoveableBox from '@components/moveableBox'
+import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector } from '@storeApp/hooks'
 import { screen } from '@features/screenSlice'
 import { widget as widgetSlice } from '@features/widgetSlice'
@@ -12,14 +13,24 @@ import style from './index.module.less'
 
 const Screen = (props: ScrollInterface) => {
   const { x, y } = props
+  const moveContent = useRef<HTMLDivElement | null>(null)
   const [target, setTarget] = useState<Array<HTMLDivElement>>([])
+  const [event, setEvent] = useState<any>(null)
   const { width, height, scale, screenWidget } = useAppSelector(screen)
   const widgetMap = useAppSelector(widgetSlice)
-
-  const widgetOnClick = (e) => {
+  const childRef = useRef<cRef>(null)
+  const viewClick = (e) => {
+    if (e.target.parentElement.getAttribute('class').indexOf('moveable') > -1) {
+      return
+    }
+    setTarget([])
+  }
+  useEventListener('mousedown', viewClick)
+  const widgetSelect = (e) => {
     e.stopPropagation()
     const target = e.currentTarget
     setTarget([target])
+    setEvent(e)
   }
 
   const WidgetObjList: Array<WidgetObj> = useMemo(() => {
@@ -43,14 +54,26 @@ const Screen = (props: ScrollInterface) => {
       }
     })
     return {
+      container: moveContent.current,
       target,
       setTarget,
       widgetList: widgetList,
     }
   }, [target])
 
+  useEffect(() => {
+    if (target.length === 1) {
+      if (childRef.current) {
+        const moveable = childRef.current.moveable
+        moveable.dragStart(event)
+      }
+    }
+  }, [target])
+
   return (
     <div
+      // onClick={viewClick}
+      ref={moveContent}
       className={style.screenView}
       style={{
         width: width + 'px',
@@ -67,12 +90,12 @@ const Screen = (props: ScrollInterface) => {
         {WidgetObjList.map((item) => {
           let data = {
             widgetObj: item,
-            onclick: widgetOnClick,
+            select: widgetSelect,
           }
           return <Widget key={item.id} {...data} />
         })}
       </Drop>
-      <MoveableBox {...moveableBoxProps} />
+      <MoveableBox ref={childRef} {...moveableBoxProps} />
     </div>
   )
 }
