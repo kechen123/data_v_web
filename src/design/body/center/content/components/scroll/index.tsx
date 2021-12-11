@@ -67,7 +67,11 @@ const Scroll = (props: ScrollInterface) => {
 
   useEventListener(
     'wheel',
-    (e) => {
+    (e: any) => {
+      let target = e.target
+      if (!target || !target.id || target.id !== 'screen') {
+        return
+      }
       e = e || window.event
       let val = 0
       if (e.deltaY > 0) {

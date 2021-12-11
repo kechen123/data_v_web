@@ -65,7 +65,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   })
   const opacity = isHovering ? 0.8 : 1
   return (
-    <div ref={dropRef} className={className} style={{ ...style, ...pstyle, opacity }}>
+    <div id="screen" ref={dropRef} className={className} style={{ ...style, ...pstyle, opacity }}>
       {children}
     </div>
   )
