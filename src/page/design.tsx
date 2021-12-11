@@ -1,4 +1,4 @@
-import App from '../containers'
+import App from '../design'
 
 const Design = () => {
   return <App />
