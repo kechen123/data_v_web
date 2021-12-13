@@ -18,7 +18,6 @@ const Scroll = (props: ScrollInterface) => {
   const [sy, setSy] = useState(y)
   //编辑区域宽,高,x滚动条宽,y滚动条高
   const [screenWH, setScreenWH] = useState([0, 0, 0, 0])
-  const [mouse, setMouse] = useState('')
   const ref = useRef<HTMLDivElement | null>(null)
   const refX = useRef<HTMLDivElement | null>(null)
   const refY = useRef<HTMLDivElement | null>(null)
