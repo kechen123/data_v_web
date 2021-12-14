@@ -69,8 +69,44 @@ const json: Array<ConfigBlock> = [
         col: [
           {
             id: 'colors',
-            span: 18,
-            label: '颜色组',
+            span: 8,
+            label: '多选',
+            url: 'checkBox',
+            option: [
+              {
+                label: '黑色',
+                props: {},
+              },
+            ],
+          },
+          {
+            id: 'colors',
+            span: 8,
+            label: '多选',
+            url: 'checkBox',
+            option: [
+              {
+                label: '黑色',
+                props: {},
+              },
+            ],
+          },
+          {
+            id: 'colors',
+            span: 8,
+            label: '多选',
+            url: 'checkBox',
+            option: [
+              {
+                label: '黑色',
+                props: {},
+              },
+            ],
+          },
+          {
+            id: 'colors',
+            span: 20,
+            label: '多选组',
             url: 'checkBox',
             option: [
               {
@@ -86,6 +122,40 @@ const json: Array<ConfigBlock> = [
               {
                 label: '白色',
                 props: {},
+              },
+            ],
+          },
+          {
+            id: 'colors',
+            span: 6,
+            label: '颜色',
+            url: 'color',
+            option: [
+              {
+                props: {
+                  color: '#FFF',
+                  span: 6,
+                },
+              },
+            ],
+          },
+          {
+            id: 'colors',
+            span: 12,
+            label: '颜色组',
+            url: '786',
+            option: [
+              {
+                props: {
+                  color: '#FFF',
+                  span: 6,
+                },
+              },
+              {
+                props: {
+                  color: '#FFF',
+                  span: 6,
+                },
               },
             ],
           },

@@ -6,10 +6,9 @@ import style from './index.module.less'
 const Index = (props: WidgetObj) => {
   const {
     id,
-    widget: { rect, name },
+    widget: { rect, name, config },
   } = props
-
-  return <BorderBox1 color={['#235fa7', '#4fd2dd']} backgroundColor="transparent" />
+  return <BorderBox1 color={config.color} backgroundColor="transparent" />
 }
 
 export default Index

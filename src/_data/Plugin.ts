@@ -11,6 +11,7 @@ export interface Plug {
   rect: Rect
   rotate?: number
   img: string
+  config: any
 }
 
 export interface WidgetMap {

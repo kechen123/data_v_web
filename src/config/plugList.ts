@@ -8,6 +8,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border1.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框2',
@@ -17,6 +20,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border2.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框3',
@@ -26,6 +32,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border3.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框4',
@@ -35,6 +44,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border4.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框4reverse',
@@ -44,6 +56,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border4Reverse.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框5',
@@ -53,6 +68,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border5.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框5Reverse',
@@ -62,6 +80,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border5Reverse.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框6',
@@ -71,6 +92,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border6.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框7',
@@ -80,6 +104,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border7.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框8',
@@ -89,6 +116,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border8.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框9',
@@ -98,6 +128,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border9.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
   {
     name: '边框10',
@@ -107,6 +140,9 @@ export const BORDER: Array<Plug> = [
       height: 150,
     },
     img: 'datavImage/border10.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
   },
 ]
 

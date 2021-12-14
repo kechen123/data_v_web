@@ -4,7 +4,11 @@ import { WidgetObj } from '@_data/Plugin'
 import style from './index.module.less'
 
 const Index = (props: WidgetObj) => {
-  return <BorderBox5 reverse="{true}" color={['#235fa7', '#4fd2dd']} backgroundColor="transparent" />
+  const {
+    id,
+    widget: { rect, name, config },
+  } = props
+  return <BorderBox5 reverse="{true}" color={config.color} backgroundColor="transparent" />
 }
 
 export default Index

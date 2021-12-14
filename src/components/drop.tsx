@@ -45,6 +45,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
           top: top,
         },
         rotate: 0,
+        config: plug.config,
       }
       const uid: string = uuidv4().substring(0, 8)
       let obj: WidgetObj = {

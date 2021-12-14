@@ -15,11 +15,13 @@ module.exports = override(
     noIeCompat: true,
     javascriptEnabled: true,
     modifyVars: {
+      // for example, you use Ant Design to change theme color.
       '@border-color-base': 'var(--lightest-navy)',
       '@collapse-header-arrow-left': '6px',
       '@collapse-header-padding-extra': '26px',
       '@collapse-header-bg': 'var(--navy)',
-      '@collapse-content-bg': 'var(--navy)', // for example, you use Ant Design to change theme color.
+      '@collapse-content-bg': 'var(--navy)',
+      '@form-item-margin-bottom': '8px',
     },
     // modifyVars: getThemeVariables({
     //   // dark: true, // 开启暗黑模式
