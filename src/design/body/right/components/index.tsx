@@ -12,8 +12,9 @@ const json: Array<ConfigBlock> = [
         justify: 'space-between',
         col: [
           {
+            id: 'name',
             span: 16,
-            label: '宽度',
+            label: '名称',
             url: 'input/text',
             props: {
               placeholder: '请输入',
@@ -25,6 +26,7 @@ const json: Array<ConfigBlock> = [
         justify: 'space-between',
         col: [
           {
+            id: 'width',
             span: 10,
             label: '宽度',
             url: 'input/number',
@@ -33,6 +35,7 @@ const json: Array<ConfigBlock> = [
             },
           },
           {
+            id: 'height',
             span: 10,
             label: '宽度',
             url: 'select',
@@ -43,14 +46,48 @@ const json: Array<ConfigBlock> = [
         justify: 'space-between',
         col: [
           {
+            id: 'margin',
             span: 10,
-            label: '宽度',
+            label: '外边距',
             url: 'input/number',
           },
           {
+            id: 'padding',
             span: 10,
-            label: '宽度',
+            label: '内边距',
             url: 'input/number',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: '皮肤',
+    rows: [
+      {
+        justify: 'space-between',
+        col: [
+          {
+            id: 'colors',
+            span: 18,
+            label: '颜色组',
+            url: 'checkBox',
+            option: [
+              {
+                label: '绿色',
+                props: {
+                  checked: true,
+                },
+              },
+              {
+                label: '黑色',
+                props: {},
+              },
+              {
+                label: '白色',
+                props: {},
+              },
+            ],
           },
         ],
       },
@@ -58,11 +95,19 @@ const json: Array<ConfigBlock> = [
   },
 ]
 
+const setval = (id: string, val: any) => {
+  console.log(id, val)
+}
+
 const RenderComponent = (col) => {
   const OtherComponent = loadable(() => import(`./${col.url}`), {
-    cacheKey: (props) => props.url,
+    cacheKey: (col) => col.url,
   })
-  return <OtherComponent />
+  const props = {
+    ...col,
+    change: setval,
+  }
+  return <OtherComponent {...props} />
 }
 
 const Build = () => {
@@ -91,7 +136,7 @@ const Build = () => {
   const block = (blocks) => {
     return blocks.map((block, i) => {
       return (
-        <Panel header="This is panel header 1" key={i} extra={genExtra()}>
+        <Panel header={block.name} key={i} extra={genExtra()}>
           <Form layout="vertical">{row(block.rows)}</Form>
         </Panel>
       )

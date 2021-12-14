@@ -1,7 +1,9 @@
 export interface Item {
+  id: string
   span: number
   label: string
   url: string
+  option?: any
   props?: any
 }
 export interface Rows {
