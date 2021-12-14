@@ -6,6 +6,7 @@ const path = require('path')
 module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd',
+    //已经通过less引入所有组件样式，ps:https://segmentfault.com/q/1010000019446105
     // libraryDirectory: 'es',
     // style: true, // change importing css to less
   }),
@@ -24,9 +25,6 @@ module.exports = override(
     //   // dark: true, // 开启暗黑模式
     //   compact: true, // 开启紧凑模式
     // }),
-    // modifyVars:{
-
-    // }
     // modifyVars: aliyunTheme,
     cssLoaderOptions: {}, // .less file used css-loader option, not all CSS file.
     cssModules: {
