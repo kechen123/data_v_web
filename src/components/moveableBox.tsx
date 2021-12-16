@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
+import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import Moveable from 'react-moveable'
 import update from 'react-addons-update'
-import { useThrottleFn } from 'ahooks'
+import { useThrottleFn, useDebounce } from 'ahooks'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { widget as widgetSlice, setWidget } from '@features/widgetSlice'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
@@ -14,12 +14,12 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   const dispatch = useAppDispatch()
   const [moveable, setMoveable] = useState<any>(null)
   const [frame, setFrame] = useState<WidgetObj>(widgetList[0])
-
   const { run } = useThrottleFn(
     (widget: WidgetObj) => {
-      dispatch(setWidget(widget))
+      // dispatch(setWidget(widget))
+      // setRect(widget.widget.rect)
     },
-    { wait: 500 }
+    { wait: 10 }
   )
   useEffect(() => {
     if (widgetList.length === 1) {
@@ -27,13 +27,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       setFrame(widget)
     }
   }, [widgetList])
-
-  // useEffect(() => {
-  //   if (moveRef.current && target.length === 1) {
-  //     const moveable = moveRef.current.moveable
-  //     moveable.trigger('dragStart')
-  //   }
-  // }, [target])
 
   useImperativeHandle(childRef, () => ({
     moveable: moveable,
@@ -54,7 +47,8 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
-    run(newFrame)
+    // setRect(newFrame.widget.rect)
+    // run(newFrame)
   }
 
   const onResize = (args) => {
@@ -97,6 +91,11 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
     setFrame(newFrame)
     run(newFrame)
   }
+
+  //move resize rotate 事件结束 更新redux
+  const onMoveableEventEnd = () => {
+    dispatch(setWidget(frame))
+  }
   return (
     <Moveable
       ref={(e) => {
@@ -116,12 +115,18 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         e.target.style.transform = e.transform
         onDrag(e)
       }}
+      onDragEnd={() => {
+        onMoveableEventEnd()
+      }}
       onResize={(e) => {
         const beforeTranslate = e.drag.beforeTranslate
         e.target.style.width = `${e.width}px`
         e.target.style.height = `${e.height}px`
         e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px) rotate(${frame.widget.rotate}deg)`
         onResize(e)
+      }}
+      onResizeEnd={() => {
+        onMoveableEventEnd()
       }}
       onRotateStart={(e) => {
         let rotate = frame.widget.rotate || 0
@@ -130,6 +135,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       onRotate={(e) => {
         e.target.style.transform = e.transform
         onRotate(e)
+      }}
+      onRenderEnd={() => {
+        onMoveableEventEnd()
       }}
     />
   )

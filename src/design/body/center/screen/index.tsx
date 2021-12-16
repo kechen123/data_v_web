@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useEffect, useRef, useMemo, useContext } from 'react'
 import { useEventListener } from 'ahooks'
 import Drop from '@components/drop'
 import GridDiv from '@components/gridDiv'
@@ -27,7 +27,8 @@ const Screen = (props: ScrollInterface) => {
       return
     }
     event = null
-    if (activeWidgets.length > 0) {
+    let id = e.target.getAttribute('id')
+    if (activeWidgets.length > 0 && id && id === 'screen') {
       dispatch(setActiveWidgets([]))
     }
   }
@@ -49,6 +50,12 @@ const Screen = (props: ScrollInterface) => {
     })
   }, [widgetMap])
 
+  const targetId: any = useMemo(() => {
+    return target.map((item) => {
+      return item.getAttribute('data-id')
+    })
+  }, [target])
+
   const moveableBoxProps: MoveableBoxProps = useMemo(() => {
     let widgetList: Array<WidgetObj> = []
     target.forEach((dom) => {
@@ -66,13 +73,7 @@ const Screen = (props: ScrollInterface) => {
       setTarget,
       widgetList: widgetList,
     }
-  }, [target])
-
-  const targetId: any = useMemo(() => {
-    return target.map((item) => {
-      return item.getAttribute('data-id')
-    })
-  }, [target])
+  }, [targetId])
 
   useEffect(() => {
     if (activeWidgets.length === 0 && target.length > 0) {

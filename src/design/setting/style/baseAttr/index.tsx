@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Tooltip, Row, Col, Input, InputNumber } from 'antd'
 import style from './index.module.less'
 const margin = { marginBottom: '8px' }
-const BaseAttr = () => {
+const BaseAttr = (rect) => {
   const change = (e) => {
     console.log(e)
   }
@@ -25,18 +25,18 @@ const BaseAttr = () => {
       </Row>
       <Row justify="space-between" style={margin}>
         <Col span={10}>
-          <InputNumber addonBefore="W" />
+          <InputNumber addonBefore="W" value={rect.width} />
         </Col>
         <Col span={10}>
-          <InputNumber addonBefore="H" />
+          <InputNumber addonBefore="H" value={rect.height} />
         </Col>
       </Row>
       <Row justify="space-between" style={margin}>
         <Col span={10}>
-          <InputNumber addonBefore="X" />
+          <InputNumber addonBefore="X" value={rect.left} />
         </Col>
         <Col span={10}>
-          <InputNumber addonBefore="Y" />
+          <InputNumber addonBefore="Y" value={rect.top} />
         </Col>
       </Row>
     </div>
