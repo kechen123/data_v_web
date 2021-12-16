@@ -1,10 +1,10 @@
 import React from 'react'
-import { Plug } from '@_data/Plugin'
+import { Widget } from '@_data/Plugin'
 import DragItem from '@components/dragItem'
 import style from './index.module.less'
 
 interface Props {
-  data: Array<Plug>
+  data: Array<Widget>
 }
 
 const PluginList = (props: Props) => {

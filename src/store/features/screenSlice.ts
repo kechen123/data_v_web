@@ -16,6 +16,8 @@ export interface screenState {
   screenWidget: screenWidget[]
   //大屏组件层级
   widgetIndex: number
+  //选中组件id集合
+  activeWidgets: string[]
 }
 
 const initialState: screenState = {
@@ -24,6 +26,7 @@ const initialState: screenState = {
   scale: 1,
   screenWidget: [],
   widgetIndex: 3,
+  activeWidgets: [],
 }
 export const screenSlice = createSlice({
   name: 'screen', // 命名空间，在调用action的时候会默认的设置为action的前缀
@@ -35,6 +38,9 @@ export const screenSlice = createSlice({
     setWidth: (state, action: PayloadAction<number>) => {
       state.width = action.payload
     },
+    setActiveWidgets: (state, action: PayloadAction<string[]>) => {
+      state.activeWidgets = action.payload
+    },
     drop: (state, action: PayloadAction<string>) => {
       state.widgetIndex += 1
       const screenWidgetItem: screenWidget = {
@@ -43,11 +49,12 @@ export const screenSlice = createSlice({
         children: [],
       }
       state.screenWidget.push(screenWidgetItem)
+      state.activeWidgets = [action.payload]
     },
   },
 })
 // 导出actions
-export const { setWidth, drop } = screenSlice.actions
+export const { setWidth, setActiveWidgets, drop } = screenSlice.actions
 
 // 导出initialState
 export const screen = (state: RootState) => state.screen

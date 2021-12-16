@@ -9,7 +9,8 @@
       "@storeApp/*": ["./src/store/app/*"],
       "@features/*": ["./src/store/features/*"],
       "@config/*": ["./src/config/*"],
-      "@plugs/*": ["./src/plugs/*"],
+      "@plugs/*": ["./src/design/plugs/*"],
+      "@setting/*": ["./src/design/setting/*"],
       "@page/*": ["./src/page/*"]
     }
   }

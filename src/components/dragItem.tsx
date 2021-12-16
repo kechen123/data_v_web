@@ -2,11 +2,11 @@ import React, { useRef } from 'react'
 import { useDrag } from 'ahooks'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice' // 引入actions
-import { Plug } from '@_data/Plugin'
+import { Widget } from '@_data/Plugin'
 
 interface Drag {
   children?: React.ReactNode
-  data: Plug
+  data: Widget
 }
 
 const DragItem = ({ children, data }: Drag) => {

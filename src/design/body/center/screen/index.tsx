@@ -3,20 +3,22 @@ import { useEventListener } from 'ahooks'
 import Drop from '@components/drop'
 import GridDiv from '@components/gridDiv'
 import MoveableBox, { cRef } from '@components/moveableBox'
-import { useAppSelector } from '@storeApp/hooks'
-import { screen } from '@features/screenSlice'
+import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
+import { screen, setActiveWidgets } from '@features/screenSlice'
 import { widget as widgetSlice } from '@features/widgetSlice'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
 import { Scroll as ScrollInterface } from '@_data/Scroll'
 import style from './index.module.less'
+let event = null
 
 const Screen = (props: ScrollInterface) => {
   const { x, y } = props
   const moveContent = useRef<HTMLDivElement | null>(null)
   const [target, setTarget] = useState<Array<HTMLDivElement>>([])
-  const [event, setEvent] = useState<any>(null)
-  const { width, height, scale, screenWidget } = useAppSelector(screen)
+  // const [event, setEvent] = useState<any>(null)
+  const { width, height, scale, screenWidget, activeWidgets } = useAppSelector(screen)
+  const dispatch = useAppDispatch()
   const widgetMap = useAppSelector(widgetSlice)
   const childRef = useRef<cRef>(null)
   const viewClick = (e) => {
@@ -24,14 +26,18 @@ const Screen = (props: ScrollInterface) => {
     if (el && el.getAttribute('class') !== null && el.getAttribute('class').indexOf('moveable') > -1) {
       return
     }
-    setTarget([])
+    event = null
+    if (activeWidgets.length > 0) {
+      dispatch(setActiveWidgets([]))
+    }
   }
   useEventListener('mousedown', viewClick)
   const widgetSelect = (e) => {
     e.stopPropagation()
-    const target = e.currentTarget
-    setTarget([target])
-    setEvent(e)
+    const targetId = e.currentTarget.getAttribute('data-id')
+    dispatch(setActiveWidgets([targetId]))
+    // setTarget([target])
+    event = e
   }
 
   const WidgetObjList: Array<WidgetObj> = useMemo(() => {
@@ -62,14 +68,37 @@ const Screen = (props: ScrollInterface) => {
     }
   }, [target])
 
+  const targetId: any = useMemo(() => {
+    return target.map((item) => {
+      return item.getAttribute('data-id')
+    })
+  }, [target])
+
+  useEffect(() => {
+    if (activeWidgets.length === 0 && target.length > 0) {
+      setTarget([])
+    } else if (activeWidgets.length === 1) {
+      let target = document.querySelector(`div[data-id='${activeWidgets[0]}']`) as any
+      setTarget([target])
+    }
+  }, [activeWidgets])
+
+  //选中/取消选中组件
   useEffect(() => {
     if (target.length === 1) {
-      if (childRef.current) {
+      if (childRef.current && event != null) {
         const moveable = childRef.current.moveable
         moveable.dragStart(event)
       }
     }
   }, [target])
+
+  //更新选中组件id
+  useEffect(() => {
+    if (event != null && targetId.sort().join('') != activeWidgets.sort().join('')) {
+      dispatch(setActiveWidgets([targetId]))
+    }
+  }, [targetId])
 
   return (
     <div

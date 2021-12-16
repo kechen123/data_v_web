@@ -16,11 +16,13 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: {
       // for example, you use Ant Design to change theme color.
+      '@primary-color': '#56cfb2',
       '@border-color-base': 'var(--lightest-navy)',
       '@collapse-header-arrow-left': '6px',
       '@collapse-header-padding-extra': '26px',
       '@collapse-header-bg': 'var(--navy)',
       '@collapse-content-bg': 'var(--navy)',
+      '@tooltip-bg': 'rgba(10, 24, 46, 0.5)',
       '@form-item-margin-bottom': '8px',
     },
     // modifyVars: getThemeVariables({
@@ -43,7 +45,8 @@ module.exports = override(
     '@storeApp': path.resolve(__dirname, './src/store/app'),
     '@features': path.resolve(__dirname, './src/store/features'),
     '@config': path.resolve(__dirname, './src/config'),
-    '@plugs': path.resolve(__dirname, './src/plugs'),
+    '@plugs': path.resolve(__dirname, './src/design/plugs'),
+    '@setting': path.resolve(__dirname, './src/design/setting'),
     '@page': path.resolve(__dirname, './src/page'),
   })
 )

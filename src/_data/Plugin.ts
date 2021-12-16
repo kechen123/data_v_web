@@ -5,9 +5,14 @@ export interface Rect {
   height: number
 }
 
-export interface Plug {
-  name: string
+export interface plugin {
   url: string
+  name: string
+}
+
+export interface Widget {
+  name: string
+  plugin: plugin
   rect: Rect
   rotate?: number
   img: string
@@ -15,12 +20,12 @@ export interface Plug {
 }
 
 export interface WidgetMap {
-  [key: string]: Plug
+  [key: string]: Widget
 }
 
 export interface WidgetObj {
   id: string
-  widget: Plug
+  widget: Widget
 }
 
 export interface MoveableBox {

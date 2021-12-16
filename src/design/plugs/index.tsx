@@ -14,7 +14,11 @@ const Widget = (props: Props) => {
   const {
     widget,
     id,
-    widget: { url, rect, rotate },
+    widget: {
+      plugin: { url },
+      rect,
+      rotate,
+    },
   } = widgetObj
   const ref = useRef<HTMLDivElement | null>(null)
   // useSize(ref)

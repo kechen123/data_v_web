@@ -3,7 +3,7 @@ import { useDrop } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
-import { Plug, WidgetObj } from '@_data/Plugin'
+import { Widget, WidgetObj } from '@_data/Plugin'
 import { setWidget } from '@features/widgetSlice'
 import { drop } from '@features/screenSlice'
 
@@ -28,16 +28,20 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
     }
   }, [status])
   useDrop(dropRef, {
-    onDom: (plug: Plug, e: any) => {
-      const { rect } = plug
+    onDom: (widgetObj: Widget, e: any) => {
+      const { rect, plugin } = widgetObj
       let left = e?.offsetX
       let top = e?.offsetY
       left -= rect.width / 2
       top -= rect.height / 2
-      let widget: Plug = {
-        name: plug.name,
-        url: plug.url,
-        img: plug.img,
+      let widget: Widget = {
+        name: widgetObj.name,
+        plugin: {
+          name: plugin.name,
+          url: plugin.url,
+        },
+
+        img: widgetObj.img,
         rect: {
           width: rect.width,
           height: rect.height,
@@ -45,7 +49,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
           top: top,
         },
         rotate: 0,
-        config: plug.config,
+        config: widgetObj.config,
       }
       const uid: string = uuidv4().substring(0, 8)
       let obj: WidgetObj = {
