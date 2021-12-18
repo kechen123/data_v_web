@@ -1,26 +1,22 @@
 import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import Moveable from 'react-moveable'
 import update from 'react-addons-update'
-import { useThrottleFn, useDebounce } from 'ahooks'
-import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
-import { widget as widgetSlice, setWidget } from '@features/widgetSlice'
+import { useAppDispatch } from '@storeApp/hooks'
+import { setWidget } from '@features/widgetSlice'
+import eventBus from '@utils/eventBus'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
 export interface cRef {
   moveable: any
 }
 // const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
 const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
-  const moveRef = useRef<any>(null)
   const dispatch = useAppDispatch()
   const [moveable, setMoveable] = useState<any>(null)
   const [frame, setFrame] = useState<WidgetObj>(widgetList[0])
-  const { run } = useThrottleFn(
-    (widget: WidgetObj) => {
-      // dispatch(setWidget(widget))
-      // setRect(widget.widget.rect)
-    },
-    { wait: 10 }
-  )
+
+  useEffect(() => {
+    render()
+  }, [target])
   useEffect(() => {
     if (widgetList.length === 1) {
       let widget = widgetList[0]
@@ -47,8 +43,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
-    // setRect(newFrame.widget.rect)
-    // run(newFrame)
   }
 
   const onResize = (args) => {
@@ -76,7 +70,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
-    run(newFrame)
   }
 
   const onRotate = (args) => {
@@ -89,12 +82,22 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
-    run(newFrame)
   }
 
   //move resize rotate 事件结束 更新redux
   const onMoveableEventEnd = () => {
     dispatch(setWidget(frame))
+  }
+  const render = () => {
+    if (moveable) {
+      let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+      eventBus.emit('widgetMove', {
+        left,
+        top,
+        width: offsetWidth,
+        height: offsetHeight,
+      })
+    }
   }
   return (
     <Moveable
@@ -111,6 +114,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       draggable={true}
       resizable={true}
       rotatable={true}
+      onRender={render}
       onDrag={(e) => {
         e.target.style.transform = e.transform
         onDrag(e)

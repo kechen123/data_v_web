@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'antd'
-import Widget from '@config/widget'
 
 import style from '@assets/less/home.module.less'
 const Home = () => {
@@ -8,7 +7,6 @@ const Home = () => {
   return (
     <div className={style.body}>
       <div>Hello World!</div>
-      <Widget />
       <Button
         type="primary"
         onClick={() => {

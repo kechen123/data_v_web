@@ -16,7 +16,6 @@ const Screen = (props: ScrollInterface) => {
   const { x, y } = props
   const moveContent = useRef<HTMLDivElement | null>(null)
   const [target, setTarget] = useState<Array<HTMLDivElement>>([])
-  // const [event, setEvent] = useState<any>(null)
   const { width, height, scale, screenWidget, activeWidgets } = useAppSelector(screen)
   const dispatch = useAppDispatch()
   const widgetMap = useAppSelector(widgetSlice)
@@ -37,7 +36,6 @@ const Screen = (props: ScrollInterface) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
     dispatch(setActiveWidgets([targetId]))
-    // setTarget([target])
     event = e
   }
 
