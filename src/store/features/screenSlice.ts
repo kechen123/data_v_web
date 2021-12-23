@@ -8,10 +8,14 @@ interface screenWidget {
   zIndex: number
   children?: screenWidget[]
 }
+interface zoom {}
 export interface screenState {
   width: number
   height: number
   scale: number
+  screenZoom: 'scaling' | 'Hscaling' | 'Wscaling' | 'phone' | 'none'
+  backgroundColor: string
+  backgroundImage: string
   //大屏组件列表
   screenWidget: screenWidget[]
   //大屏组件层级
@@ -24,6 +28,9 @@ const initialState: screenState = {
   width: SCREENWIDTH,
   height: SCREENHEIGHT,
   scale: 1,
+  screenZoom: 'none',
+  backgroundColor: '',
+  backgroundImage: '',
   screenWidget: [],
   widgetIndex: 3,
   activeWidgets: [],
@@ -35,8 +42,8 @@ export const screenSlice = createSlice({
   // 这里的属性会自动的导出为actions，在组件中可以直接通过dispatch进行触发
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setWidth: (state, action: PayloadAction<number>) => {
-      state.width = action.payload
+    setScreen: (state, action: PayloadAction<any[]>) => {
+      state[action.payload[0]] = action.payload[1]
     },
     setActiveWidgets: (state, action: PayloadAction<string[]>) => {
       state.activeWidgets = action.payload
@@ -54,7 +61,7 @@ export const screenSlice = createSlice({
   },
 })
 // 导出actions
-export const { setWidth, setActiveWidgets, drop } = screenSlice.actions
+export const { setScreen, setActiveWidgets, drop } = screenSlice.actions
 
 // 导出initialState
 export const screen = (state: RootState) => state.screen

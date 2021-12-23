@@ -12,6 +12,7 @@ import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
 import style from './index.module.less'
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
+import { url } from 'inspector'
 let event = null
 
 interface Map {
@@ -27,7 +28,7 @@ const Screen = (props: ScrollInterface) => {
   const { x, y } = props
   const moveContent = useRef<HTMLDivElement>(null)
   const [target, setTarget] = useState<Array<HTMLDivElement>>([])
-  const { width, height, scale, screenWidget } = useAppSelector(screen)
+  const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screen)
   const childRef = useRef<cRef>(null)
 
   const widgetSelect = (e) => {
@@ -45,6 +46,7 @@ const Screen = (props: ScrollInterface) => {
     let id = e.target.getAttribute('id')
     if (activeWidgets.length > 0 && id && id === 'screen') {
       setActiveWidgets([])
+      eventBus.emit('setSettingObj', undefined)
     }
   }
 
@@ -165,6 +167,7 @@ const Screen = (props: ScrollInterface) => {
         height: height + 'px',
         minWidth: width + 'px',
         minHeight: height + 'px',
+
         // left: `${-x}px`,
         // top: ` ${-y}px`,
         transform: `translate(${-x}px, ${-y}px)`,
@@ -173,7 +176,16 @@ const Screen = (props: ScrollInterface) => {
       <div className={style.gridDiv}>
         <GridDiv />
       </div>
-      <Drop className={`${style.screen}  wd_list`} style={{ width: width + 'px', height: height + 'px' }}>
+      <Drop
+        className={`${style.screen}  wd_list`}
+        style={{
+          width: width + 'px',
+          height: height + 'px',
+          backgroundColor: backgroundColor,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'auto 100%',
+        }}
+      >
         <WidgetList WidgetObjList={WidgetObjList} widgetSelect={widgetSelect} />
       </Drop>
       {/* <Selecto

@@ -4,13 +4,11 @@ import eventBus from '@utils/eventBus'
 import BaseAttr from './baseAttr'
 import { WidgetObj } from '@_types/Plugin'
 
-const Style = () => {
-  const [widgetObj, setWidgetObj] = useState<WidgetObj>()
-  useEffect(() => {
-    eventBus.addListener('setSettingObj', (data: WidgetObj) => {
-      setWidgetObj(data)
-    })
-  }, [])
+interface Props {
+  widgetObj?: WidgetObj
+}
+
+const Style = ({ widgetObj }: Props) => {
   if (widgetObj === undefined) {
     return <></>
   } else {

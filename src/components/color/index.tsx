@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { SketchPicker } from 'react-color'
 import { useClickAway } from 'ahooks'
 import styles from './index.module.less'
@@ -6,11 +6,19 @@ interface Props {
   color: string
   onChange: Function
 }
+
+const getColor = (color) => {
+  if (typeof color === 'object') {
+    return `rgb(${color.r},${color.g},${color.b},${color.a})`
+  } else {
+    return color
+  }
+}
 const Color = (props: Props) => {
   const { color, onChange } = props
   const colorRef = useRef<HTMLDivElement | null>(null)
   const [displayColorPicker, setDisplayColorPicker] = useState(false)
-  const [selfColor, setSelfColor] = useState(color)
+  const [selfColor, setSelfColor] = useState<any>(color)
   const [rect, setRect] = useState([0, 0])
   const colorPanlSize = [220, 313]
   const handleClick = (e) => {
@@ -32,7 +40,9 @@ const Color = (props: Props) => {
   }
 
   const handleChange = (color) => {
-    setSelfColor(color.hex)
+    const { r, g, b, a } = color.rgb
+
+    setSelfColor(color.rgb)
     onChange(color)
   }
   useEffect(() => {
@@ -43,15 +53,16 @@ const Color = (props: Props) => {
       setDisplayColorPicker(false)
     }
   }, colorRef)
+
   return (
     <div className={styles.colorBody} ref={colorRef}>
       <div className={styles.swatch} onClick={handleClick}>
         <div
           className={styles.color}
           style={{
-            background: color,
+            background: getColor(selfColor),
           }}
-        />
+        ></div>
       </div>
       {displayColorPicker ? (
         <div className={styles.popover} style={{ left: rect[0], top: rect[1] }}>
@@ -61,4 +72,5 @@ const Color = (props: Props) => {
     </div>
   )
 }
-export default Color
+export default React.memo(Color)
+export { getColor }
