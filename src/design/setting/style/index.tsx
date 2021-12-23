@@ -15,6 +15,7 @@ const Style = () => {
     return <></>
   } else {
     let {
+      widget,
       widget: {
         plugin: { name },
         rect,
@@ -26,7 +27,7 @@ const Style = () => {
     })
     return (
       <>
-        <BaseAttr {...rect} />
+        <BaseAttr {...widgetObj} />
         <OtherComponent {...widgetObj} />
       </>
     )

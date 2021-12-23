@@ -34,8 +34,7 @@ const Index = (widgetObj) => {
   }
 
   const changeConfig = (colors) => {
-    eventBus.emit('changePlug', {
-      id: id,
+    eventBus.emit('changePlug', id, {
       config: {
         color: colors,
       },

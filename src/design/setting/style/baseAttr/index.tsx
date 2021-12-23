@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Tooltip, Row, Col, Input, InputNumber } from 'antd'
 import eventBus from '@utils/eventBus'
@@ -11,24 +11,46 @@ interface State {
   height: number
 }
 const BaseAttr = (props) => {
-  const [frame, setFrame] = useSetState<State>({
-    left: 0,
-    top: 0,
-    width: 0,
-    height: 0,
-  })
-
-  useEffect(() => {
-    eventBus.addListener('widgetMove', (data: any) => {
-      setFrame(data)
-    })
-  }, [])
+  const {
+    id,
+    widget: { name, rect },
+  } = props
 
   return (
     <div className={style.baseAttr}>
+      <Info id={id} name={name} />
+      <Rect {...rect} />
+    </div>
+  )
+}
+
+const Info = React.memo(
+  (props: any) => {
+    const [frame, setFrame] = useSetState(props)
+    useEffect(() => {
+      setFrame(props)
+    }, [props])
+    const setConfig = useCallback(
+      (key, val) => {
+        eventBus.emit('changePlug', frame.id, {
+          [key]: val,
+        })
+      },
+      [props]
+    )
+    return (
       <Row style={margin}>
         <Col span={16}>
-          <Input placeholder="组件名称" bordered={false} />
+          <Input
+            placeholder="组件名称"
+            bordered={false}
+            value={frame.name}
+            onChange={(e) => {
+              let name = e.target.value
+              setFrame({ ...frame, name: name })
+              setConfig('name', name)
+            }}
+          />
         </Col>
         <Col span={4}>
           <Tooltip placement="left" title="隐藏">
@@ -41,6 +63,30 @@ const BaseAttr = (props) => {
           </Tooltip>
         </Col>
       </Row>
+    )
+  },
+  (prevProps, nextProps) => {
+    if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) {
+      return true
+    }
+    return false
+  }
+)
+
+const Rect = React.memo(({ left, top, width, height }: any) => {
+  const [frame, setFrame] = useSetState<State>({
+    left: left,
+    top: top,
+    width: width,
+    height: height,
+  })
+  useEffect(() => {
+    eventBus.addListener('widgetMove', (data: any) => {
+      setFrame(data)
+    })
+  }, [])
+  return (
+    <>
       <Row justify="space-between" style={margin}>
         <Col span={10}>
           <InputNumber addonBefore="W" data-id="wiget-width" value={frame.width} />
@@ -57,8 +103,8 @@ const BaseAttr = (props) => {
           <InputNumber addonBefore="Y" value={frame.top} />
         </Col>
       </Row>
-    </div>
+    </>
   )
-}
+})
 
 export default BaseAttr

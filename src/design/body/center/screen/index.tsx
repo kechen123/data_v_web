@@ -47,14 +47,8 @@ const Screen = (props: ScrollInterface) => {
       setActiveWidgets([])
     }
   }
-  const WidgetObjList: Array<WidgetObj> = Object.keys(widgetMap).map((key) => {
-    return {
-      id: key,
-      widget: widgetMap[key],
-    }
-  })
 
-  const WidgetObjList1: Array<WidgetObj> = useMemo(() => {
+  const WidgetObjList: Array<WidgetObj> = useMemo(() => {
     return Object.keys(widgetMap).map((key) => {
       return {
         id: key,
@@ -99,12 +93,15 @@ const Screen = (props: ScrollInterface) => {
   )
 
   const changePlug = useCallback(
-    (data: any) => {
-      const widgetCopy = { ...widgetMapRef.current[data.id] }
-      widgetCopy.config = data.config
+    (id, data: any) => {
+      let widgetCopy = { ...widgetMapRef.current[id] }
+      widgetCopy = {
+        ...widgetCopy,
+        ...data,
+      }
       const widgetMapCopy = {
         ...widgetMapRef.current,
-        [data.id]: widgetCopy,
+        [id]: widgetCopy,
       }
       widgetMapRef.current = widgetMapCopy
       setWidgetMap(widgetMapCopy)

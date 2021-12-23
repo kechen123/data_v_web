@@ -102,6 +102,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       })
     }
   }
+  useEffect(() => {
+    eventBus.addListener('requestMoveable', (data: WidgetObj) => {})
+  }, [])
   return (
     <Moveable
       ref={(e) => {
