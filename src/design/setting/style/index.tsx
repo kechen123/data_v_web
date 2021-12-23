@@ -1,32 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import loadable from '@loadable/component'
-import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
-import { screen } from '@features/screenSlice'
-import { widget } from '@features/widgetSlice'
+import eventBus from '@utils/eventBus'
 import BaseAttr from './baseAttr'
+import { WidgetObj } from '@_types/Plugin'
+
 const Style = () => {
-  const { activeWidgets } = useAppSelector(screen)
-  const widgetMap = useAppSelector(widget)
-  console.log(activeWidgets, widgetMap)
-  const dispatch = useAppDispatch()
-  if (activeWidgets.length === 1) {
+  const [widgetObj, setWidgetObj] = useState<WidgetObj>()
+  useEffect(() => {
+    eventBus.addListener('setSettingObj', (data: WidgetObj) => {
+      setWidgetObj(data)
+    })
+  }, [])
+  if (widgetObj === undefined) {
+    return <></>
+  } else {
     let {
-      plugin: { name },
-      rect,
-    } = widgetMap[activeWidgets[0]]
+      widget: {
+        plugin: { name },
+        rect,
+        config,
+      },
+    } = widgetObj
     const OtherComponent = loadable(() => import(`./${name}/index.tsx`), {
       cacheKey: (props) => props.url,
     })
     return (
       <>
         <BaseAttr {...rect} />
-        <OtherComponent />
+        <OtherComponent {...widgetObj} />
       </>
     )
-  } else if (activeWidgets.length > 1) {
-    return <BaseAttr />
-  } else {
-    return <></>
   }
 }
+
 export default Style

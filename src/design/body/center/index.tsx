@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Content from './content'
 import Screen from './screen'
-import { Scroll } from '@_data/Scroll'
+import { Scroll } from '@_types/Scroll'
 import style from './index.module.less'
 
 const Center = (props) => {

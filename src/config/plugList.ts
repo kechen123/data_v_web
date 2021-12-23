@@ -1,5 +1,5 @@
-import { plugin } from './../_data/Plugin'
-import { Widget } from '@_data/Plugin'
+import { plugin } from './../_types/Plugin'
+import { Widget } from '@_types/Plugin'
 export const BORDER: Array<Widget> = [
   {
     name: '边框1',

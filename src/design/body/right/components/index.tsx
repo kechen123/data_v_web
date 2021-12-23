@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import loadable from '@loadable/component'
 import { Collapse, Row, Col, Form } from 'antd'
 
-import { ConfigBlock } from '@_data/Config'
+import { ConfigBlock } from '@_types/Config'
 const { Panel } = Collapse
 const json: Array<ConfigBlock> = [
   {

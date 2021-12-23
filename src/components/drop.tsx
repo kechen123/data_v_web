@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDrop } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
+import eventBus from '@utils/eventBus'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
-import { Widget, WidgetObj } from '@_data/Plugin'
-import { setWidget } from '@features/widgetSlice'
+import { Widget } from '@_types/Plugin'
 import { drop } from '@features/screenSlice'
 
 const style: React.CSSProperties = {
@@ -52,11 +52,12 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
         config: widgetObj.config,
       }
       const uid: string = uuidv4().substring(0, 8)
-      let obj: WidgetObj = {
-        id: uid,
-        widget: widget,
-      }
-      dispatch(setWidget(obj))
+      eventBus.emit('setWidgetMap', {
+        key: uid,
+        value: widget,
+      })
+      eventBus.emit('setActiveWidgets', [uid])
+      // dispatch(setWidget(obj))
       dispatch(drop(uid))
     },
     onDragEnter: () => {

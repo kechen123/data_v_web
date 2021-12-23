@@ -1,5 +1,5 @@
 import React from 'react'
-import { Widget } from '@_data/Plugin'
+import { Widget } from '@_types/Plugin'
 import DragItem from '@components/dragItem'
 import style from './index.module.less'
 

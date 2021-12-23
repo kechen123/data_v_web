@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { PluginList, TabList } from './components'
 import style from './index.module.less'
-import { Widget } from '@_data/Plugin'
-import { Chosen as ChosenInterface } from '@_data/Left'
+import { Widget } from '@_types/Plugin'
+import { Chosen as ChosenInterface } from '@_types/Left'
 import { BORDER as list } from '@config/plugList'
 
 const Left = (props) => {

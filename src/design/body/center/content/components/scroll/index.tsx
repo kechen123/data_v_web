@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Scroll as ScrollInterface } from '@_data/Scroll'
+import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { useEventListener, useMouse } from 'ahooks'
 import style from './index.module.less'
 let move = {

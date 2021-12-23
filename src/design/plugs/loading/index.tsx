@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Loading as DVLoading } from '@jiaminghi/data-view-react'
-import { WidgetObj } from '@_data/Plugin'
+import { WidgetObj } from '@_types/Plugin'
 import style from './index.module.less'
 
 const Loading = (props: WidgetObj) => {

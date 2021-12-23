@@ -1,54 +1,47 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import loadable from '@loadable/component'
 import Loading from './loading'
-import { WidgetObj } from '@_data/Plugin'
-import { useSize } from 'ahooks'
+import { WidgetObj } from '@_types/Plugin'
 
-interface Props {
-  widgetObj: WidgetObj
-  select: Function
-}
-
-const Widget = (props: Props) => {
-  const { select, widgetObj } = props
+const Widget = (props: WidgetObj) => {
   const {
-    widget,
-    id,
     widget: {
       plugin: { url },
-      rect,
-      rotate,
+      config,
     },
-  } = widgetObj
-  const ref = useRef<HTMLDivElement | null>(null)
-  // useSize(ref)
+  } = props
   const OtherComponent = loadable(() => import(`./${url}/index.tsx`), {
-    fallback: <Loading {...widgetObj} />,
+    fallback: <Loading {...props} />,
     /**
      *  插件缓存功能
      *  https://loadable-components.com/docs/dynamic-import/
      */
     cacheKey: (props) => props.url,
   })
-  const widgetSelect = (e) => {
-    select(e)
-  }
-  return (
-    <div
-      ref={ref}
-      onMouseDown={widgetSelect}
-      data-id={id}
-      className={`widget `}
-      style={{
-        cursor: 'move',
-        width: rect.width + 'px',
-        height: rect.height + 'px',
-        transform: `translate(${rect.left}px, ${rect.top}px) rotate(${rotate}deg)`,
-      }}
-    >
-      <OtherComponent {...widgetObj} />
-    </div>
-  )
-  // return <Loading {...props} />
+
+  return <OtherComponent {...config} />
 }
-export default Widget
+
+const Wiget1 = (props: WidgetObj) => {
+  const {
+    widget: {
+      plugin: { url },
+      config,
+    },
+  } = props
+  return <div style={{ backgroundColor: config.color[0], width: '100px', height: '100px' }}></div>
+}
+const equal = (prevProps, nextProps) => {
+  const {
+    widget: { config: prevConfig, rect: prevRect },
+  } = prevProps
+  const {
+    widget: { config: nextConfig, rect: nextRect },
+  } = nextProps
+  if (JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevRect) === JSON.stringify(nextRect)) {
+    return true
+  }
+
+  return false
+}
+export default React.memo(Widget, equal)

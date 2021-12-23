@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import anime from 'animejs'
-import { WidgetObj } from '@_data/Plugin'
+import { WidgetObj } from '@_types/Plugin'
 import style from './index1.module.less'
 
 const Loading = (props: WidgetObj) => {

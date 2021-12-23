@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MENU } from '@config/plugList'
-import { Chosen as ChosenInterface } from '@_data/Left'
+import { Chosen as ChosenInterface } from '@_types/Left'
 import style from './index.module.less'
 
 const TabList = (props: ChosenInterface) => {

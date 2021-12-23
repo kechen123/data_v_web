@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
-import { WidgetObj } from '@_data/Plugin'
+import { WidgetObj } from '@_types/Plugin'
 import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
 interface screenWidget {
@@ -49,7 +49,7 @@ export const screenSlice = createSlice({
         children: [],
       }
       state.screenWidget.push(screenWidgetItem)
-      state.activeWidgets = [action.payload]
+      // state.activeWidgets = [action.payload]
     },
   },
 })

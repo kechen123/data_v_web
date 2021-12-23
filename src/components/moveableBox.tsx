@@ -4,7 +4,7 @@ import update from 'react-addons-update'
 import { useAppDispatch } from '@storeApp/hooks'
 import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
-import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_data/Plugin'
+import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 export interface cRef {
   moveable: any
 }
@@ -86,7 +86,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   //move resize rotate 事件结束 更新redux
   const onMoveableEventEnd = () => {
-    dispatch(setWidget(frame))
+    eventBus.emit('setWidgetMap', {
+      key: frame.id,
+      value: frame.widget,
+    })
   }
   const render = () => {
     if (moveable) {

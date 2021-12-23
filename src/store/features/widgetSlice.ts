@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
-import { WidgetMap, WidgetObj } from '@_data/Plugin'
+import { WidgetMap, WidgetObj } from '@_types/Plugin'
 import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
 // const initialState: Map<string, Plug> = new Map()
