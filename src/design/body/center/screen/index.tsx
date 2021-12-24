@@ -170,7 +170,7 @@ const Screen = (props: ScrollInterface) => {
 
         // left: `${-x}px`,
         // top: ` ${-y}px`,
-        transform: `translate(${-x}px, ${-y}px)`,
+        transform: `translate(${-x}px, ${-y}px) scale(${scale / 100})`,
       }}
     >
       <div className={style.gridDiv}>

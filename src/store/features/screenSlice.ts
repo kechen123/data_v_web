@@ -27,7 +27,7 @@ export interface screenState {
 const initialState: screenState = {
   width: SCREENWIDTH,
   height: SCREENHEIGHT,
-  scale: 1,
+  scale: 100,
   screenZoom: 'none',
   backgroundColor: '',
   backgroundImage: '',

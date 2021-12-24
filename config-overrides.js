@@ -24,6 +24,15 @@ module.exports = override(
       '@collapse-content-bg': 'var(--navy)',
       '@tooltip-bg': 'rgba(10, 24, 46, 0.5)',
       '@form-item-margin-bottom': '8px',
+      '@slider-rail-background-color': 'var(--scroll-bg-color)',
+      '@slider-rail-background-color-hover': 'var(--scroll-bg-color)',
+      '@slider-track-background-color': 'var(--green)',
+      '@slider-track-background-color-hover': 'var(--green)',
+      '@slider-handle-color': 'var(--green)',
+      '@slider-handle-color-hover': 'var(--green)',
+      '@slider-handle-color-tooltip-open': 'var(--green)',
+      '@tooltip-bg': 'var(--green-tint)',
+      '@tooltip-color': 'var(--pink)',
     },
     // modifyVars: getThemeVariables({
     //   // dark: true, // 开启暗黑模式
