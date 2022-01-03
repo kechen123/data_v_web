@@ -1,14 +1,16 @@
 import React from 'react'
-import { Ruler, Scroll } from './components'
+import { Ruler, Scroll, EagleEye } from './components'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
 import style from './index.module.less'
 
-const Content = (props: ScrollInterface) => {
+const Content = (props: any) => {
   return (
-    <div className={style.contentView}>
+    <>
       <Ruler />
-      <Scroll {...props} />
-    </div>
+      {/* <Scroll {...props} /> */}
+
+      <EagleEye {...props} />
+    </>
   )
 }
 

@@ -1,36 +1,32 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
-import { useEventListener, useMap } from 'ahooks'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { useEventListener } from 'ahooks'
 import Selecto from 'react-selecto'
 import Drop from '@components/drop'
-import GridDiv from '@components/gridDiv'
+
 import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
-import { screen, setActiveWidgets } from '@features/screenSlice'
+
+import { screen } from '@features/screenSlice'
+import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
+import { SCREENMARGIN } from '@config/index'
 import style from './index.module.less'
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
-import { url } from 'inspector'
+
 let event = null
 
-interface Map {
-  key: string
-  value: any
-}
-
-const Screen = (props: ScrollInterface) => {
+const Screen = (props: any) => {
   const [widgetMap, setWidgetMap] = useState({})
   const [activeWidgets, setActiveWidgets] = useState<any>([])
   const widgetMapRef = useRef<any>([])
   const activeWidgetsRef = useRef<any>([])
-  const { x, y } = props
   const moveContent = useRef<HTMLDivElement>(null)
   const [target, setTarget] = useState<Array<HTMLDivElement>>([])
   const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screen)
   const childRef = useRef<cRef>(null)
-
+  const dispatch = useAppDispatch()
   const widgetSelect = (e) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
@@ -85,11 +81,12 @@ const Screen = (props: ScrollInterface) => {
   }, [targetId])
 
   const setWidgetMapBus = useCallback(
-    (data: Map) => {
+    (data: WidgetObj) => {
       const widgetMapCopy = { ...widgetMapRef.current }
-      widgetMapCopy[data.key] = data.value
+      widgetMapCopy[data.id] = data.widget
       widgetMapRef.current = widgetMapCopy
       setWidgetMap(widgetMapCopy)
+      dispatch(setWidget(data))
     },
     [widgetMap]
   )
@@ -158,24 +155,18 @@ const Screen = (props: ScrollInterface) => {
     }
   }, [])
   useEventListener('mousedown', viewClick)
+  let bodyW = (scale / 100) * width + SCREENMARGIN[1] + SCREENMARGIN[3]
+  let bodyH = (scale / 100) * height + SCREENMARGIN[0] + SCREENMARGIN[2]
   return (
     <div
       ref={moveContent}
       className={`${style.screenView} moveContent`}
       style={{
-        width: width + 'px',
-        height: height + 'px',
-        minWidth: width + 'px',
-        minHeight: height + 'px',
-
-        // left: `${-x}px`,
-        // top: ` ${-y}px`,
-        transform: `translate(${-x}px, ${-y}px) scale(${scale / 100})`,
+        width: bodyW + 'px',
+        height: bodyH + 'px',
+        transform: `translate(0px, 0px) scale(${scale / 100})`,
       }}
     >
-      <div className={style.gridDiv}>
-        <GridDiv />
-      </div>
       <Drop
         className={`${style.screen}  wd_list`}
         style={{
@@ -209,6 +200,7 @@ const Screen = (props: ScrollInterface) => {
           console.log(e)
         }}
       ></Selecto> */}
+
       <MoveableBox ref={childRef} {...moveableBoxProps} />
     </div>
   )

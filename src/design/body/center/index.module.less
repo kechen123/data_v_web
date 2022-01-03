@@ -3,11 +3,12 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background-image: url(../../../assets/image/null.png);
+  overflow: hidden;
+  background-image: url(../../../assets/image/bg.png);
   .screen {
     width: calc(100% - var(--screen-margin));
     height: calc(100% - var(--screen-margin));
-    overflow: hidden;
+    overflow: auto;
     position: absolute;
     z-index: 2;
     top: var(--screen-margin);
@@ -19,5 +20,19 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+  }
+  .bottom {
+    background: #06182a;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 -1px #000;
+    user-select: none;
+    z-index: 99;
   }
 }

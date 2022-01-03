@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
+import { useSize } from 'ahooks'
 import Content from './content'
 import Screen from './screen'
-import { Scroll } from '@_types/Scroll'
+import Bottom from './bottom'
+
 import style from './index.module.less'
 
 const Center = (props) => {
-  const [x, setX] = useState(0)
-  const [y, setY] = useState(0)
-  const scrollObj = {
-    x,
-    y,
-    setX,
-    setY,
-  }
+  const view = useRef(null)
+
+  const resize = useSize(view)
   return (
-    <div className={style.center}>
-      <div className={style.screen}>
-        <Screen {...scrollObj} />
-      </div>
+    <div className={style.center} id="view" ref={view}>
       <div className={style.content}>
-        <Content {...scrollObj} />
+        <Content {...resize} />
+        <div className={style.screen} id="screenBody">
+          <Screen />
+        </div>
+      </div>
+      <div className={style.bottom}>
+        <Bottom />
       </div>
     </div>
   )

@@ -23,14 +23,14 @@ const icon: React.CSSProperties = {
   cursor: 'pointer',
   color: 'var(--green)',
 }
-const Scale = () => {
+const Index = () => {
   const [auto, setAuto] = useState(false)
   const { width: PWidth, height: PHeight, scale } = useAppSelector(screen)
   const getSize = () => {
-    let screen = document.querySelector('.moveContent')?.parentElement
+    let screen = document.querySelector('#screenBody')
     if (screen) {
       const { width, height } = screen.getBoundingClientRect()
-      return [width, height]
+      return [width - 120, height - 120]
     }
     return [0, 0]
   }
@@ -55,6 +55,7 @@ const Scale = () => {
   useEffect(() => {
     if (auto) {
       const [width, height] = getSize()
+      console.log(width)
       if (width > 0 && height > 0) {
         let ws = Math.floor((width / PWidth) * 100)
         let hs = Math.floor((height / PHeight) * 100)
@@ -79,4 +80,4 @@ const Scale = () => {
   )
 }
 
-export default Scale
+export default Index

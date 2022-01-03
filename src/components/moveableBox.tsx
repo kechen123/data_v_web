@@ -87,8 +87,8 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   //move resize rotate 事件结束 更新redux
   const onMoveableEventEnd = () => {
     eventBus.emit('setWidgetMap', {
-      key: frame.id,
-      value: frame.widget,
+      id: frame.id,
+      widget: frame.widget,
     })
   }
   const render = () => {

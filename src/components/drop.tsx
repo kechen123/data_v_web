@@ -53,8 +53,8 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
       }
       const uid: string = uuidv4().substring(0, 8)
       eventBus.emit('setWidgetMap', {
-        key: uid,
-        value: widget,
+        id: uid,
+        widget: widget,
       })
       eventBus.emit('setActiveWidgets', [uid])
       // dispatch(setWidget(obj))

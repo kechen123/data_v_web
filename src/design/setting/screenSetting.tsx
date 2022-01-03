@@ -26,10 +26,10 @@ const ScreenSetting = () => {
             <Input placeholder="大屏名称" />
           </Form.Item>
           <Form.Item label="尺寸" style={{ marginBottom: 0 }}>
-            <Form.Item name="year" style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginRight: '6px' }}>
+            <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginRight: '6px' }}>
               <InputNumber
                 addonBefore="W"
-                defaultValue={width}
+                value={width}
                 placeholder="宽度"
                 onChange={(value) => {
                   dispatch(setScreen(['width', value]))
@@ -37,10 +37,10 @@ const ScreenSetting = () => {
               />
             </Form.Item>
             <span style={{ display: 'inline-block', width: '8px', lineHeight: '32px', textAlign: 'center' }}>*</span>
-            <Form.Item name="month" style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginLeft: '6px' }}>
+            <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginLeft: '6px' }}>
               <InputNumber
                 addonBefore="H"
-                defaultValue={height}
+                value={height}
                 placeholder="高度"
                 onChange={(value) => {
                   dispatch(setScreen(['height', value]))

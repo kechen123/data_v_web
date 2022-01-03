@@ -1,13 +1,8 @@
 import React from 'react'
-import Scale from './scale'
 import style from './index.module.less'
 
 const Footer = (props) => {
-  return (
-    <div className={style.footer}>
-      <Scale />
-    </div>
-  )
+  return <div className={style.footer}></div>
 }
 
 export default Footer
