@@ -17,20 +17,25 @@ let move = {
   },
 }
 const Index = (props: any) => {
+  // const [bodyWH, setBodyWH] = useState<any>([])
+  //可视区域比例
+  const [scaleView, setScaleView] = useState(1)
+  //大屏比例
+  const [scaleBody, setScaleBody] = useState(1)
+
   const widget = useAppSelector(widgetStore)
   const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screenStore)
   //可视区域 外层
   const view: any = document.querySelector('#screenBody')
-  const bodyWH = [SCREENMARGIN[1] + SCREENMARGIN[3] + width, SCREENMARGIN[0] + SCREENMARGIN[2] + height]
 
   const resize = useSize(view)
-  const [viewRect, setViewRect] = useState({
+  const [selectRect, setSelectRect] = useState({
     x: 0,
     y: 0,
     w: 0,
     h: 0,
   })
-  const scalew = w / bodyWH[0]
+
   const select = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<any>()
 
@@ -65,13 +70,12 @@ const Index = (props: any) => {
 
       select.current.style.left = leftV + 'px'
       select.current.style.top = topV + 'px'
-      view.scrollTo(leftV / scalew, topV / scalew)
+      view.scrollTo(leftV / scaleView, topV / scaleView)
     }
   }
   const upHandler = (ev: MouseEvent) => {
     move.canMove = false
   }
-
   const downHandler = (ev: MouseEvent) => {
     move.canMove = true
     move.self = {
@@ -84,18 +88,18 @@ const Index = (props: any) => {
     const {
       rect: { height, width, left, top },
     } = item
-    const x = left + SCREENMARGIN[3] * scalew + 1
-    const y = top + SCREENMARGIN[0] * scalew + 1
+    const x = left + SCREENMARGIN[3] * scaleView + 1
+    const y = top + SCREENMARGIN[0] * scaleView + 1
     const rectCenterPoint = {
-      x: (x + width / 2) * scalew,
-      y: (y + height / 2) * scalew,
+      x: (x + width / 2) * scaleView,
+      y: (y + height / 2) * scaleView,
     }
     if (ctx) {
       ctx.translate(rectCenterPoint.x, rectCenterPoint.y)
       // ctx.rotate((item.rotate * Math.PI) / 180)
       ctx.translate(-rectCenterPoint.x, -rectCenterPoint.y)
       ctx.fillStyle = '#ccc'
-      ctx.fillRect(x * scalew, y * scalew, width * scalew, height * scalew)
+      ctx.fillRect(x * scaleView, y * scaleView, width * scaleView, height * scaleView)
       ctx.restore()
       ctx.save()
     }
@@ -104,6 +108,22 @@ const Index = (props: any) => {
   useEventListener('mousedown', downHandler, { target: select })
   useEventListener('mousemove', mousemoveHandler, { target: select })
   useEffect(() => {
+    let ww = SCREENMARGIN[1] + SCREENMARGIN[3] + width,
+      hh = SCREENMARGIN[0] + SCREENMARGIN[2] + height
+    let sw = (ww * scale) / 100,
+      sh = (hh * scale) / 100
+    // setBodyWH([sw, sh])
+    let sww = w / sw
+    let shh = h / sh
+    sww = Math.min(sww, shh)
+    setScaleView(sww)
+
+    let ssw = w / ww
+    let ssh = h / hh
+    ssw = Math.min(ssw, ssh)
+    setScaleBody(ssw)
+  }, [scale])
+  useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
     if (ctx) {
       ctx.clearRect(0, 0, w, h)
@@ -111,26 +131,36 @@ const Index = (props: any) => {
       ctx.fillRect(0, 0, w, h)
       ctx.strokeStyle = '#8dbf8d'
       ctx.lineWidth = 1
-      let rectl = SCREENMARGIN[3] * scalew,
-        rectt = SCREENMARGIN[0] * scalew,
-        rectw = width * scalew,
-        recth = height * scalew
+      let rectl = SCREENMARGIN[3] * scaleBody,
+        rectt = SCREENMARGIN[0] * scaleBody,
+        rectw = width * scaleBody,
+        recth = height * scaleBody
       ctx.strokeRect(rectl, rectt, rectw, recth)
       ctx.save()
       Object.values(widget).forEach((item) => {
         drawRect(item)
       })
     }
-  }, [widget, width, height])
+  }, [widget, width, height, scaleBody])
   useEffect(() => {
     if (view) {
       const setRect = () => {
         if (move.canMove === false) {
-          setViewRect({
-            x: view.scrollLeft * scalew,
-            y: view.scrollTop * scalew,
-            w: view.offsetWidth * scalew,
-            h: view.offsetHeight * scalew,
+          let vx = view.scrollLeft * scaleView,
+            vy = view.scrollTop * scaleView,
+            vw = view.offsetWidth * scaleView,
+            vh = view.offsetHeight * scaleView
+          if (vw >= w) {
+            vw = w
+          }
+          if (vh >= h) {
+            vh = h
+          }
+          setSelectRect({
+            x: vx,
+            y: vy,
+            w: vw,
+            h: vh,
           })
         }
       }
@@ -142,7 +172,7 @@ const Index = (props: any) => {
         setRect()
       })
     }
-  }, [resize])
+  }, [resize, width, height, scaleView])
 
   return (
     <div className={styles.eagleEye}>
@@ -154,10 +184,10 @@ const Index = (props: any) => {
         ref={select}
         className={styles.select}
         style={{
-          width: viewRect.w,
-          height: viewRect.h,
-          top: Math.floor(viewRect.y),
-          left: Math.floor(viewRect.x),
+          width: selectRect.w,
+          height: selectRect.h,
+          top: Math.floor(selectRect.y),
+          left: Math.floor(selectRect.x),
         }}
       ></div>
     </div>

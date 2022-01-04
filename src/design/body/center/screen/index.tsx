@@ -164,7 +164,6 @@ const Screen = (props: any) => {
       style={{
         width: bodyW + 'px',
         height: bodyH + 'px',
-        transform: `translate(0px, 0px) scale(${scale / 100})`,
       }}
     >
       <Drop
@@ -172,6 +171,7 @@ const Screen = (props: any) => {
         style={{
           width: width + 'px',
           height: height + 'px',
+          transform: `translate(0px, 0px) scale(${scale / 100})`,
           backgroundColor: backgroundColor,
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'auto 100%',

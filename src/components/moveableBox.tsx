@@ -34,10 +34,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       widget: {
         rect: {
           left: {
-            $set: translate[0],
+            $set: Math.round(translate[0]),
           },
           top: {
-            $set: translate[1],
+            $set: Math.round(translate[1]),
           },
         },
       },
@@ -55,16 +55,16 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       widget: {
         rect: {
           left: {
-            $set: translate[0],
+            $set: Math.round(translate[0]),
           },
           top: {
-            $set: translate[1],
+            $set: Math.round(translate[1]),
           },
           width: {
-            $set: offsetWidth,
+            $set: Math.round(offsetWidth),
           },
           height: {
-            $set: offsetHeight,
+            $set: Math.round(offsetHeight),
           },
         },
       },
@@ -77,14 +77,14 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
     let newFrame = update(frame, {
       widget: {
         rotate: {
-          $set: rotate,
+          $set: Math.round(rotate),
         },
       },
     })
     setFrame(newFrame)
   }
 
-  //move resize rotate 事件结束 更新redux
+  //move resize rotate 事件结束 更新
   const onMoveableEventEnd = () => {
     eventBus.emit('setWidgetMap', {
       id: frame.id,
@@ -95,10 +95,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
     if (moveable) {
       let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
       eventBus.emit('widgetMove', {
-        left,
-        top,
-        width: offsetWidth,
-        height: offsetHeight,
+        left: Math.round(left),
+        top: Math.round(top),
+        width: Math.round(offsetWidth),
+        height: Math.round(offsetHeight),
       })
     }
   }

@@ -8,7 +8,10 @@ import style from './screenSetting.module.less'
 const { TabPane } = Tabs
 const { Option } = Select
 const margin = { marginBottom: '8px' }
-
+const layout = {
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 },
+}
 const ScreenSetting = () => {
   const { width, height, screenZoom, backgroundColor, backgroundImage } = useAppSelector(screen)
   console.log(width)
@@ -21,7 +24,7 @@ const ScreenSetting = () => {
   return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="大屏" key="1">
-        <Form layout="vertical">
+        <Form {...layout}>
           <Form.Item label="名称">
             <Input placeholder="大屏名称" />
           </Form.Item>
