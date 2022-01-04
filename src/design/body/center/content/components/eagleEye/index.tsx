@@ -5,6 +5,7 @@ import { useAppSelector } from '@storeApp/hooks'
 import { widget as widgetStore } from '@features/widgetSlice'
 import { screen as screenStore } from '@features/screenSlice'
 import { SCREENMARGIN, SCREENHEIGHT } from '@config/index'
+import eventBus from '@utils/eventBus'
 import styles from './index.module.less'
 
 const w = 190
@@ -22,6 +23,8 @@ const Index = (props: any) => {
   const [scaleView, setScaleView] = useState(1)
   //大屏比例
   const [scaleBody, setScaleBody] = useState(1)
+
+  const [active, setActive] = useState([0, 0, 0, 0, 0])
 
   const widget = useAppSelector(widgetStore)
   const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screenStore)
@@ -173,7 +176,15 @@ const Index = (props: any) => {
       })
     }
   }, [resize, width, height, scaleView])
-
+  useEffect(() => {
+    eventBus.addListener('widgetMoveEye', (data: any) => {
+      let x = (data[2] + SCREENMARGIN[3] * scaleView + 1) * scaleView
+      let y = (data[3] + SCREENMARGIN[0] * scaleView + 1) * scaleView
+      let w = data[0] * scaleView
+      let h = data[1] * scaleView
+      setActive([w, h, x, y, data[4]])
+    })
+  }, [scaleView])
   return (
     <div className={styles.eagleEye}>
       <canvas ref={canvasRef} id="EagleEye" width={w} height={h}>
@@ -189,6 +200,14 @@ const Index = (props: any) => {
           top: Math.floor(selectRect.y),
           left: Math.floor(selectRect.x),
         }}
+      ></div>
+      <div
+        style={{
+          width: active[0] + 'px',
+          height: active[1] + 'px',
+          transform: `translate(${active[2]}px, ${active[3]}px) rotate(${active[4]}deg)`,
+        }}
+        className={styles.active}
       ></div>
     </div>
   )

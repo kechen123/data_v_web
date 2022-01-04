@@ -178,6 +178,7 @@ const Screen = (props: any) => {
         }}
       >
         <WidgetList WidgetObjList={WidgetObjList} widgetSelect={widgetSelect} />
+        <MoveableBox ref={childRef} {...moveableBoxProps} />
       </Drop>
       {/* <Selecto
         rootContainer={document.getElementById('screen')}
@@ -200,8 +201,6 @@ const Screen = (props: any) => {
           console.log(e)
         }}
       ></Selecto> */}
-
-      <MoveableBox ref={childRef} {...moveableBoxProps} />
     </div>
   )
 }

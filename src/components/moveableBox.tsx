@@ -94,12 +94,18 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   const render = () => {
     if (moveable) {
       let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+      let leftM = Math.round(left),
+        topM = Math.round(top),
+        offsetWidthM = Math.round(offsetWidth),
+        offsetHeightM = Math.round(offsetHeight),
+        rotationM = Math.round(rotation)
       eventBus.emit('widgetMove', {
-        left: Math.round(left),
-        top: Math.round(top),
-        width: Math.round(offsetWidth),
-        height: Math.round(offsetHeight),
+        left: leftM,
+        top: topM,
+        width: offsetWidthM,
+        height: offsetHeightM,
       })
+      eventBus.emit('widgetMoveEye', [offsetWidthM, offsetHeightM, leftM, topM, rotationM])
     }
   }
   useEffect(() => {
