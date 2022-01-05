@@ -91,8 +91,8 @@ const Index = (props: any) => {
     const {
       rect: { height, width, left, top },
     } = item
-    const x = left + SCREENMARGIN[3] * scaleView + 1
-    const y = top + SCREENMARGIN[0] * scaleView + 1
+    const x = left + SCREENMARGIN[3]
+    const y = top + SCREENMARGIN[0]
     const rectCenterPoint = {
       x: (x + width / 2) * scaleView,
       y: (y + height / 2) * scaleView,
@@ -102,7 +102,7 @@ const Index = (props: any) => {
       // ctx.rotate((item.rotate * Math.PI) / 180)
       ctx.translate(-rectCenterPoint.x, -rectCenterPoint.y)
       ctx.fillStyle = '#ccc'
-      ctx.fillRect(x * scaleView, y * scaleView, width * scaleView, height * scaleView)
+      ctx.fillRect(x * scaleView + 1, y * scaleView + 1, width * scaleView, height * scaleView)
       ctx.restore()
       ctx.save()
     }
@@ -178,8 +178,8 @@ const Index = (props: any) => {
   }, [resize, width, height, scaleView])
   useEffect(() => {
     eventBus.addListener('widgetMoveEye', (data: any) => {
-      let x = (data[2] + SCREENMARGIN[3] * scaleView + 1) * scaleView
-      let y = (data[3] + SCREENMARGIN[0] * scaleView + 1) * scaleView
+      let x = (data[2] + SCREENMARGIN[3]) * scaleView + 1
+      let y = (data[3] + SCREENMARGIN[0]) * scaleView + 1
       let w = data[0] * scaleView
       let h = data[1] * scaleView
       setActive([w, h, x, y, data[4]])
