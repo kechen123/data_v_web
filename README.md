@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+## 预览
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="./2021-3-5.png">
+</p>
+## 项目用到的一些库
 
-## Available Scripts
+> 组件移动(https://github.com/daybrush/moveable)
 
-In the project directory, you can run:
+> 组件多选(https://github.com/daybrush/selecto)
 
-### `yarn start`
+> 标尺(https://github.com/daybrush/guides)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> hook 库 [alibaba/hooks](https://github.com/alibaba/hooks)，
+> [官网](https://ahooks.gitee.io/zh-CN)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> 图表库 [echarts](https://echarts.apache.org/zh/index.html)，
+> [dataV](http://datav-react.jiaminghi.com/)
 
-### `yarn test`
+> 颜色选择器(https://github.com/casesandberg/react-color),[官网](http://casesandberg.github.io/react-color/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 使用
 
-### `yarn build`
+```bash
+# 安装依赖
+$ yarn || npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 启动服务
+$ yarn start || npm run start  # visit http://localhost:3000
+```
