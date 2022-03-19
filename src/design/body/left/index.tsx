@@ -3,7 +3,7 @@ import { PluginList, TabList } from './components'
 import style from './index.module.less'
 import { Widget } from '@_types/Plugin'
 import { Chosen as ChosenInterface } from '@_types/Left'
-import { BORDER as list } from '@config/plugList'
+import { BORDER as border, DATAVCHART as chart } from '@config/plugList'
 
 const Left = (props) => {
   const [chosen, setChosen] = useState('边框')
@@ -17,7 +17,10 @@ const Left = (props) => {
   useEffect(() => {
     switch (chosen) {
       case '边框':
-        setData(list)
+        setData(border)
+        break
+      case '图表':
+        setData(chart)
         break
       default:
         setData([])

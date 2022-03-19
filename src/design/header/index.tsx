@@ -11,9 +11,31 @@ const Header = (props) => {
     console.log('预览>>>>')
     console.log(screenData)
     console.log(widgetData)
+    const newWindow = window.open(`/#/preview`, '_blank')
+    if (newWindow) {
+      newWindow.onload = () => newWindow.postMessage(screenData, window.origin)
+    }
   }
   const save = () => {
     console.log('保存')
+    console.log(screenData)
+    console.log(widgetData)
+    let data = {
+      screenData,
+      widgetData,
+    }
+    const element = document.createElement('a')
+
+    let text = JSON.stringify(data, null, 2)
+    const file = new Blob([text], { type: 'text/plain' })
+
+    element.href = URL.createObjectURL(file)
+
+    element.download = 'myFile.txt'
+
+    document.body.appendChild(element) // Required for this to work in FireFox
+
+    element.click()
   }
   return (
     <div className={style.header}>

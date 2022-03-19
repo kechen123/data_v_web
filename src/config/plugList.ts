@@ -193,7 +193,81 @@ export const BORDER: Array<Widget> = [
     },
   },
 ]
+export const DATAVCHART: Array<Widget> = [
+  {
+    name: '胶囊柱图',
+    plugin: {
+      name: 'chart',
+      url: 'datav_chart/capsule',
+    },
+    rect: {
+      width: 300,
+      height: 150,
+    },
+    img: 'datavImage/border1.png',
+    config: {
+      data: [
+        {
+          name: '南阳',
+          value: 167,
+        },
+        {
+          name: '周口',
+          value: 67,
+        },
+        {
+          name: '漯河',
+          value: 123,
+        },
+        {
+          name: '郑州',
+          value: 55,
+        },
+        {
+          name: '西峡',
+          value: 98,
+        },
+      ],
+    },
+  },
+  {
+    name: '动态环图',
+    plugin: {
+      name: 'border',
+      url: 'datav_chart/activeRing',
+    },
 
+    rect: {
+      width: 300,
+      height: 150,
+    },
+    img: 'datavImage/border10.png',
+    config: {
+      data: [
+        {
+          name: '周口',
+          value: 55,
+        },
+        {
+          name: '南阳',
+          value: 120,
+        },
+        {
+          name: '西峡',
+          value: 78,
+        },
+        {
+          name: '驻马店',
+          value: 66,
+        },
+        {
+          name: '新乡',
+          value: 80,
+        },
+      ],
+    },
+  },
+]
 export const MENU: Array<any> = [
   {
     name: '边框',
@@ -210,7 +284,7 @@ export const MENU: Array<any> = [
   {
     name: '图表',
     icon: 'icon-tubiao-zhexiantu',
-    plugs: '',
+    plugs: 'DATAVCHART',
     index: 3,
   },
   {

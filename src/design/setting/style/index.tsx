@@ -26,7 +26,7 @@ const Style = ({ widgetObj }: Props) => {
     return (
       <>
         <BaseAttr {...widgetObj} />
-        <OtherComponent {...widgetObj} />
+        {/* <OtherComponent {...widgetObj} /> */}
       </>
     )
   }

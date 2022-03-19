@@ -10,7 +10,9 @@ const Widget = (props: WidgetObj) => {
       config,
     },
   } = props
-  const OtherComponent = loadable(() => import(`./${url}/index.tsx`), {
+  console.log(props)
+  console.log(url)
+  const OtherComponent = loadable(() => import(`./${url}/index`), {
     fallback: <Loading {...props} />,
     /**
      *  插件缓存功能

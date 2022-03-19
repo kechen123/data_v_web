@@ -14,7 +14,7 @@ const PluginList = (props: Props) => {
       <div className={style.pluginList}>
         {data.map((item, i) => {
           return (
-            <DragItem key={i} data={item}>
+            <DragItem key={item.name} data={item}>
               <div className={style.plugin}>
                 <img src={item.img} />
               </div>

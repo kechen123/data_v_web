@@ -18,7 +18,8 @@ const Preview = loadable(() => import(`@page/preview`), {
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* <Route path="/" element={<Home />} /> */}
+      <Route path="/" element={<Design />} />
       <Route path="design" element={<Design />} />
       <Route path="preview" element={<Preview />} />
     </Routes>
