@@ -120,6 +120,12 @@ const Screen = (props: any) => {
         id: activeWidgets[0],
         widget: widgetMap[activeWidgets[0]],
       })
+    } else {
+      let targets = activeWidgets.map((item) => {
+        return document.querySelector(`div[data-id='${item}']`) as any
+      })
+      console.log(targets)
+      setTarget(targets)
     }
   }, [activeWidgets])
 
@@ -181,7 +187,7 @@ const Screen = (props: any) => {
         <MoveableBox ref={childRef} {...moveableBoxProps} />
       </Drop>
       {/* <Selecto
-        rootContainer={document.getElementById('screen')}
+        container={document.getElementById('view')}
         selectableTargets={['.widget']}
         hitRate={30}
         selectByClick={false}
@@ -189,7 +195,6 @@ const Screen = (props: any) => {
         ratio={0}
         toggleContinueSelect={['shift']}
         onDragStart={(e: any) => {
-          console.log(e)
           if (childRef && childRef.current) {
             const ismove = childRef.current.moveable.isMoveableElement(e.inputEvent.target)
             if (ismove) {
@@ -198,7 +203,10 @@ const Screen = (props: any) => {
           }
         }}
         onSelect={(e: any) => {
-          console.log(e)
+          const target = e.selected.map((item) => {
+            return item.getAttribute('data-id')
+          })
+          setActiveWidgets(target)
         }}
       ></Selecto> */}
     </div>
