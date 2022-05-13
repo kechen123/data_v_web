@@ -13,7 +13,14 @@ const Header = (props) => {
     console.log(widgetData)
     const newWindow = window.open(`/#/preview`, '_blank')
     if (newWindow) {
-      newWindow.onload = () => newWindow.postMessage(screenData, window.origin)
+      newWindow.onload = () => {
+        console.log('预览窗口加载完毕' + window.origin)
+        const data = {
+          type: 'screen',
+          data: screenData,
+        }
+        newWindow.postMessage(data, window.origin)
+      }
     }
   }
   const save = () => {
