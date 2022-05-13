@@ -58,7 +58,7 @@ function fileToBase64(file) {
 //仅图片选择显示
 export const ImageBox = (props: props) => {
   const { imgData, upImage } = props
-  const zone = {
+  const zone: any = {
     accept: 'image/*',
     onDrop: (acceptedFiles) => {
       fileToBase64(acceptedFiles[0]).then((res) => {
@@ -102,11 +102,7 @@ export const ImageBox = (props: props) => {
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      {url ? (
-        <IImage url={url} delFun={delFun}></IImage>
-      ) : (
-        <div>选择或拖动图片到此处</div>
-      )}
+      {url ? <IImage url={url} delFun={delFun}></IImage> : <div>选择或拖动图片到此处</div>}
     </div>
   )
 }

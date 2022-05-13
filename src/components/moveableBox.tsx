@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import Moveable from 'react-moveable'
-import update from 'react-addons-update'
+import update from 'immutability-helper'
 import { useAppDispatch } from '@storeApp/hooks'
 import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
@@ -151,6 +151,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       onRotate={(e) => {
         e.target.style.transform = e.transform
         onRotate(e)
+      }}
+      onRotateEnd={() => {
+        onMoveableEventEnd()
       }}
       onRenderEnd={() => {
         onMoveableEventEnd()
