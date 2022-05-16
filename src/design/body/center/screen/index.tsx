@@ -124,7 +124,6 @@ const Screen = (props: any) => {
       let targets = activeWidgets.map((item) => {
         return document.querySelector(`div[data-id='${item}']`) as any
       })
-      console.log(targets)
       setTarget(targets)
     }
   }, [activeWidgets])

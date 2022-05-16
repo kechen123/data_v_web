@@ -104,6 +104,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         top: topM,
         width: offsetWidthM,
         height: offsetHeightM,
+        rotate: rotationM,
       })
       eventBus.emit('widgetMoveEye', [offsetWidthM, offsetHeightM, leftM, topM, rotationM])
     }

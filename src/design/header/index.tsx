@@ -8,13 +8,10 @@ const Header = (props) => {
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
   const yulan = () => {
-    console.log('预览>>>>')
-    console.log(screenData)
-    console.log(widgetData)
     const newWindow = window.open(`/#/preview`, '_blank')
     if (newWindow) {
       newWindow.onload = () => {
-        console.log('预览窗口加载完毕' + window.origin)
+        // console.log('预览窗口加载完毕' + window.origin)
         const data = {
           type: 'screen',
           data: screenData,
@@ -24,9 +21,9 @@ const Header = (props) => {
     }
   }
   const save = () => {
-    console.log('保存')
-    console.log(screenData)
-    console.log(widgetData)
+    // console.log('保存')
+    // console.log(screenData)
+    // console.log(widgetData)
     let data = {
       screenData,
       widgetData,

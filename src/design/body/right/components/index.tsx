@@ -166,7 +166,7 @@ const json: Array<ConfigBlock> = [
 ]
 
 const setval = (id: string, val: any) => {
-  console.log(id, val)
+  // console.log(id, val)
 }
 
 const RenderComponent = (col) => {

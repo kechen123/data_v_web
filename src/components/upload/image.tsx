@@ -55,30 +55,23 @@ function fileToBase64(file) {
     }
   })
 }
+
 //仅图片选择显示
 export const ImageBox = (props: props) => {
   const { imgData, upImage } = props
-  const zone: any = {
-    accept: 'image/*',
-    onDrop: (acceptedFiles) => {
-      fileToBase64(acceptedFiles[0]).then((res) => {
-        setFiles([res])
-      })
-      // setFiles(
-      //   acceptedFiles.map((file) =>
-      //     Object.assign(file, {
-      //       preview: URL.createObjectURL(file),
-      //     })
-      //   )
-      // )
-    },
-    onDragOver: (e) => {
-      // console.log('onDragOver>>>>>>>>>>>>' + e)
-    },
-  }
+
   const [files, setFiles] = useState<any>([])
   const [url, setUrl] = useState(imgData?.url)
-  const { getRootProps, getInputProps } = useDropzone(zone)
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   accept: 'image/*' as any,
+  //   onDrop: (acceptedFiles) => {
+  //     fileToBase64(acceptedFiles[0]).then((res) => {
+  //       setFiles([res])
+  //     })
+  //   },
+  // })
+
+  const { getRootProps, getInputProps } = useDropzone()
   useEffect(() => {
     if (files.length > 0 && files[0]) {
       setUrl(files[0])

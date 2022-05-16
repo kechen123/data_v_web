@@ -14,10 +14,8 @@ const layout = {
 }
 const ScreenSetting = () => {
   const { width, height, screenZoom, backgroundColor, backgroundImage } = useAppSelector(screen)
-  console.log(width)
   const dispatch = useAppDispatch()
   const colorChange = (e) => {
-    console.log(e)
     let color = getColor(e.rgb)
     dispatch(setScreen(['backgroundColor', color]))
   }

@@ -20,7 +20,6 @@ const BaseAttr = (props) => {
     id,
     widget: { name, rect, rotate },
   } = props
-
   return (
     <div className={style.baseAttr}>
       <Info id={id} name={name} />

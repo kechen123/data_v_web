@@ -10,8 +10,8 @@ const Widget = (props: WidgetObj) => {
       config,
     },
   } = props
-  console.log(props)
-  console.log(url)
+  console.log('', props)
+  // console.log(url)
   const OtherComponent = loadable(() => import(`./${url}/index`), {
     fallback: <Loading {...props} />,
     /**

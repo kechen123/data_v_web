@@ -4,7 +4,7 @@ import { WidgetObj } from '@_types/Plugin'
 import style from './index.module.less'
 
 const Index = (config: any) => {
-  console.log(config)
+  // console.log(config)
   return <WaterLevelPond config={config} style={{ width: '100%', height: '100%' }} />
 }
 

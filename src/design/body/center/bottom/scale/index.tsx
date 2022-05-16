@@ -55,7 +55,6 @@ const Index = () => {
   useEffect(() => {
     if (auto) {
       const [width, height] = getSize()
-      console.log(width)
       if (width > 0 && height > 0) {
         let ws = Math.floor((width / PWidth) * 100)
         let hs = Math.floor((height / PHeight) * 100)

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Checkbox } from 'antd'
 const MyCheckbox = (props: any) => {
-  console.log(props)
   if (!props.option) {
     return <></>
   }
