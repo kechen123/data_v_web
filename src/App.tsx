@@ -14,7 +14,6 @@ const Preview = loadable(() => import(`@page/preview`), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
-console.log(111)
 const App = () => {
   return (
     <Routes>

@@ -429,29 +429,99 @@ export const DATAVCHART: Array<Widget> = [
     },
   },
 ]
+
+export const Echarts: Array<Widget> = [
+  {
+    name: '基本柱图',
+    plugin: {
+      name: 'border',
+      url: 'echart/basicBar',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/border/border1.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
+  },
+  {
+    name: '彩色柱图',
+    plugin: {
+      name: 'border',
+      url: 'echart/colorBar',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/border/border1.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
+  },
+  {
+    name: '堆积柱图',
+    plugin: {
+      name: 'border',
+      url: 'echart/stackBar',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/border/border1.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
+  },
+  {
+    name: '基本条图',
+    plugin: {
+      name: 'border',
+      url: 'echart/basicStripChart',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/border/border1.png',
+    config: {
+      color: ['#235fa7', '#4fd2dd'],
+    },
+  },
+]
 export const MENU: Array<any> = [
+  {
+    name: 'Echarts',
+    icon: 'icon-tubiao-zhexiantu',
+    plugs: 'Echarts',
+    index: 1,
+  },
   {
     name: '边框',
     icon: 'icon-wenzibiankuang',
     plugs: 'BORDER',
-    index: 1,
+    index: 2,
   },
   {
     name: '装饰',
     icon: 'icon-zhuangshi',
     plugs: '',
-    index: 2,
+    index: 3,
   },
   {
     name: '图表',
     icon: 'icon-tubiao-zhexiantu',
     plugs: 'DATAVCHART',
-    index: 3,
+    index: 4,
   },
+
   {
     name: '收藏',
     icon: 'icon-fabulous',
     plugs: '',
-    index: 4,
+    index: 5,
   },
 ]

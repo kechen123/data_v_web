@@ -33,17 +33,20 @@ const Wiget1 = (props: WidgetObj) => {
   } = props
   return <div style={{ backgroundColor: config.color[0], width: '100px', height: '100px' }}></div>
 }
+
+//组件配置项参数和尺寸变化时 重新渲染
 const equal = (prevProps, nextProps) => {
   const {
     widget: { config: prevConfig, rect: prevRect },
   } = prevProps
+  const prevSize = { width: prevRect.width, height: prevRect.height }
   const {
     widget: { config: nextConfig, rect: nextRect },
   } = nextProps
-  if (JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevRect) === JSON.stringify(nextRect)) {
+  const nextSize = { width: nextRect.width, height: nextRect.height }
+  if (JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)) {
     return true
   }
-
   return false
 }
 export default React.memo(Widget, equal)

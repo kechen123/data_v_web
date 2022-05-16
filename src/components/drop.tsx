@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { useDrop } from 'ahooks'
+import { useDrop, useMouse } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
 import eventBus from '@utils/eventBus'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
@@ -30,8 +30,12 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   useDrop(dropRef, {
     onDom: (widgetObj: Widget, e: any) => {
       const { rect, plugin } = widgetObj
-      let left = e?.offsetX
-      let top = e?.offsetY
+      const domRect = dropRef.current?.getBoundingClientRect()
+      if (!domRect) {
+        return
+      }
+      let left = e.pageX - domRect.left
+      let top = e.pageY - domRect.top
       left -= rect.width / 2
       top -= rect.height / 2
       let widget: Widget = {

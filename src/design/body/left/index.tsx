@@ -3,10 +3,10 @@ import { PluginList, TabList } from './components'
 import style from './index.module.less'
 import { Widget } from '@_types/Plugin'
 import { Chosen as ChosenInterface } from '@_types/Left'
-import { BORDER as border, DATAVCHART as chart } from '@config/plugList'
+import { BORDER as border, DATAVCHART as chart, Echarts } from '@config/plugList'
 
 const Left = (props) => {
-  const [chosen, setChosen] = useState('边框')
+  const [chosen, setChosen] = useState('Echarts')
   const [data, setData] = useState<any>([])
 
   const obj: ChosenInterface = {
@@ -16,6 +16,9 @@ const Left = (props) => {
 
   useEffect(() => {
     switch (chosen) {
+      case 'Echarts':
+        setData(Echarts)
+        break
       case '边框':
         setData(border)
         break

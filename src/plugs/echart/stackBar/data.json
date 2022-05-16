@@ -1,0 +1,25 @@
+{
+  "legend": ["销售额", "费用", "利润"],
+  "xAxis": ["2013", "2014", "2015", "2016"],
+  "series": [
+    [
+      { "value": "1000", "label": { "show": false } },
+      { "value": "1170", "label": { "show": false } },
+      { "value": "660", "label": { "show": false } },
+      { "value": "1030", "label": { "show": false } }
+    ],
+    [
+      { "value": "400", "label": { "show": false } },
+      { "value": "460", "label": { "show": false } },
+      { "value": "1120", "label": { "show": false } },
+      { "value": "540", "label": { "show": false } }
+    ],
+    [
+      { "value": "300", "label": { "show": false } },
+      { "value": "300", "label": { "show": false } },
+      { "value": "300", "label": { "show": false } },
+      { "value": "350", "label": { "show": false } }
+    ],
+    [1700, 1930, 2080, 1920]
+  ]
+}
