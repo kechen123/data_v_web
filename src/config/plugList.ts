@@ -1,5 +1,7 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
+import { basicBarConfig } from '@plugs/defaultConfig'
+
 export const BORDER: Array<Widget> = [
   {
     name: '边框1',
@@ -442,9 +444,7 @@ export const Echarts: Array<Widget> = [
       height: 312,
     },
     img: 'datavImage/border/border1.png',
-    config: {
-      color: ['#235fa7', '#4fd2dd'],
-    },
+    config: basicBarConfig,
   },
   {
     name: '彩色柱图',

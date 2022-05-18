@@ -8,28 +8,38 @@ interface Props {
   widgetObj?: WidgetObj
 }
 
-const Style = ({ widgetObj }: Props) => {
+const DetailAttr = React.memo(
+  ({ config, url }: any) => {
+    const OtherComponent = loadable(() => import(`@plugs/${url}/setting/index.tsx`), {
+      cacheKey: (props) => props.url,
+    })
+    return <OtherComponent {...config} />
+  },
+  (prev, next) => {
+    return JSON.stringify(prev.config) === JSON.stringify(next.config)
+  }
+)
+
+const Style = React.memo(({ widgetObj }: Props) => {
   if (widgetObj === undefined) {
     return <></>
   } else {
     let {
       widget,
       widget: {
-        plugin: { name },
+        plugin: { name, url },
         rect,
         config,
       },
     } = widgetObj
-    const OtherComponent = loadable(() => import(`./${name}/index.tsx`), {
-      cacheKey: (props) => props.url,
-    })
+
     return (
       <>
         <BaseAttr {...widgetObj} />
-        {/* <OtherComponent {...widgetObj} /> */}
+        <DetailAttr url={url} config={config} />
       </>
     )
   }
-}
+})
 
 export default Style
