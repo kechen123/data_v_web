@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSetState } from 'ahooks'
-import { Form, Tooltip, Row, Col, Input, InputNumber } from 'antd'
+import { Form, Tooltip, Row, Col, Space, Input, InputNumber } from 'antd'
 import eventBus from '@utils/eventBus'
 import style from './index.module.less'
-const margin = { marginBottom: '8px' }
+const margin = { marginBottom: '8px', paddingRight: '20px', paddingLeft: '20px' }
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 22 },
 }
 interface State {
   left: number
@@ -44,10 +44,11 @@ const Info = React.memo(
     )
     return (
       <Row style={margin}>
-        <Col span={16}>
+        <Space size={20}>
           <Input
+            style={{ width: '200px' }}
             placeholder="组件名称"
-            bordered={false}
+            // bordered={false}
             value={frame.name}
             onChange={(e) => {
               let name = e.target.value
@@ -55,17 +56,15 @@ const Info = React.memo(
               setConfig('name', name)
             }}
           />
-        </Col>
-        <Col span={4}>
-          <Tooltip placement="left" title="隐藏">
+
+          <Tooltip placement="top" title="隐藏">
             <i className={`icon iconfont icon-yanjing_xianshi_o `}></i>
           </Tooltip>
-        </Col>
-        <Col span={4}>
-          <Tooltip placement="left" title="锁定">
+
+          <Tooltip placement="top" title="锁定">
             <i className={`icon iconfont icon-suoding `}></i>
           </Tooltip>
-        </Col>
+        </Space>
       </Row>
     )
   },
@@ -91,27 +90,32 @@ const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
     })
   }, [])
 
+  const change = (key, value) => {
+    setFrame({ ...frame, [key]: value })
+    eventBus.emit('changeSettingVal', key, value)
+  }
+
   return (
     <Form {...layout}>
-      <Form.Item label="图表尺寸" style={{ marginBottom: 0 }}>
+      <Form.Item label="尺寸" style={{ marginBottom: 0 }}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginRight: '6px' }}>
-          <InputNumber value={frame.width} onChange={(value) => {}} />
+          <InputNumber value={frame.width} onChange={(value) => change('width', value)} />
         </Form.Item>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginLeft: '6px' }}>
-          <InputNumber value={frame.height} onChange={(value) => {}} />
+          <InputNumber value={frame.height} onChange={(value) => change('height', value)} />
         </Form.Item>
       </Form.Item>
-      <Form.Item label="图表位置" style={{ marginBottom: 0 }}>
+      <Form.Item label="位置" style={{ marginBottom: 0 }}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginRight: '6px' }}>
-          <InputNumber value={frame.left} onChange={(value) => {}} />
+          <InputNumber value={frame.left} onChange={(value) => change('left', value)} />
         </Form.Item>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginLeft: '6px' }}>
-          <InputNumber value={frame.top} onChange={(value) => {}} />
+          <InputNumber value={frame.top} onChange={(value) => change('top', value)} />
         </Form.Item>
       </Form.Item>
-      <Form.Item label="旋转角度" style={{ marginBottom: 0 }}>
+      <Form.Item label="角度" style={{ marginBottom: 0 }}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginRight: '6px' }}>
-          <InputNumber value={frame.rotate} onChange={(value) => {}} />
+          <InputNumber value={frame.rotate} onChange={(value) => change('rotate', value)} />
         </Form.Item>
       </Form.Item>
     </Form>

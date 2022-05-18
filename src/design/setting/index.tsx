@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Tabs } from 'antd'
+import { useGetState } from 'ahooks'
 import eventBus from '@utils/eventBus'
+import update from 'immutability-helper'
 import { WidgetObj } from '@_types/Plugin'
 import Style from './style'
 import ScreenSetting from './screenSetting'
@@ -14,11 +16,48 @@ const style: React.CSSProperties = {
 
 const { TabPane } = Tabs
 const Setting = (props) => {
-  const [widgetObj, setWidgetObj] = useState<WidgetObj>()
+  const [widgetObj, setWidgetObj, getWidgetObj] = useGetState<WidgetObj>()
+
+  const changeWidget = useCallback(
+    (key: string, val: any) => {
+      const nowWidgetObj = getWidgetObj()
+      if (nowWidgetObj === undefined) return
+      let obj: any = {
+        widget: {
+          rect: {
+            [key]: {
+              $set: val,
+            },
+          },
+        },
+      }
+      if (key === 'rotate') {
+        obj = {
+          widget: {
+            rotate: {
+              $set: val,
+            },
+          },
+        }
+      }
+      let widgetObjCopy = update(nowWidgetObj, obj)
+      setWidgetObj(widgetObjCopy)
+      eventBus.emit('requestMoveable', key, val)
+      // eventBus.emit('setWidgetMap', {
+      //   id: widgetObjCopy.id,
+      //   widget: widgetObjCopy.widget,
+      // })
+    },
+    [widgetObj]
+  )
+
   useEffect(() => {
+    //更新整个页面的widgetObj
     eventBus.addListener('setSettingObj', (data: WidgetObj) => {
       setWidgetObj(data)
     })
+    //更新widgetObj单个的值
+    eventBus.addListener('changeSettingVal', changeWidget)
   }, [])
 
   const render = () => {

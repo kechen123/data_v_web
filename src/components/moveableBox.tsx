@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import Moveable from 'react-moveable'
+import { useGetState } from 'ahooks'
 import update from 'immutability-helper'
 import { useAppDispatch } from '@storeApp/hooks'
 import { setWidget } from '@features/widgetSlice'
@@ -11,8 +12,8 @@ export interface cRef {
 // const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
 const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
   const dispatch = useAppDispatch()
-  const [moveable, setMoveable] = useState<any>(null)
-  const [frame, setFrame] = useState<WidgetObj>(widgetList[0])
+  const [moveable, setMoveable, getMoveable] = useGetState<any>(null)
+  const [frame, setFrame, getFrame] = useGetState<WidgetObj>(widgetList[0])
 
   useEffect(() => {
     render()
@@ -86,9 +87,37 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   //move resize rotate 事件结束 更新
   const onMoveableEventEnd = () => {
+    const frame = getFrame()
+    let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+    let leftM = Math.round(left),
+      topM = Math.round(top),
+      offsetWidthM = Math.round(offsetWidth),
+      offsetHeightM = Math.round(offsetHeight),
+      rotationM = Math.round(rotation)
+    let newFrame = update(frame, {
+      widget: {
+        rect: {
+          left: {
+            $set: leftM,
+          },
+          top: {
+            $set: topM,
+          },
+          width: {
+            $set: offsetWidthM,
+          },
+          height: {
+            $set: offsetHeightM,
+          },
+        },
+        rotate: {
+          $set: rotationM,
+        },
+      },
+    })
     eventBus.emit('setWidgetMap', {
-      id: frame.id,
-      widget: frame.widget,
+      id: newFrame.id,
+      widget: newFrame.widget,
     })
   }
   const render = () => {
@@ -109,8 +138,43 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       eventBus.emit('widgetMoveEye', [offsetWidthM, offsetHeightM, leftM, topM, rotationM])
     }
   }
+
   useEffect(() => {
-    eventBus.addListener('requestMoveable', (data: WidgetObj) => {})
+    eventBus.addListener('requestMoveable', (key: string, val: number) => {
+      const moveable = getMoveable()
+      let requester: any = undefined
+      if (!moveable) return
+      switch (key) {
+        case 'left':
+          // requester = moveable.request('draggable')
+          // requester?.request({ x: val })
+          moveable.request('draggable', { x: val }, true)
+          break
+        case 'top':
+          // requester = moveable.request('draggable')
+          // requester?.request({ y: val })
+          moveable.request('draggable', { y: val }, true)
+          break
+        case 'width':
+          // requester = moveable.request('resizable')
+          // requester?.request({ offsetWidth: val })
+          moveable.request('resizable', { offsetWidth: val }, true)
+          break
+        case 'height':
+          // requester = moveable.request('resizable')
+          // requester?.request({ offsetHeight: val })
+          moveable.request('resizable', { offsetHeight: val }, true)
+          break
+        case 'rotate':
+          // requester = moveable.request('rotatable')
+          // requester?.request({ rotate: val })
+          moveable.request('rotatable', { rotate: val }, true)
+          break
+        default:
+          break
+      }
+      // if (requester) requester.requestEnd()
+    })
   }, [])
   return (
     <Moveable
@@ -126,7 +190,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       padding={{ left: 0, top: 0, right: 0, bottom: 0 }}
       draggable={true}
       resizable={true}
-      rotatable={true}
+      rotatable={false}
       onRender={render}
       onDrag={(e) => {
         e.target.style.transform = e.transform
