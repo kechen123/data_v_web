@@ -30,6 +30,7 @@ const Screen = (props: any) => {
   const widgetSelect = (e) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
+    console.log('targetId', targetId)
     setActiveWidgets([targetId])
     event = e
   }
@@ -227,6 +228,7 @@ const WidgetList = ({ WidgetObjList, widgetSelect }: any) => {
         return (
           <div
             key={id}
+            // onClick={widgetSelect}
             onMouseDown={widgetSelect}
             data-id={id}
             className={`widget `}

@@ -14,7 +14,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   const dispatch = useAppDispatch()
   const [moveable, setMoveable, getMoveable] = useGetState<any>(null)
   const [frame, setFrame, getFrame] = useGetState<WidgetObj>(widgetList[0])
-
   useEffect(() => {
     render()
   }, [target])
@@ -31,6 +30,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   const onDrag = (param) => {
     const { translate } = param
+    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rect: {
@@ -52,6 +52,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       offsetHeight,
       drag: { translate },
     } = args
+    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rect: {
@@ -75,6 +76,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   const onRotate = (args) => {
     const { rotate } = args
+    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rotate: {
@@ -115,8 +117,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         },
       },
     })
+    const id = target[0].getAttribute('data-id')
     eventBus.emit('setWidgetMap', {
-      id: newFrame.id,
+      id: id,
       widget: newFrame.widget,
     })
   }
@@ -226,4 +229,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
     />
   )
 }
-export default forwardRef(MoveableBox)
+export default React.memo(forwardRef(MoveableBox), (prevProps, nextProps) => {
+  return JSON.stringify(prevProps.widgetList) === JSON.stringify(nextProps.widgetList)
+})

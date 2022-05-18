@@ -1677,7 +1677,7 @@
     "@daybrush/utils" "1.6.0"
     "@scena/event-emitter" "^1.0.2"
 
-"@scena/event-emitter@^1.0.2", "@scena/event-emitter@^1.0.3", "@scena/event-emitter@^1.0.5":
+"@scena/event-emitter@^1.0.2", "@scena/event-emitter@^1.0.5":
   version "1.0.5"
   resolved "https://registry.npmmirror.com/@scena/event-emitter/-/event-emitter-1.0.5.tgz#047e3acef93cf238d7ce3a8cc5a12ec6bd9c3bb1"
   integrity sha512-AzY4OTb0+7ynefmWFQ6hxDdk0CySAq/D4efljfhtRHCOP7MBF9zUfhKG3TJiroVjASqVgkRJFdenS8ArZo6Olg==
@@ -6529,15 +6529,6 @@ moment@^2.24.0, moment@^2.29.2:
   resolved "https://registry.npmmirror.com/moment/-/moment-2.29.3.tgz#edd47411c322413999f7a5940d526de183c031f3"
   integrity sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==
 
-moveable@^0.29.8:
-  version "0.29.8"
-  resolved "https://registry.npmmirror.com/moveable/-/moveable-0.29.8.tgz#69f67bb89f2a8b137968d1484547bf77c4a1d9e3"
-  integrity sha512-FgaTZLS20JcKiXOm7XRSADCDI6jKCzEkKouBEBzIFLGeTUVhigd1NNjx/ObyBih7jDhm4zg3ULCMj3Bb0gFAIQ==
-  dependencies:
-    "@scena/event-emitter" "^1.0.3"
-    react-compat-moveable "~0.17.8"
-    react-simple-compat "^1.2.1"
-
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -8064,34 +8055,6 @@ react-color@^2.19.3:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
-react-compat-css-styled@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npmmirror.com/react-compat-css-styled/-/react-compat-css-styled-1.0.8.tgz#a6735a9a362b47bc12535e6d2c0f57262704f382"
-  integrity sha512-CG0kVbpKjiLMQc85pP50+Z0R9PGp7NIkkGqO88QTjEsSMOGKYlCXIAnXdKR2ZII23NJmA4XrJry03jkXOxTUkg==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    css-styled "^1.0.0"
-    framework-utils "^1.1.0"
-    react-css-styled "^1.0.3"
-
-react-compat-moveable@~0.17.8:
-  version "0.17.8"
-  resolved "https://registry.npmmirror.com/react-compat-moveable/-/react-compat-moveable-0.17.8.tgz#e030882f2240e8bd1ae1b8f71ea2b029f093b972"
-  integrity sha512-AJczdTosQekfdrueSChOE+YzjPl2vmtGOmRI0QWWji9GdlaryFmnXCqp3WTWvlJD8LIEA6M/v91XZKffZSa0kw==
-  dependencies:
-    "@daybrush/utils" "^1.6.0"
-    "@egjs/agent" "^2.2.1"
-    "@egjs/children-differ" "^1.0.1"
-    "@scena/dragscroll" "^1.1.1"
-    "@scena/matrix" "^1.1.1"
-    css-to-mat "^1.0.3"
-    framework-utils "^1.1.0"
-    gesto "^1.7.0"
-    overlap-area "^1.0.0"
-    react-compat-css-styled "^1.0.8"
-    react-css-styled "^1.0.3"
-    react-moveable "~0.32.7"
-
 react-css-styled@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmmirror.com/react-css-styled/-/react-css-styled-1.0.3.tgz#f6dda995f41e4777567d2464b7d12ed1373b4f1d"
@@ -8167,7 +8130,7 @@ react-is@^18.0.0:
   resolved "https://registry.npmmirror.com/react-is/-/react-is-18.1.0.tgz#61aaed3096d30eacf2a2127118b5b41387d32a67"
   integrity sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==
 
-react-moveable@~0.32.7:
+react-moveable@^0.32.7:
   version "0.32.7"
   resolved "https://registry.npmmirror.com/react-moveable/-/react-moveable-0.32.7.tgz#5cb6dfc59f211d43c5b2791a2c873b2abefe0812"
   integrity sha512-6fvqNU7NtKsE4pbwPbHEP/0Y486nDkvk0FgIV0fxOnuueF5fs0jRatDFGxg4fkyyYamlfqvR5Lrao2ukhzZTVg==
@@ -8277,14 +8240,6 @@ react-selecto@^1.16.2:
   integrity sha512-lDTeRxhyHilRylytYrtfgIMqEku+2kTyt84lgv0UQWEH/K0cp+VFVgZ4iixuDJ9Nn3BUjDrIlLxiaQ7AB9dVVw==
   dependencies:
     selecto "~1.16.2"
-
-react-simple-compat@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.npmmirror.com/react-simple-compat/-/react-simple-compat-1.2.2.tgz#e62cd33d2053ce023c4d2a204a5f1d5c8499c933"
-  integrity sha512-DYa9MHplwzjL/9xDKmTvM70umky8R162aZsKsWC2XRD7d+mIXyr8IQmAoRMlH2uwl4yGGgZbg7bj20qlCMhIYA==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    "@egjs/list-differ" "^1.0.0"
 
 react@^18.1.0:
   version "18.1.0"
