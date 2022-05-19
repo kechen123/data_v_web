@@ -5,6 +5,7 @@ import { BasicBar as BasicBarType } from './_types'
 
 const Index = (config: any) => {
   const option = getOption(config)
+  // console.log(JSON.stringify(option))
   const barRef = useRef<HTMLDivElement | null>(null)
   let echart: any = null
   useEffect(() => {

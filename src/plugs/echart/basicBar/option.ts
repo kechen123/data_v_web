@@ -114,10 +114,10 @@ export const defaultConfig: BasicBarType = {
   x: {
     show: true,
     unit: '',
-    color: '#fff',
+    color: 'rgba(255,255,255,0.6)',
     splitLineShow: true,
-    splitLineType: 'solid',
-    splitLineColor: '#fff',
+    splitLineType: 'dotted',
+    splitLineColor: 'rgba(255,255,255,0.2)',
     interval: 0,
     margin: 0,
     fontFamily: 'Microsoft YaHei',
@@ -141,7 +141,7 @@ export const defaultConfig: BasicBarType = {
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontColor: '#fff',
-    color: '#fff',
+    color: 'rgba(255,255,255,0.6)',
     title: {
       name: '',
       location: '',
@@ -155,8 +155,8 @@ export const defaultConfig: BasicBarType = {
     },
     splitLine: {
       show: true,
-      type: 'solid',
-      color: '#fff',
+      type: 'dotted',
+      color: 'rgba(255,255,255,0.2)',
     },
   },
   legend: {
