@@ -36,7 +36,7 @@ const Style = React.memo(({ widgetObj }: Props) => {
     return (
       <>
         <BaseAttr {...widgetObj} />
-        {/* <DetailAttr url={url} config={config} /> */}
+        <DetailAttr url={url} config={config} />
       </>
     )
   }

@@ -12,7 +12,8 @@
       "@config/*": ["./src/config/*"],
       "@plugs/*": ["./src/plugs/*"],
       "@setting/*": ["./src/design/setting/*"],
-      "@page/*": ["./src/page/*"]
+      "@page/*": ["./src/page/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }

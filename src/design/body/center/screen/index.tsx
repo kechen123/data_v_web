@@ -6,7 +6,7 @@ import Drop from '@components/drop'
 import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 
-import { screen } from '@features/screenSlice'
+import { screen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
 import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
@@ -43,7 +43,6 @@ const Screen = (props: any) => {
     let id = e.target.getAttribute('id')
     if (activeWidgets.length > 0 && id && id === 'screen') {
       setActiveWidgets([])
-      eventBus.emit('setSettingObj', undefined)
     }
   }
 
@@ -79,7 +78,7 @@ const Screen = (props: any) => {
       setTarget,
       widgetList: widgetList,
     }
-  }, [targetId])
+  }, [target])
 
   const setWidgetMapBus = useCallback(
     (data: WidgetObj) => {
@@ -110,6 +109,7 @@ const Screen = (props: any) => {
   )
 
   useEffect(() => {
+    dispatch(setActiveWidgetsStore(activeWidgets))
     if (activeWidgets.length === 0 && target.length > 0) {
       setTarget([])
     } else if (activeWidgets.length === 1) {
@@ -117,10 +117,6 @@ const Screen = (props: any) => {
       if (target) {
         setTarget([target])
       }
-      eventBus.emit('setSettingObj', {
-        id: activeWidgets[0],
-        widget: widgetMap[activeWidgets[0]],
-      })
     } else {
       let targets = activeWidgets.map((item) => {
         return document.querySelector(`div[data-id='${item}']`) as any

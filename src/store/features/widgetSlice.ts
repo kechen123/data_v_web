@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../app/store'
-import { WidgetMap, WidgetObj } from '@_types/Plugin'
+import { WidgetMap, WidgetObj, Widget } from '@_types/Plugin'
 import { SCREENWIDTH, SCREENHEIGHT } from '@config/index'
 
-// const initialState: Map<string, Plug> = new Map()
+// const initialState: Map<string, Widget> = new Map()
 const initialState: WidgetMap = {}
 export const widgetSlice = createSlice({
   name: 'widget', // 命名空间，在调用action的时候会默认的设置为action的前缀
@@ -13,6 +13,7 @@ export const widgetSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     setWidget: (state, action: PayloadAction<WidgetObj>) => {
+      // state.set(action.payload.id, action.payload.widget)
       state[action.payload.id] = action.payload.widget
     },
   },

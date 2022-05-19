@@ -75,6 +75,7 @@ module.exports = {
       '@plugs': path.resolve(__dirname, './src/plugs'),
       '@setting': path.resolve(__dirname, './src/design/setting'),
       '@page': path.resolve(__dirname, './src/page'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
     },
     plugins: {
       add: [] /* An array of plugins */,
