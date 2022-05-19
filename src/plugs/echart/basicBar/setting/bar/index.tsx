@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Collapse, Form, InputNumber, Select } from 'antd'
+import eventBus from '@utils/eventBus'
 import { Bar as BarType, Options as OptionsType, Option as OptionType } from '../../_types'
 import './index.less'
 
@@ -16,7 +17,6 @@ const Bar = (props: BarType) => {
     wrapperCol: { span: 16 },
   }
   const [bar, setBar] = useState<BarType>(props)
-  console.log('', bar)
 
   const selectAfter = (data: OptionsType) => {
     return (
@@ -46,11 +46,17 @@ const Bar = (props: BarType) => {
     default: 'px',
   }
 
+  const change = (key, value) => {
+    setBar({ ...bar, [key]: value })
+    const path = 'bar.' + key
+    eventBus.emit('changeSettingConfig', path, value)
+  }
+
   return (
     <>
       <Form {...layout} initialValues={{ layout: 'Inline' }} labelAlign="right" className="bar">
         <Form.Item label="柱子占比">
-          <InputNumber addonAfter={selectAfter(gapSelect)} value={bar.barGap} onChange={(value) => {}} style={{ width: '100px' }} />
+          <InputNumber addonAfter={selectAfter(gapSelect)} value={bar.barGap} onChange={(value) => change('barGap', value + '%')} style={{ width: '100px' }} />
         </Form.Item>
       </Form>
       <Form {...layout1} initialValues={{ layout: 'Inline' }} labelAlign="right">

@@ -1,4 +1,4 @@
-import data from './data.json'
+import defaultData from './data.json'
 import { BasicBar as BasicBarType, BarItem, Ruler } from './_types'
 
 export const defaultConfig: BasicBarType = {
@@ -469,7 +469,7 @@ const defaultRuler: Ruler = {
   y: ['A区', 'B区'],
 }
 
-export const getOption = (config: BasicBarType, data: any, ruler: Ruler = defaultRuler) => {
+export const getOption = (config: BasicBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { grid, bar, numberText, x, y, legend, tooltip } = config
 
   const gridOption = {
@@ -481,13 +481,13 @@ export const getOption = (config: BasicBarType, data: any, ruler: Ruler = defaul
   }
 
   const seriesOption = ruler.y.map((y_item, index) => {
-    const s_data = data.map((d_item) => data[d_item][y_item])
+    const s_data = data.map((d_item) => d_item[y_item])
     const configItem = bar.bars[index]
     return {
       name: y_item,
-      type: bar.barGap,
+      type: 'bar',
       barWidth: configItem.width,
-      barGap: '30%',
+      barGap: bar.barGap,
       data: s_data,
       itemStyle: {
         width: 50,

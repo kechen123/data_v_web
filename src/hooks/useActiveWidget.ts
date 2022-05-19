@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import update from 'immutability-helper'
 import { useGetState } from 'ahooks'
+import eventBus from '@utils/eventBus'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { screen } from '@features/screenSlice'
 import { widget as widgetSotre, setWidget } from '@features/widgetSlice'
@@ -28,6 +29,7 @@ const useActiveWidget = () => {
 
   const setActiveWidget = (widgetObj: WidgetObj) => {
     setWidgetObj(widgetObj)
+    eventBus.emit('setWidgetMap', widgetObj)
     dispatch(setWidget(widgetObj))
   }
 
@@ -36,12 +38,25 @@ const useActiveWidget = () => {
     if (obj) {
       const newWidgetObj = update(getWidgetObj(), obj)
       if (newWidgetObj) {
-        setWidgetObj(newWidgetObj)
         setActiveWidget(newWidgetObj)
       }
     }
   }
 
-  return { widgetObj, setActiveWidgetValueByPath, setWidgetObj: setActiveWidget }
+  const setActiveWidgetRectValue = (key: string, value: any) => {
+    let path = 'widget.rect.' + key
+    if (key === 'rotate') {
+      path = 'widget.rotate'
+    }
+    setActiveWidgetValueByPath(path, value)
+  }
+
+  const setActiveWidgetConfigValue = (key: string, value: any) => {
+    const path = 'widget.config.' + key
+
+    setActiveWidgetValueByPath(path, value)
+  }
+
+  return { widgetObj, setWidgetObj: setActiveWidget, setActiveWidgetValueByPath, setActiveWidgetRectValue, setActiveWidgetConfigValue }
 }
 export default useActiveWidget

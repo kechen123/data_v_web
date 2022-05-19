@@ -19,15 +19,21 @@ const style: React.CSSProperties = {
 }
 
 const { TabPane } = Tabs
-const Setting = (props) => {
-  const { widgetObj, setWidgetObj, setActiveWidgetValueByPath } = useActiveWidget()
-  const changeWidget = (path: string, val: any) => {
-    setActiveWidgetValueByPath(path, val)
+
+const Setting = () => {
+  const { widgetObj, setActiveWidgetConfigValue, setActiveWidgetRectValue } = useActiveWidget()
+  const setConfig = (key: string, val: any) => {
+    setActiveWidgetConfigValue(key, val)
+  }
+  const setRect = (key: string, val: any) => {
+    setActiveWidgetRectValue(key, val)
   }
 
   useEffect(() => {
-    //更新widgetObj单个的值
-    eventBus.addListener('changeSettingVal', changeWidget)
+    //更新基础信息
+    eventBus.addListener('changeSettingRect', setRect)
+    //更新配置项信息
+    eventBus.addListener('changeSettingConfig', setConfig)
   }, [])
 
   const render = () => {

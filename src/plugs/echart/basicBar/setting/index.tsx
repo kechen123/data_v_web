@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Collapse } from 'antd'
 import { BasicBar as BasicBarType } from '../_types'
 import Margin from './margin'
@@ -9,16 +9,19 @@ import './index.less'
 
 const { Panel } = Collapse
 
-export default (props: BasicBarType) => {
+const Index = (props: BasicBarType) => {
   const [bar, setBar] = useState<BasicBarType>(props)
+  const [active, setActive] = useState<string | string[]>([''])
   return (
     <Collapse
       bordered={false}
+      activeKey={active}
       expandIcon={({ isActive }) => (
         <span>
           <i className="icon iconfont icon-shouqijiantouxiao " style={{ transform: `rotate(${isActive ? 180 : 90}deg)` }} />
         </span>
       )}
+      onChange={(key) => setActive(key)}
       className="basicBar"
     >
       <Panel header="边距" key="1" className="panel">
@@ -36,3 +39,5 @@ export default (props: BasicBarType) => {
     </Collapse>
   )
 }
+
+export default Index

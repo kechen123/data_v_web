@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Form, Row, InputNumber } from 'antd'
+import eventBus from '@utils/eventBus'
 import { Margin as GridType } from '../../_types'
 
 const Margin = (props: GridType) => {
@@ -8,11 +9,17 @@ const Margin = (props: GridType) => {
     wrapperCol: { span: 18 },
   }
   const [grid, setGrid] = useState<GridType>(props)
+
+  const change = (key, value) => {
+    setGrid({ ...grid, [key]: value })
+    const path = 'grid.' + key
+    // eventBus.emit('changeSettingConfig', path, value)
+  }
   return (
     <Form {...layout} initialValues={{ layout: 'Inline' }}>
       <Row>
         <Form.Item label="上" style={{ width: 'calc(50% - 6px)', marginRight: '6px' }}>
-          <InputNumber value={grid.top} onChange={(value) => {}} />
+          <InputNumber value={grid.top} onChange={(value) => change('top', value)} />
         </Form.Item>
         <Form.Item label="右" style={{ width: 'calc(50% - 6px)' }}>
           <InputNumber value={grid.right} onChange={(value) => {}} />

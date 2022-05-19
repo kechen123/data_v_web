@@ -16,7 +16,8 @@ const DetailAttr = React.memo(
     return <OtherComponent {...config} />
   },
   (prev, next) => {
-    return JSON.stringify(prev.config) === JSON.stringify(next.config)
+    // return JSON.stringify(prev.config) === JSON.stringify(next.config)
+    return prev.url === next.url
   }
 )
 

@@ -30,7 +30,6 @@ const Screen = (props: any) => {
   const widgetSelect = (e) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
-    console.log('targetId', targetId)
     setActiveWidgets([targetId])
     event = e
   }

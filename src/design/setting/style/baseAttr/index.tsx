@@ -92,11 +92,7 @@ const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
 
   const change = (key, value) => {
     setFrame({ ...frame, [key]: value })
-    let path = 'widget.rect.' + key
-    if (key === 'rotate') {
-      path = 'widget.rotate'
-    }
-    eventBus.emit('changeSettingVal', path, value)
+    eventBus.emit('changeSettingRect', key, value)
     eventBus.emit('requestMoveable', key, value)
   }
 
