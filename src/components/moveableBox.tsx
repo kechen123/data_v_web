@@ -239,6 +239,4 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
     />
   )
 }
-export default React.memo(forwardRef(MoveableBox), (prevProps, nextProps) => {
-  return JSON.stringify(prevProps.widgetList) === JSON.stringify(nextProps.widgetList)
-})
+export default React.memo(forwardRef(MoveableBox))
