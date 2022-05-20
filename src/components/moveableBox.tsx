@@ -9,11 +9,21 @@ import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 export interface cRef {
   moveable: any
 }
+
 // const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
 const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
   const dispatch = useAppDispatch()
   const [moveable, setMoveable, getMoveable] = useGetState<any>(null)
-  const [frame, setFrame, getFrame] = useGetState<WidgetObj>(widgetList[0])
+
+  let frame = widgetList[0]
+  const setFrame = (data: any) => {
+    frame = data
+  }
+  const getFrame = () => {
+    return frame
+  }
+
+  // const [frame, setFrame, getFrame] = useGetState<WidgetObj>(widgetList[0])
   useEffect(() => {
     render()
   }, [target])
