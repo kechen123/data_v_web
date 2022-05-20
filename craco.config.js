@@ -14,7 +14,7 @@ module.exports = {
       options: {
         customizeTheme: {
           '@primary-color': '#56cfb2',
-          '@border-color-base': 'var(--lightest-navy)',
+          '@border-color-base': 'var(--input-border)',
           '@collapse-header-arrow-left': '6px',
           '@collapse-header-padding-extra': '26px',
           '@collapse-header-bg': 'var(--navy)',
