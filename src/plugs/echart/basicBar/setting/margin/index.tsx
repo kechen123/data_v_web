@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Form, Row, InputNumber, Select } from 'antd'
+import eventBus from '@utils/eventBus'
 import InputNumberUnit from '@components/form/inputNumberUnit'
 import { Margin as GridType } from '../../_types'
 
@@ -15,7 +16,7 @@ const Margin = (props: GridType) => {
   const change = (key, value) => {
     setGrid({ ...grid, [key]: value })
     const path = 'grid.' + key
-    // eventBus.emit('changeSettingConfig', path, value)
+    eventBus.emit('changeSettingConfig', path, value)
   }
   return (
     <Form {...layout} initialValues={{ layout: 'Inline' }}>

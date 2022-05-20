@@ -17,7 +17,7 @@ const DetailAttr = React.memo(
   },
   (prev, next) => {
     // return JSON.stringify(prev.config) === JSON.stringify(next.config)
-    return prev.url === next.url
+    return prev.id + prev.url === next.id + next.url
   }
 )
 
@@ -26,6 +26,7 @@ const Style = React.memo(({ widgetObj }: Props) => {
     return <></>
   } else {
     let {
+      id,
       widget,
       widget: {
         plugin: { name, url },
@@ -37,7 +38,7 @@ const Style = React.memo(({ widgetObj }: Props) => {
     return (
       <>
         <BaseAttr {...widgetObj} />
-        <DetailAttr url={url} config={config} />
+        <DetailAttr id={id} url={url} config={config} />
       </>
     )
   }

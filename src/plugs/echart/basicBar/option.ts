@@ -49,12 +49,12 @@ export const defaultConfig: BasicBarType = {
           globalCoord: false,
         },
         width: '30%',
-        borderRadius: 0,
+        borderRadius: 2,
         borderWidth: 0,
         barPosition: 'top',
         borderType: 'solid',
         borderColor: '#3D7EEB',
-        barUnit: '%',
+        barUnit: '',
       },
       {
         color: {
@@ -99,7 +99,7 @@ export const defaultConfig: BasicBarType = {
         barPosition: 'top',
         borderType: 'solid',
         borderColor: '#3D7EEB',
-        barUnit: '%',
+        barUnit: '',
       },
     ],
   },
@@ -491,14 +491,15 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
       data: s_data,
       itemStyle: {
         width: 50,
-        borderRadius: 2,
+        borderRadius: configItem.borderRadius,
         color: configItem.color,
+        borderType: configItem.borderType,
         borderColor: configItem.borderColor,
         borderWidth: configItem.borderWidth,
       },
       label: {
         show: numberText.show,
-        position: 'top',
+        position: configItem.barPosition,
         distance: 5,
         color: numberText.color,
         fontSize: numberText.fontSize,
@@ -514,6 +515,10 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
         textShadowOffsetX: 0,
         textShadowOffsetY: 0,
         padding: [0, 0, 0, 0],
+        formatter: function (p) {
+          let val = p.value
+          return val + configItem.barUnit
+        },
       },
     }
   })

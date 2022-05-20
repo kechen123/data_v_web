@@ -5,6 +5,7 @@ import { WidgetObj } from '@_types/Plugin'
 
 const Widget = (props: WidgetObj) => {
   const {
+    id,
     widget: {
       plugin: { url },
       config,
@@ -36,16 +37,15 @@ const Wiget1 = (props: WidgetObj) => {
 //组件配置项参数和尺寸变化时 重新渲染
 const equal = (prevProps, nextProps) => {
   const {
+    prevId,
     widget: { config: prevConfig, rect: prevRect },
   } = prevProps
   const prevSize = { width: prevRect.width, height: prevRect.height }
   const {
+    nextId,
     widget: { config: nextConfig, rect: nextRect },
   } = nextProps
   const nextSize = { width: nextRect.width, height: nextRect.height }
-  if (JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)) {
-    return true
-  }
-  return false
+  return prevId === nextId && JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)
 }
 export default React.memo(Widget, equal)

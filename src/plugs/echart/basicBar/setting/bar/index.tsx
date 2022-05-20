@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { Collapse, Form, InputNumber, Select } from 'antd'
+import { Collapse, Form, Input, InputNumber, Select } from 'antd'
+import update from 'immutability-helper'
 import eventBus from '@utils/eventBus'
 import InputNumberUnit from '@components/form/inputNumberUnit'
+import { getObjByPath } from '@utils/common'
 import { Bar as BarType, Options as OptionsType, Option as OptionType } from '../../_types'
 import './index.less'
 
@@ -48,9 +50,12 @@ const Bar = (props: BarType) => {
   }
 
   const change = (key, value) => {
-    setBar({ ...bar, [key]: value })
-    const path = 'bar.' + key
-    eventBus.emit('changeSettingConfig', path, value)
+    const obj = getObjByPath(key, value)
+    if (obj) {
+      setBar(update(bar, obj))
+      const path = 'bar.' + key
+      eventBus.emit('changeSettingConfig', path, value)
+    }
   }
 
   return (
@@ -75,19 +80,20 @@ const Bar = (props: BarType) => {
             return (
               <Panel header={`柱子` + (index + 1)} key={index + 1} className="barPanel">
                 <Form.Item label="填充颜色">
-                  <InputNumber value={bar.barGap} onChange={(value) => {}} />
+                  <InputNumber value={item.color} onChange={(value) => {}} />
                 </Form.Item>
                 <Form.Item label="悬浮颜色">
-                  <InputNumber value={bar.barGap} onChange={(value) => {}} />
+                  <InputNumber value={item.color} onChange={(value) => {}} />
                 </Form.Item>
                 <Form.Item label="宽度占比">
-                  <InputNumber value={bar.barGap} addonAfter="%" onChange={(value) => {}} />
+                  <InputNumberUnit value={item.width} unit={['px', '%']} onChange={(value) => change(`bars.${index}.width`, value)} />
                 </Form.Item>
                 <Form.Item label="圆角">
-                  <InputNumber value={bar.barGap} addonAfter="px" onChange={(value) => {}} />
+                  <InputNumber value={item.borderRadius} min={0} onChange={(value) => change(`bars.${index}.borderRadius`, value)} />
                 </Form.Item>
                 <Form.Item label="边框粗细">
-                  <Select onChange={(value) => {}}>
+                  <Select value={item.borderWidth} onChange={(value) => change(`bars.${index}.borderWidth`, value)}>
+                    <Option value="0">0</Option>
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>
                     <Option value="3">3</Option>
@@ -95,23 +101,31 @@ const Bar = (props: BarType) => {
                     <Option value="5">5</Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="内容位置">
-                  <Select onChange={(value) => {}}>
-                    <Option value="top">顶部</Option>
-                  </Select>
-                </Form.Item>
                 <Form.Item label="边框类型">
-                  <Select onChange={(value) => {}}>
+                  <Select value={item.borderType} onChange={(value) => change(`bars.${index}.borderType`, value)}>
                     <Option value="solid">实线</Option>
                     <Option value="dashed">虚线</Option>
                     <Option value="dotted">点线</Option>
                   </Select>
                 </Form.Item>
                 <Form.Item label="边框颜色">
-                  <InputNumber value={bar.barGap} onChange={(value) => {}} />
+                  <InputNumber value={item.borderColor} onChange={(value) => {}} />
+                </Form.Item>
+                <Form.Item label="内容位置">
+                  <Select value={item.barPosition} onChange={(value) => change(`bars.${index}.barPosition`, value)}>
+                    <Option value="top">顶部</Option>
+                    <Option value="inside">居中</Option>
+                    <Option value="bottom">底部</Option>
+                  </Select>
                 </Form.Item>
                 <Form.Item label="单位">
-                  <InputNumber value={bar.barGap} onChange={(value) => {}} />
+                  <Input
+                    value={item.barUnit}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      change(`bars.${index}.barUnit`, value)
+                    }}
+                  />
                 </Form.Item>
               </Panel>
             )

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useEventListener } from 'ahooks'
 import Selecto from 'react-selecto'
 import Drop from '@components/drop'
@@ -15,9 +15,9 @@ import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
 import style from './index.module.less'
 
-let event = null
+let event: any = null
 
-const Screen = (props: any) => {
+const Screen = () => {
   const [widgetMap, setWidgetMap] = useState({})
   const [activeWidgets, setActiveWidgets] = useState<any>([])
   const widgetMapRef = useRef<any>([])
@@ -127,7 +127,7 @@ const Screen = (props: any) => {
   //选中/取消选中组件
   useEffect(() => {
     if (target.length === 1) {
-      if (childRef.current && event != null) {
+      if (childRef.current && event != null && event.type === 'mousedown') {
         const moveable = childRef.current.moveable
         moveable.dragStart(event)
       }
@@ -156,6 +156,9 @@ const Screen = (props: any) => {
     }
   }, [])
   useEventListener('mousedown', viewClick)
+  useEventListener('mouseup', (e) => {
+    event = e
+  })
   let bodyW = (scale / 100) * width + SCREENMARGIN[1] + SCREENMARGIN[3]
   let bodyH = (scale / 100) * height + SCREENMARGIN[0] + SCREENMARGIN[2]
   return (
@@ -208,7 +211,7 @@ const Screen = (props: any) => {
   )
 }
 
-const WidgetList = ({ WidgetObjList, widgetSelect }: any) => {
+const WidgetList = React.memo(({ WidgetObjList, widgetSelect }: any) => {
   return (
     <>
       {WidgetObjList.map((item) => {
@@ -240,6 +243,6 @@ const WidgetList = ({ WidgetObjList, widgetSelect }: any) => {
       })}
     </>
   )
-}
+})
 
 export default Screen
