@@ -1,3 +1,4 @@
+import { widget } from './../store/features/widgetSlice'
 import React, { useEffect, useState } from 'react'
 import update from 'immutability-helper'
 import { useGetState } from 'ahooks'
@@ -17,15 +18,17 @@ const useActiveWidget = () => {
   useEffect(() => {
     const newWidget = widget[activeWidgets[0]]
     if (newWidget) {
-      const newWidgetObj = {
-        id: activeWidgets[0],
-        widget: newWidget,
+      if (JSON.stringify(newWidget) !== JSON.stringify(widgetObj)) {
+        const newWidgetObj = {
+          id: activeWidgets[0],
+          widget: newWidget,
+        }
+        setWidgetObj(newWidgetObj)
       }
-      setWidgetObj(newWidgetObj)
     } else {
       setWidgetObj(undefined)
     }
-  }, [activeWidgets])
+  }, [activeWidgets, widget])
 
   const setActiveWidget = (widgetObj: WidgetObj) => {
     setWidgetObj(widgetObj)
@@ -36,7 +39,8 @@ const useActiveWidget = () => {
   const setActiveWidgetValueByPath = (path: string, value: any) => {
     const obj = getObjByPath(path, value)
     if (obj) {
-      const newWidgetObj = update(getWidgetObj(), obj)
+      const widget = getWidgetObj()
+      const newWidgetObj = update(widget, obj)
       if (newWidgetObj) {
         setActiveWidget(newWidgetObj)
       }

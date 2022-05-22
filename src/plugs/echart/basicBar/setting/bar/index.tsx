@@ -22,34 +22,6 @@ const Bar = (props: BarType) => {
   }
   const [bar, setBar] = useState<BarType>(props)
 
-  const selectAfter = (data: OptionsType) => {
-    return (
-      <Select defaultValue={data.default ? data.default : data.option[0].value} style={{ width: 50 }}>
-        {data.option.map((item: OptionType) => {
-          return (
-            <Option key={item.value} value={item.value}>
-              {item.label}
-            </Option>
-          )
-        })}
-      </Select>
-    )
-  }
-
-  const gapSelect: OptionsType = {
-    option: [
-      {
-        label: 'px',
-        value: 'px',
-      },
-      {
-        label: '%',
-        value: '%',
-      },
-    ],
-    default: 'px',
-  }
-
   const change = (key, value) => {
     const obj = getObjByPath(key, value)
     if (obj) {

@@ -1,3 +1,4 @@
+import { LegendPosition as LegendPositionType } from '@_types/formData'
 type valueType = number | string
 
 export type Margin = {
@@ -88,7 +89,7 @@ export type Y = {
 
 export type Legend = {
   show: boolean
-  position: string
+  position: LegendPositionType
   fontFamily: string
   fontSize: number
   fontStyle: string

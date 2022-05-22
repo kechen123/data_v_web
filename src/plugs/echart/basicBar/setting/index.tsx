@@ -5,6 +5,8 @@ import Margin from './margin'
 import Bar from './bar'
 import X from './x'
 import Y from './y'
+import Legend from './legend'
+import Tooltip from './tooltip'
 import './index.less'
 
 const { Panel } = Collapse
@@ -35,6 +37,12 @@ const Index = (props: BasicBarType) => {
       </Panel>
       <Panel header="Y轴" key="4" className="panel">
         <Y {...bar.y} />
+      </Panel>
+      <Panel header="图例" key="5" className="panel">
+        <Legend {...bar.legend} />
+      </Panel>
+      <Panel header="提示层" key="6" className="panel">
+        <Tooltip {...bar.tooltip} />
       </Panel>
     </Collapse>
   )

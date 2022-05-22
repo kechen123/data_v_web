@@ -1,3 +1,4 @@
+import { Legend } from './../plugs/echart/basicBar/_types'
 import { InputNumber } from 'antd'
 export type Option = {
   label: string
@@ -20,3 +21,5 @@ export type InputNumber = Input & {
   min?: number
   max?: number
 }
+
+export type LegendPosition = 'top' | 'top_left' | 'top_right' | 'bottom' | 'left_top' | 'left_bottom' | 'right_top' | 'right_bottom'

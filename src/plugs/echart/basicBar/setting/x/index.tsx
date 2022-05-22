@@ -4,7 +4,7 @@ import update from 'immutability-helper'
 import eventBus from '@utils/eventBus'
 import EchartColor from '@components/echartColor'
 import { X as XType } from '../../_types'
-import { borderType, fontFamily } from '@utils/formData'
+import { borderTypeOption, fontFamilyOption } from '@/utils/formData'
 import { getObjByPath } from '@utils/common'
 
 const { Option } = Select
@@ -15,22 +15,6 @@ const X = (props: XType) => {
     wrapperCol: { span: 16 },
   }
   const [x, setX] = useState<XType>(props)
-
-  const borderTypeOption = borderType.options.map((item) => {
-    return (
-      <Option key={item.value} value={item.value}>
-        {item.label}
-      </Option>
-    )
-  })
-
-  const fontFamilyOption = fontFamily.options.map((item) => {
-    return (
-      <Option key={item.value} value={item.value}>
-        {item.label}
-      </Option>
-    )
-  })
 
   const change = (key, value) => {
     setX({ ...x, [key]: value })

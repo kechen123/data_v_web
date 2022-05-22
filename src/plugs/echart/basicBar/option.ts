@@ -1,5 +1,6 @@
 import defaultData from './data.json'
 import { BasicBar as BasicBarType, BarItem, Ruler } from './_types'
+import { legendPosition } from '@/utils/formData'
 
 export const defaultConfig: BasicBarType = {
   grid: {
@@ -161,7 +162,7 @@ export const defaultConfig: BasicBarType = {
   },
   legend: {
     show: true,
-    position: '',
+    position: 'top',
     fontFamily: 'Microsoft YaHei',
     fontSize: 12,
     fontStyle: 'normal',
@@ -523,13 +524,16 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     }
   })
 
+  const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
     data: ruler.y,
     show: legend.show,
-    orient: 'horizontal',
-    left: '72%',
-    top: '1%',
+    orient: orient,
+    top: top,
+    left: left,
+    right: right,
+    bottom: bottom,
     itemGap: 30,
     textStyle: {
       fontFamily: legend.fontFamily,
@@ -614,7 +618,20 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
 
   const yAxisOption = {
     type: 'value',
+    name: y.title.name,
+    nameLocation: y.title.location,
+    nameGap: y.title.gap,
+    nameRotate: y.title.rotate,
+    nameTextStyle: {
+      fontSize: y.title.fontSize,
+      color: y.title.fontColor,
+      fontFamily: y.title.fontFamily,
+      fontWeight: y.title.fontWeight,
+      fontStyle: y.title.fontStyle,
+    },
     show: y.show,
+    position: y.position,
+    offset: y.offset,
     max: y.max,
     min: y.min,
     splitNumber: null,
@@ -653,6 +670,10 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
       textShadowColor: 'rgba(74,146,236,0)',
       textShadowOffsetX: 0,
       textShadowOffsetY: 0,
+      formatter: function (p) {
+        let val = p
+        return val + '' + y.unit
+      },
     },
   }
 
