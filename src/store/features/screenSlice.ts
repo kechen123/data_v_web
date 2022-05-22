@@ -29,7 +29,7 @@ const initialState: screenState = {
   height: SCREENHEIGHT,
   scale: 100,
   screenZoom: 'none',
-  backgroundColor: '',
+  backgroundColor: '#0d2a43',
   backgroundImage: '',
   screenWidget: [],
   widgetIndex: 3,

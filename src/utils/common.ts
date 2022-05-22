@@ -4,7 +4,8 @@ export const getObjByPath = (field: string, value: any) => {
     return undefined
   }
   if (typeof field === 'string' && field.indexOf('.') === -1) {
-    return undefined
+    obj[field] = { $set: value }
+    return obj
   }
   const ids = field.split('.')
   let th = ''

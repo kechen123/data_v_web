@@ -1,7 +1,11 @@
 import { useState } from 'react'
-import { Form, Row, InputNumber, Switch, Select } from 'antd'
+import { Form, Input, InputNumber, Switch, Select } from 'antd'
+import update from 'immutability-helper'
+import eventBus from '@utils/eventBus'
+import EchartColor from '@components/echartColor'
 import { X as XType } from '../../_types'
 import { borderType, fontFamily } from '@utils/formData'
+import { getObjByPath } from '@utils/common'
 
 const { Option } = Select
 
@@ -27,40 +31,54 @@ const X = (props: XType) => {
       </Option>
     )
   })
+
+  const change = (key, value) => {
+    setX({ ...x, [key]: value })
+    const path = 'x.' + key
+    eventBus.emit('changeSettingConfig', path, value)
+  }
   return (
     <Form {...layout} initialValues={{ layout: 'Inline' }} labelAlign="right">
       <Form.Item label="单位">
-        <InputNumber value={x.unit} onChange={(value) => {}} />
+        <Input
+          value={x.unit}
+          onChange={(e) => {
+            const value = e.target.value
+            change(`unit`, value)
+          }}
+        />
       </Form.Item>
       <Form.Item label="坐标轴颜色">
-        <InputNumber value={x.color} onChange={(value) => {}} />
+        <EchartColor color={x.color} onChange={(value) => change(`color`, value)} />
       </Form.Item>
       <Form.Item label="网格线">
-        <Switch checked={x.splitLineShow} onChange={(value) => {}} />
+        <Switch checked={x.splitLineShow} onChange={(value) => change(`splitLineShow`, value)} />
       </Form.Item>
       <Form.Item label="网格线类型">
-        <Select onChange={(value) => {}}>{borderTypeOption}</Select>
+        <Select value={x.splitLineType} onChange={(value) => change(`splitLineType`, value)}>
+          {borderTypeOption}
+        </Select>
       </Form.Item>
       <Form.Item label="网格线颜色">
-        <InputNumber value={x.splitLineColor} onChange={(value) => {}} />
+        <EchartColor color={x.splitLineColor} onChange={(value) => change(`splitLineColor`, value)} />
       </Form.Item>
       <Form.Item label="标签间隔">
-        <InputNumber value={x.interval} onChange={(value) => {}} />
+        <InputNumber value={x.interval} onChange={(value) => change(`interval`, value)} />
       </Form.Item>
       <Form.Item label="标签位置">
-        <InputNumber value={x.margin} onChange={(value) => {}} />
+        <InputNumber value={x.margin} onChange={(value) => change(`margin`, value)} />
       </Form.Item>
       <Form.Item label="字体">
-        <Select onChange={(value) => {}}>{fontFamilyOption}</Select>
+        <Select onChange={(value) => change(`fontFamily`, value)}>{fontFamilyOption}</Select>
       </Form.Item>
       <Form.Item label="字号">
-        <InputNumber value={x.fontSize} onChange={(value) => {}} />
+        <InputNumber value={x.fontSize} onChange={(value) => change(`fontSize`, value)} />
       </Form.Item>
       <Form.Item label="字体颜色">
-        <InputNumber value={x.margin} onChange={(value) => {}} />
+        <EchartColor color={x.fontColor} onChange={(value) => change(`fontColor`, value)} />
       </Form.Item>
       <Form.Item label="缩略轴">
-        <Switch checked={x.splitLineShow} onChange={(value) => {}} />
+        <Switch checked={x.zoom} onChange={(value) => change(`zoom`, value)} />
       </Form.Item>
     </Form>
   )

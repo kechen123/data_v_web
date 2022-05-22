@@ -3,6 +3,7 @@ import { Collapse, Form, Input, InputNumber, Select } from 'antd'
 import update from 'immutability-helper'
 import eventBus from '@utils/eventBus'
 import InputNumberUnit from '@components/form/inputNumberUnit'
+import EchartColor from '@components/echartColor'
 import { getObjByPath } from '@utils/common'
 import { Bar as BarType, Options as OptionsType, Option as OptionType } from '../../_types'
 import './index.less'
@@ -80,10 +81,10 @@ const Bar = (props: BarType) => {
             return (
               <Panel header={`柱子` + (index + 1)} key={index + 1} className="barPanel">
                 <Form.Item label="填充颜色">
-                  <InputNumber value={item.color} onChange={(value) => {}} />
+                  <EchartColor color={item.color} onChange={(value) => change(`bars.${index}.color`, value)} />
                 </Form.Item>
                 <Form.Item label="悬浮颜色">
-                  <InputNumber value={item.color} onChange={(value) => {}} />
+                  <EchartColor color={item.emphasisColor} onChange={(value) => change(`bars.${index}.emphasisColor`, value)} />
                 </Form.Item>
                 <Form.Item label="宽度占比">
                   <InputNumberUnit value={item.width} unit={['px', '%']} onChange={(value) => change(`bars.${index}.width`, value)} />
@@ -109,7 +110,7 @@ const Bar = (props: BarType) => {
                   </Select>
                 </Form.Item>
                 <Form.Item label="边框颜色">
-                  <InputNumber value={item.borderColor} onChange={(value) => {}} />
+                  <EchartColor color={item.borderColor} onChange={(value) => change(`bars.${index}.borderColor`, value)} />
                 </Form.Item>
                 <Form.Item label="内容位置">
                   <Select value={item.barPosition} onChange={(value) => change(`bars.${index}.barPosition`, value)}>
