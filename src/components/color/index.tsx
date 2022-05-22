@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Modal from 'react-modal'
 import { SketchPicker } from 'react-color'
 import { Color as ColorType, BaseColor as BaseColorType, RgbaColor as RgbaColorType } from '@_types/color'
 import styles from './index.module.less'
 
-Modal.setAppElement('#root')
 interface Props {
   color: BaseColorType | RgbaColorType
   onChange: (color: ColorType) => void
@@ -98,9 +96,6 @@ const Color = ({ color, onChange }: Props) => {
           <SketchPicker ref={colorRef} color={selfColor} onChange={handleChange} />
         </div>
       </div>
-      {/* <Modal style={customStyles} closeTimeoutMS={150} isOpen={isOpen}> */}
-
-      {/* </Modal> */}
     </div>
   )
 }
