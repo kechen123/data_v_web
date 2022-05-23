@@ -465,7 +465,7 @@ export const Echarts: Array<Widget> = [
     name: '堆积柱图',
     plugin: {
       name: 'border',
-      url: 'echart/stackBar',
+      url: 'echart/stackBar1',
     },
     rect: {
       width: 570,

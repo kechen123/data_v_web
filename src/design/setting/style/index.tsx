@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import loadable from '@loadable/component'
 import eventBus from '@utils/eventBus'
 import BaseAttr from './baseAttr'
@@ -14,13 +14,24 @@ const Loading = (props: any) => {
 }
 
 const DetailAttr = React.memo(
-  ({ config, url }: any) => {
+  ({ id, config, url }: any) => {
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+      setError(null)
+    }, [id])
+
     const OtherComponent = loadable(() => import(`@plugs/${url}/setting/index.tsx`), {
       cacheKey: (props) => props.url,
-      fallback: Loading,
     })
 
-    return <OtherComponent {...config} />
+    return (
+      <ErrorBoundary error={error} setError={setError}>
+        <Suspense fallback={<Loading />}>
+          <OtherComponent {...config} />
+        </Suspense>
+      </ErrorBoundary>
+    )
   },
   (prev, next) => {
     // return JSON.stringify(prev.config) === JSON.stringify(next.config)
@@ -45,9 +56,7 @@ const Style = React.memo(({ widgetObj }: Props) => {
     return (
       <>
         <BaseAttr {...widgetObj} />
-        <ErrorBoundary>
-          <DetailAttr id={id} url={url} config={config} />
-        </ErrorBoundary>
+        <DetailAttr id={id} url={url} config={config} />
       </>
     )
   }
