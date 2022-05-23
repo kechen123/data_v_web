@@ -437,7 +437,7 @@ export const Echarts: Array<Widget> = [
     name: '基本柱图',
     plugin: {
       name: 'border',
-      url: 'echart/basicBar4',
+      url: 'echart/basicBar',
     },
     rect: {
       width: 570,
