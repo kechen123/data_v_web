@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import loadable from '@loadable/component'
 import Loading from './loading'
+import ErrorBoundary from './error'
 import { WidgetObj } from '@_types/Plugin'
 
 const Widget = (props: WidgetObj) => {
@@ -21,7 +22,11 @@ const Widget = (props: WidgetObj) => {
     cacheKey: (props) => props.url,
   })
 
-  return <OtherComponent {...config} />
+  return (
+    <ErrorBoundary>
+      <OtherComponent {...config} />
+    </ErrorBoundary>
+  )
 }
 
 const Wiget1 = (props: WidgetObj) => {

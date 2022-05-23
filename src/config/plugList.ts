@@ -437,13 +437,13 @@ export const Echarts: Array<Widget> = [
     name: '基本柱图',
     plugin: {
       name: 'border',
-      url: 'echart/basicBar',
+      url: 'echart/basicBar4',
     },
     rect: {
       width: 570,
       height: 312,
     },
-    img: 'datavImage/border/border1.png',
+    img: 'datavImage/echart/baseBar.png',
     config: basicBarConfig,
   },
   {
