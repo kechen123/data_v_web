@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
-import option from './option'
+import { getOption } from './option'
 
 const Index = (config: any) => {
+  const option = getOption(config)
   const barRef = useRef<HTMLDivElement | null>(null)
   let echart: any = null
-
   useEffect(() => {
     if (barRef.current) {
       echart = echarts.init(barRef.current)

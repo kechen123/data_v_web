@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig } from '@plugs/defaultConfig'
 
 export const BORDER: Array<Widget> = [
   {
@@ -457,9 +457,7 @@ export const Echarts: Array<Widget> = [
       height: 312,
     },
     img: 'datavImage/border/border1.png',
-    config: {
-      color: ['#235fa7', '#4fd2dd'],
-    },
+    config: colorBarConfig,
   },
   {
     name: '堆积柱图',

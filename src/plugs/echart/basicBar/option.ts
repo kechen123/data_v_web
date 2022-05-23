@@ -571,7 +571,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     extraCssText: '',
   }
 
-  const xAxisData = data.map((item) => item[defaultRuler.x])
+  const xAxisData = data.map((item) => item[ruler.x])
 
   const xAxisOption = {
     type: 'category',
@@ -602,9 +602,9 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     },
     axisLabel: {
       show: true,
-      interval: x.interval,
+      interval: x.interval, // 0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数
       rotate: 0,
-      margin: x.margin,
+      margin: x.margin, // 文字距离轴线的距离
       fontFamily: x.fontFamily,
       fontSize: x.fontSize,
       color: x.fontColor,
@@ -655,7 +655,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
       show: true,
       length: 6,
       lineStyle: {
-        color: 'rgba(38,217,255,0.5)',
+        color: y.color,
         width: 2,
       },
     },
