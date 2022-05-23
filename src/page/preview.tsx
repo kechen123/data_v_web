@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useEventListener } from 'ahooks'
 import Widget from '@plugs/index'
 
@@ -45,12 +45,18 @@ const Preview = () => {
       setData(e.data.data)
     }
   })
-
+  const widgetArr = useMemo(() => {
+    const { screenWidget } = data
+    return Object.keys(screenWidget).map((key) => {
+      return {
+        id: key,
+        widget: screenWidget[key],
+      }
+    })
+  }, [data.screenWidget])
   return (
     <Body {...body}>
-      ertert
-      {JSON.stringify(data)}
-      {/* <WidgetList WidgetObjList={data.screenWidget} /> */}
+      <WidgetList WidgetObjList={widgetArr} />
     </Body>
   )
 }

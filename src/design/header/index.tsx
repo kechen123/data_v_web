@@ -14,8 +14,12 @@ const Header = (props) => {
         // console.log('预览窗口加载完毕' + window.origin)
         const data = {
           type: 'screen',
-          data: screenData,
+          data: {
+            ...screenData,
+            screenWidget: widgetData,
+          },
         }
+        console.log('', data)
         newWindow.postMessage(data, window.origin)
       }
     }
