@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useEventListener } from 'ahooks'
+import { message, Modal } from 'antd'
 import Selecto from 'react-selecto'
 import Drop from '@components/drop'
 import ContextMenu from '@components/contextmenu'
@@ -125,6 +126,7 @@ const Screen = () => {
       widgetMapRef.current = widgetMapCopy
       setWidgetMap(widgetMapCopy)
       dispatch(delWidget(ids))
+      message.success('删除成功')
     },
     [widgetMap]
   )

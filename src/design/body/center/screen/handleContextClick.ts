@@ -1,4 +1,5 @@
 import eventBus from '@utils/eventBus'
+import { message, Modal } from 'antd'
 
 const copy = (text: string) => {}
 
@@ -17,7 +18,16 @@ const hide = (text: string) => {}
 const lock = (text: string) => {}
 
 const del = (text: string) => {
-  eventBus.emit('delActiveWidgets')
+  Modal.confirm({
+    title: '删除组件',
+    centered: true,
+    content: '删除后无法恢复！确定要删除?',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      eventBus.emit('delActiveWidgets')
+    },
+  })
 }
 
 const click = (params: any[]) => {
