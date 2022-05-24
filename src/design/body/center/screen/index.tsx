@@ -2,37 +2,35 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useEventListener } from 'ahooks'
 import Selecto from 'react-selecto'
 import Drop from '@components/drop'
-
+import ContextMenu from '@components/contextmenu'
 import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 
 import { screen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
-import { setWidget } from '@features/widgetSlice'
+import { setWidget, delWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
+import { tabContextMenu } from '@config/contextmenu'
+import contextMenuClick from './handleContextClick'
 import style from './index.module.less'
 
 let event: any = null
 
 const Screen = () => {
-  const [widgetMap, setWidgetMap] = useState({})
-  const [activeWidgets, setActiveWidgets] = useState<any>([])
-  const widgetMapRef = useRef<any>([])
-  const activeWidgetsRef = useRef<any>([])
-  const moveContent = useRef<HTMLDivElement>(null)
-  const [target, setTarget] = useState<Array<HTMLDivElement>>([])
-  const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screen)
+  const [widgetMap, setWidgetMap] = useState({}) // 存储所有组件
+  const [activeWidgets, setActiveWidgets] = useState<any>([]) // 存储当前激活的组件
+  const widgetMapRef = useRef<any>([]) // 所有组件最新值
+  const activeWidgetsRef = useRef<any>([]) // 当前激活的组件最新值
+  const moveContent = useRef<HTMLDivElement>(null) // 移动组件的容器
+  const [target, setTarget] = useState<Array<HTMLDivElement>>([]) // 目标组件 可以拖拽的组件
+  const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screen) // 获取当前屏幕基本信息
   const childRef = useRef<cRef>(null)
   const dispatch = useAppDispatch()
-  const widgetSelect = (e) => {
-    e.stopPropagation()
-    const targetId = e.currentTarget.getAttribute('data-id')
-    setActiveWidgets([targetId])
-    event = e
-  }
+
+  //组件取消选中
   const viewClick = (e) => {
     let el = e.target.parentElement
     if (el && el.getAttribute('class') !== null && el.getAttribute('class').indexOf('moveable') > -1) {
@@ -45,6 +43,12 @@ const Screen = () => {
     }
   }
 
+  //右键菜单
+  const handleContextMenuClick = (...params) => {
+    contextMenuClick(params)
+  }
+
+  //组件list
   const WidgetObjList: Array<WidgetObj> = useMemo(() => {
     return Object.keys(widgetMap).map((key) => {
       return {
@@ -54,12 +58,14 @@ const Screen = () => {
     })
   }, [widgetMap])
 
+  //当前选中组件data-id
   const targetId: any = useMemo(() => {
     return target.map((item) => {
       return item.getAttribute('data-id')
     })
   }, [target])
 
+  //组件移动参数
   const moveableBoxProps: MoveableBoxProps = useMemo(() => {
     let widgetList: Array<WidgetObj> = []
     target.forEach((dom) => {
@@ -79,6 +85,7 @@ const Screen = () => {
     }
   }, [target])
 
+  //新增，变更组件
   const setWidgetMapBus = useCallback(
     (data: WidgetObj) => {
       const widgetMapCopy = { ...widgetMapRef.current }
@@ -90,6 +97,45 @@ const Screen = () => {
     [widgetMap]
   )
 
+  //设置选中组件id
+  const setActiveWidgetsBus = (arr: Array<any>) => {
+    setActiveWidgets(arr)
+    activeWidgetsRef.current = arr
+  }
+
+  //组件选中
+  const widgetSelect = (e) => {
+    e.stopPropagation()
+    const targetId = e.currentTarget.getAttribute('data-id')
+    setActiveWidgetsBus([targetId])
+    event = e
+  }
+
+  //删除组件
+  const delWidgetMapBus = useCallback(
+    (ids: string[] | string) => {
+      const widgetMapCopy = { ...widgetMapRef.current }
+      if (typeof ids === 'string') {
+        delete widgetMapCopy[ids]
+      } else {
+        ids.forEach((id) => {
+          delete widgetMapCopy[id]
+        })
+      }
+      widgetMapRef.current = widgetMapCopy
+      setWidgetMap(widgetMapCopy)
+      dispatch(delWidget(ids))
+    },
+    [widgetMap]
+  )
+
+  //删除选中组件
+  const delActiveWidgetsBus = useCallback(() => {
+    delWidgetMapBus(activeWidgetsRef.current)
+    setActiveWidgetsBus([])
+  }, [activeWidgets])
+
+  //参数修改
   const changePlug = useCallback(
     (id, data: any) => {
       let widgetCopy = { ...widgetMapRef.current[id] }
@@ -107,6 +153,7 @@ const Screen = () => {
     [widgetMap]
   )
 
+  //选中组件切换
   useEffect(() => {
     dispatch(setActiveWidgetsStore(activeWidgets))
     if (activeWidgets.length === 0 && target.length > 0) {
@@ -140,27 +187,31 @@ const Screen = () => {
       setActiveWidgets([targetId])
     }
   }, [targetId])
-  useEffect(() => {
-    const setActiveWidgetsBus = (arr: Array<any>) => {
-      setActiveWidgets(arr)
-      activeWidgetsRef.current = arr
-    }
 
+  //订阅组件变更
+  useEffect(() => {
     eventBus.addListener('setWidgetMap', setWidgetMapBus)
+    eventBus.addListener('delWidgetMap', delWidgetMapBus)
     eventBus.addListener('setActiveWidgets', setActiveWidgetsBus)
+    eventBus.addListener('delActiveWidgets', delActiveWidgetsBus)
     eventBus.addListener('changePlug', changePlug)
     return () => {
       eventBus.removeListener('setWidgetMap', setWidgetMapBus)
+      eventBus.removeListener('delWidgetMap', delWidgetMapBus)
       eventBus.removeListener('setActiveWidgets', setActiveWidgetsBus)
+      eventBus.removeListener('delActiveWidgets', delActiveWidgetsBus)
       eventBus.removeListener('changePlug', changePlug)
     }
   }, [])
+
   useEventListener('mousedown', viewClick)
   useEventListener('mouseup', (e) => {
     event = e
   })
+
   let bodyW = (scale / 100) * width + SCREENMARGIN[1] + SCREENMARGIN[3]
   let bodyH = (scale / 100) * height + SCREENMARGIN[0] + SCREENMARGIN[2]
+
   return (
     <div
       ref={moveContent}
@@ -183,6 +234,7 @@ const Screen = () => {
       >
         <WidgetList WidgetObjList={WidgetObjList} widgetSelect={widgetSelect} />
         <MoveableBox ref={childRef} {...moveableBoxProps} />
+        {moveContent.current ? <ContextMenu menu={tabContextMenu} target={moveContent.current as Element} selector=".widget" onClick={handleContextMenuClick} /> : ''}
       </Drop>
       {/* <Selecto
         container={document.getElementById('view')}

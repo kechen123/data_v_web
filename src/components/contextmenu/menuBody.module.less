@@ -1,0 +1,59 @@
+.contextMenuRoot {
+  display: none;
+  .mask {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    height: 100%;
+  }
+  .wrap {
+    position: fixed;
+    inset: 0;
+    overflow: auto;
+    outline: 0;
+    z-index: 1000;
+    .contextView {
+      box-sizing: border-box;
+      position: absolute;
+      width: initial;
+      z-index: 2500;
+      top: 0;
+      .context {
+        background: #252526;
+        color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgb(0 0 0 / 40%);
+        display: flex;
+        flex-direction: column;
+        .group {
+          padding: 10px 0;
+          position: relative;
+          .item {
+            cursor: pointer;
+            padding: 4px 30px;
+            font-size: 13px;
+            display: flex;
+            width: 230px;
+            justify-content: space-between;
+            span {
+              text-transform: capitalize;
+            }
+
+            &:hover {
+              background: #0e639c;
+            }
+          }
+        }
+        .group:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          display: block;
+          width: calc(100% - 30px);
+          left: 15px;
+          border-bottom: 1px solid #666;
+        }
+      }
+    }
+  }
+}

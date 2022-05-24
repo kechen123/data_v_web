@@ -16,10 +16,16 @@ export const widgetSlice = createSlice({
       // state.set(action.payload.id, action.payload.widget)
       state[action.payload.id] = action.payload.widget
     },
+    delWidget: (state, action: PayloadAction<string[] | string>) => {
+      const ids = Array.isArray(action.payload) ? action.payload : [action.payload]
+      ids.forEach((id) => {
+        delete state[id]
+      })
+    },
   },
 })
 // 导出actions
-export const { setWidget } = widgetSlice.actions
+export const { setWidget, delWidget } = widgetSlice.actions
 
 // 导出initialState
 export const widget = (state: RootState) => state.widget
