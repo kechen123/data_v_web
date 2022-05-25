@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, textConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -80,14 +80,14 @@ export const Texts: Array<Widget> = [
     name: '文本',
     plugin: {
       name: 'border',
-      url: 'echart/basicBar',
+      url: 'txt/text',
     },
     rect: {
       width: 570,
       height: 312,
     },
     img: 'datavImage/echart/baseBar.png',
-    config: basicBarConfig,
+    config: textConfig,
   },
 ]
 export const MENU: Array<any> = [
