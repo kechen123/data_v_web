@@ -4,7 +4,12 @@ import style from '@assets/less/pageLoading.module.less'
 const Loading = () => {
   return (
     <div className={style.loading}>
-      <div>正在加载...</div>
+      <svg width="200" height="200" viewBox="0 0 40 60">
+        <polygon className={style.triangle} fill="none" stroke="#fff" stroke-width="1" points="16,1 32,32 1,32" />
+        <text className={style.text} x="0" y="45" fill="#fff">
+          Loading...
+        </text>
+      </svg>
     </div>
   )
 }

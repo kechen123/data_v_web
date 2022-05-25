@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import loadable from '@loadable/component'
 import Loading from './loading'
+import Loading1 from './loading1'
 import ErrorBoundary from './error'
 import { WidgetObj } from '@_types/Plugin'
 

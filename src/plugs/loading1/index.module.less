@@ -1,0 +1,51 @@
+.loading {
+  display: flex;
+  align-items: center;
+  .loading_icon {
+    position: absolute;
+    width: 6em;
+    height: 6em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+
+    :hover {
+      cursor: wait;
+    }
+
+    .loading_icon__animated_stroke {
+      stroke-dasharray: 627.3;
+      animation: loading-icon-stroke 3.5s ease-in-out infinite, loading-icon-spin 3s linear infinite;
+    }
+
+    .loading_icon__static_stroke_section {
+      stroke-dasharray: 50 577.3;
+      stroke-dashoffset: 25;
+      animation: loading-icon-spin 3s linear infinite;
+    }
+
+    text {
+      font-family: sans-serif;
+      font-size: 25px;
+    }
+  }
+
+  @keyframes loading-icon-stroke {
+    0% {
+      stroke-dashoffset: 602.3;
+    }
+    100% {
+      stroke-dashoffset: -602.3;
+    }
+  }
+
+  @keyframes loading-icon-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
