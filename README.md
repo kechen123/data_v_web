@@ -15,7 +15,6 @@
 > [官网](https://ahooks.gitee.io/zh-CN)
 
 > 图表库 [echarts](https://echarts.apache.org/zh/index.html)，
-> [dataV](http://datav-react.jiaminghi.com/)
 
 > 颜色选择器(https://github.com/casesandberg/react-color),[官网](http://casesandberg.github.io/react-color/)
 

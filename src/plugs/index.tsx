@@ -24,7 +24,8 @@ const Widget = (props: WidgetObj) => {
 
   return (
     <ErrorBoundary>
-      <OtherComponent {...config} />
+      <Loading {...props} />
+      {/* <OtherComponent {...config} /> */}
     </ErrorBoundary>
   )
 }

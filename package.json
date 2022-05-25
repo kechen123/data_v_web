@@ -5,7 +5,6 @@
   "homepage": ".",
   "dependencies": {
     "@craco/craco": "^6.4.3",
-    "@jiaminghi/data-view-react": "^1.2.5",
     "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -16,7 +15,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "ahooks": "^3.3.10",
-    "animejs": "^3.2.1",
     "antd": "^4.20.4",
     "craco-antd": "^2.0.0",
     "craco-less": "^2.0.0",
