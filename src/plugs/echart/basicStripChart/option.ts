@@ -13,7 +13,7 @@ const option = {
     textStyle: {
       fontFamily: 'Arial,苹方,微软雅黑',
       fontSize: 16,
-      color: 'rgba(255,255,255,0.6)',
+      color: '#fff',
       fontWeight: 'normal',
       textShadowBlur: 20,
       textShadowColor: '#4A92EC',

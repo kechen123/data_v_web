@@ -3,7 +3,7 @@ import { PluginList, TabList } from './components'
 import style from './index.module.less'
 import { Widget } from '@_types/Plugin'
 import { Chosen as ChosenInterface } from '@_types/Left'
-import { BORDER as border, DATAVCHART as chart, Echarts } from '@config/plugList'
+import { Echarts } from '@config/plugList'
 
 const Left = (props) => {
   const [chosen, setChosen] = useState('Echarts')
@@ -20,10 +20,10 @@ const Left = (props) => {
         setData(Echarts)
         break
       case '边框':
-        setData(border)
+        setData([])
         break
       case '图表':
-        setData(chart)
+        setData([])
         break
       default:
         setData([])

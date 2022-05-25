@@ -16,7 +16,10 @@ const PluginList = (props: Props) => {
           return (
             <DragItem key={item.name} data={item}>
               <div className={style.plugin}>
-                <img src={item.img} />
+                <div className={style.imgWrapper}>
+                  <img src={item.img} />
+                </div>
+                <div className={style.name}>{item.name}</div>
               </div>
             </DragItem>
           )

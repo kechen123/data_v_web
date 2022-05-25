@@ -515,7 +515,7 @@ export const defaultConfig: ColorBarType = {
   grid: {
     left: 20,
     right: 20,
-    top: 100,
+    top: 20,
     bottom: 20,
   },
   bar: {
