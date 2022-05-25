@@ -75,6 +75,21 @@ export const Echarts: Array<Widget> = [
     },
   },
 ]
+export const Texts: Array<Widget> = [
+  {
+    name: '文本',
+    plugin: {
+      name: 'border',
+      url: 'echart/basicBar',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/echart/baseBar.png',
+    config: basicBarConfig,
+  },
+]
 export const MENU: Array<any> = [
   {
     name: 'Echarts',
@@ -83,9 +98,9 @@ export const MENU: Array<any> = [
     index: 1,
   },
   {
-    name: '边框',
-    icon: 'icon-wenzibiankuang',
-    plugs: 'BORDER',
+    name: '文本',
+    icon: 'icon-wenben',
+    plugs: 'Text',
     index: 2,
   },
   {

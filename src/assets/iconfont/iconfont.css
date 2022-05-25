@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3001689 */
-  src: url('iconfont.woff2?t=1653272093158') format('woff2'),
-       url('iconfont.woff?t=1653272093158') format('woff'),
-       url('iconfont.ttf?t=1653272093158') format('truetype');
+  src: url('iconfont.woff2?t=1653455415870') format('woff2'),
+       url('iconfont.woff?t=1653455415870') format('woff'),
+       url('iconfont.ttf?t=1653455415870') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wenben:before {
+  content: "\e649";
 }
 
 .icon-tupianjiazaishibai02:before {
