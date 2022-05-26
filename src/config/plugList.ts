@@ -86,7 +86,7 @@ export const Texts: Array<Widget> = [
       width: 570,
       height: 312,
     },
-    img: 'datavImage/echart/baseBar.png',
+    img: 'datavImage/txt/text.png',
     config: textConfig,
   },
 ]

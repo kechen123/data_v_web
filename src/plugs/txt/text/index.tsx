@@ -24,25 +24,37 @@ const Index = (config: TextType) => {
     fontStyle: option.fontStyle,
     fontWeight: option.fontWeight,
     letterSpacing: option.letterSpacing,
-    // lineHeight: option.lineHeight,
     display: 'flex',
     justifyContent: justifyContent[option.textAlign],
     alignItems: alignItems[option.textBaseline],
   }
-  let baseSpanStyle = {}
+  let otherStyle = {
+    ...baseStyle,
+  }
+  delete otherStyle.color
+
+  let baseSpanStyle = {
+    lineHeight: option.fontSize + option.lineHeight / 2 + 'px',
+  }
   if (typeof option.lineClamp === 'number') {
-    baseSpanStyle['WebkitTextStrokeColor'] = option.lineClamp
     baseSpanStyle['overflow'] = 'hidden'
     baseSpanStyle['textOverflow'] = 'ellipsis'
-    baseSpanStyle['whiteSpace'] = 'nowrap'
-    baseSpanStyle['WebkitBackgroundClip'] = 'text'
+    baseSpanStyle['display'] = '-webkit-box'
+    baseSpanStyle['WebkitBoxOrient'] = 'vertical'
+    baseSpanStyle['WebkitLineClamp'] = option.lineClamp
+    // baseSpanStyle['whiteSpace'] = 'nowrap'
   }
 
   let otherSpanStyle: any = {
     ...baseSpanStyle,
-    '-webkit-text-stroke-width': option.borderWith + 'px',
-    '-webkit-text-stroke-color': option.borderColor,
-    'text-shadow': `${option.shadowColor} ${option.shadowOffsetX}px ${option.shadowOffsetY}px ${option.shadowBlur}px`,
+  }
+
+  if (option.showBorder) {
+    otherSpanStyle['WebkitTextStrokeWidth'] = option.borderWith + 'px'
+    otherSpanStyle['WebkitTextStrokeColor'] = option.borderColor
+  }
+  if (option.showShadow) {
+    otherSpanStyle['textShadow'] = `${option.shadowColor} ${option.shadowOffsetX}px ${option.shadowOffsetY}px ${option.shadowBlur}px`
   }
 
   return (
@@ -50,7 +62,7 @@ const Index = (config: TextType) => {
       <div className={style.baseStyle} style={baseStyle}>
         <span style={baseSpanStyle}>{option.txt}</span>
       </div>
-      <div className={style.otherStyle} style={baseStyle}>
+      <div className={style.otherStyle} style={otherStyle}>
         <span style={otherSpanStyle}>{option.txt}</span>
       </div>
     </div>

@@ -37,6 +37,13 @@ export const legend: SelectType = {
   default: 'top',
 }
 
+export const fontWeight: SelectType = {
+  options: [
+    { value: 'normal', label: '正常' },
+    { value: 'bold', label: '加粗' },
+  ],
+}
+
 export const borderTypeOption = borderType.options.map((item) => {
   return (
     <Option key={item.value} value={item.value}>
@@ -54,6 +61,14 @@ export const fontFamilyOption = fontFamily.options.map((item) => {
 })
 
 export const legendOption = legend.options.map((item) => {
+  return (
+    <Option key={item.value} value={item.value}>
+      {item.label}
+    </Option>
+  )
+})
+
+export const fontWeightOption = fontWeight.options.map((item) => {
   return (
     <Option key={item.value} value={item.value}>
       {item.label}
