@@ -2,9 +2,10 @@ export type Text = {
   txt: string
   fontFamily: string
   fontSize: number
+  color: any
   fontStyle: string
   fontWeight: string
-  color: any
+  lineClamp: 'none' | number
   letterSpacing: number
   lineHeight: number
   textAlign: 'left' | 'center' | 'right'
