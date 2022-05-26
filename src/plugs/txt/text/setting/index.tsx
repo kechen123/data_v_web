@@ -36,7 +36,7 @@ const Index = (props: TextType) => {
       onChange={(key) => setActive(key)}
       className="basicBar"
     >
-      <Panel header="文字" key="1" className="panel">
+      <Panel header="文本样式" key="1" className="panel">
         <Form {...layout} initialValues={{ layout: 'Inline' }} labelAlign="right">
           <Form.Item label="显示行数">
             <InputNumber value={text.lineClamp} onChange={(value) => change(`lineClamp`, value)} />
