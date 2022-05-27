@@ -7,6 +7,12 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { store } from '@storeApp/store'
 
+declare global {
+  interface Window {
+    customPlug: any
+  }
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>

@@ -993,6 +993,5 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
     yAxis: yAxisOption,
     series: seriesOption,
   }
-  console.log('', JSON.stringify(option))
   return option
 }

@@ -8,7 +8,7 @@ const Header = (props) => {
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
   const yulan = () => {
-    const newWindow = window.open(`/#/preview`, '_blank')
+    const newWindow = window.open(window.location.origin + `/#/preview`, '_blank')
     if (newWindow) {
       newWindow.onload = () => {
         // console.log('预览窗口加载完毕' + window.origin)

@@ -22,8 +22,10 @@ const styleIcon: React.CSSProperties = {
   fontSize: '50px',
 }
 
-//类组件建立方式
-class ErrorBoundary extends React.Component<Props, State> {
+/**
+  组件不存在时的显示界面
+ */
+class Error404Boundary extends React.Component<Props, State> {
   //初始化生命周期
   constructor(props: Props) {
     super(props)
@@ -50,4 +52,4 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
-export default ErrorBoundary
+export default Error404Boundary

@@ -2,7 +2,8 @@ import React, { useMemo } from 'react'
 import loadable from '@loadable/component'
 import Loading from './loading'
 import Loading1 from './loading1'
-import ErrorBoundary from './error'
+import Error404Boundary from './404'
+import widthWidget from './widthWidget'
 import { WidgetObj } from '@_types/Plugin'
 
 const Widget = (props: WidgetObj) => {
@@ -23,11 +24,20 @@ const Widget = (props: WidgetObj) => {
     cacheKey: (props) => props.url,
   })
 
+  const OtherComponent1 = loadable(() => import(`../components/customized/plugs/index`), {
+    fallback: <Loading {...props} />,
+    /**
+     *  插件缓存功能
+     *  https://loadable-components.com/docs/dynamic-import/
+     */
+    cacheKey: (props) => props.url,
+  })
+
   return (
-    <ErrorBoundary>
+    <Error404Boundary>
       {/* <Loading {...props} /> */}
       <OtherComponent {...config} />
-    </ErrorBoundary>
+    </Error404Boundary>
   )
 }
 
@@ -55,4 +65,4 @@ const equal = (prevProps, nextProps) => {
   const nextSize = { width: nextRect.width, height: nextRect.height }
   return prevId === nextId && JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)
 }
-export default React.memo(Widget, equal)
+export default React.memo(widthWidget(Widget), equal)
