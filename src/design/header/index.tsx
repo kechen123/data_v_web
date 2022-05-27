@@ -1,14 +1,17 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { screen } from '@features/screenSlice'
 import { widget } from '@features/widgetSlice'
 import style from './index.module.less'
 
 const Header = (props) => {
+  let navigate = useNavigate()
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
   const yulan = () => {
-    const newWindow = window.open(window.location.origin + `/#/preview`, '_blank')
+    // navigate('/preview' + location.search)
+    const newWindow = window.open(`/#/preview`, '_blank')
     if (newWindow) {
       newWindow.onload = () => {
         // console.log('预览窗口加载完毕' + window.origin)
@@ -52,7 +55,11 @@ const Header = (props) => {
       <div className={style.right}>
         <div className={style.btn}>
           <i className="icon iconfont icon-yulan " onClick={yulan}></i>
+          {/* <Link to="/preview" target="_blank">
+            <i className="icon iconfont icon-yulan "></i>
+          </Link> */}
         </div>
+
         <div className={style.btn}>
           <i className="icon iconfont icon-baocun " onClick={save}></i>
         </div>
