@@ -1,0 +1,70 @@
+/* Demo */
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#ecf0f1, #fff);
+}
+
+/* Animation */
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Variables */
+
+/* Loading Icon */
+.body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0a192f;
+  .loading {
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+    &__ring {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+
+      svg {
+        animation: rotate 1s linear infinite;
+        fill: #57cbff;
+      }
+    }
+
+    .first {
+      transform: skew(30deg, 20deg);
+    }
+
+    .second {
+      transform: skew(-30deg, -20deg) scale(-1, 1);
+
+      svg {
+        animation-delay: -0.5s;
+      }
+    }
+    .text {
+      position: absolute;
+      top: 100px;
+      width: 100px;
+      height: 50px;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      animation: blink 0.9s ease-in-out infinite alternate;
+    }
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+  }
+}

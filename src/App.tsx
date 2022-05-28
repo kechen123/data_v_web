@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import loadable from '@loadable/component'
-import Loading from '@page/loading'
+import Loading from '@page/loading1'
 
 const Home = loadable(() => import(`@page/home`), {
   fallback: <Loading />,
