@@ -55,7 +55,16 @@ function editWidget(props) {
       height: '100%',
       background: 'rgb(255, 255, 255,0.5)',
     })
-    $(dom).append(`<div style="width:50px;height:50px;background:red;">hello world</div>`)
+    const newDom = $(`<div >hello world</div>`)
+    newDom.css({
+      width: '100px',
+      height: '100px',
+      background: 'rgb(255, 255, 255,0.5)',
+      position: 'absolute',
+      top: '0px',
+      left: '220px',
+    })
+    $(dom).append(newDom)
   }
 
   function changeOption() {
@@ -73,5 +82,14 @@ function editWidget(props) {
 }
 
 ;(function init() {
-  $(document.body).append(`<div style="width:50px;height:50px;background:yellow;">hello world</div>`)
+  const newDom = $(`<div >hello world</div>`)
+  newDom.css({
+    width: '100px',
+    height: '100px',
+    background: 'rgb(255, 255, 255,0.5)',
+    position: 'absolute',
+    top: '0px',
+    left: '220px',
+  })
+  $(document.body).append(newDom)
 })()
