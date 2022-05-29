@@ -6,6 +6,10 @@ const Home = loadable(() => import(`@page/home`), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
+const Login = loadable(() => import(`@page/login`), {
+  fallback: <Loading />,
+  cacheKey: (props) => props.url,
+})
 const Design = loadable(() => import(`@page/design`), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
@@ -15,13 +19,22 @@ const Preview = loadable(() => import(`@page/preview`), {
   cacheKey: (props) => props.url,
 })
 const App = () => {
+  const token = localStorage.getItem('userToken')
+  if (token) {
+    return (
+      <Routes>
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Design />} /> */}
+        {/* <Route path="/" element={<Loading />} /> */}
+        <Route path="design" element={<Design />} />
+        <Route path="preview" element={<Preview />} />
+      </Routes>
+    )
+  }
   return (
     <Routes>
-      {/* <Route path="/" element={<Home />} /> */}
-      <Route path="/" element={<Design />} />
-      {/* <Route path="/" element={<Loading />} /> */}
-      <Route path="design" element={<Design />} />
-      <Route path="preview" element={<Preview />} />
+      <Route path="*" element={<Login />} />
     </Routes>
   )
 }

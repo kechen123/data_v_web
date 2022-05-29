@@ -1,14 +1,61 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
+import { useAppSelector } from '@storeApp/hooks'
+import { useRequest } from 'ahooks'
+import { postFetch, putFetch } from '@utils/request'
 import { screen } from '@features/screenSlice'
 import { widget } from '@features/widgetSlice'
 import style from './index.module.less'
 
+const createScreen = (data: Object): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    postFetch('/rs/screen', data)
+      .then((res) => resolve(res.json()))
+      .catch(function (error) {
+        reject(new Error('Failed to get username'))
+      })
+  })
+}
+
+const editScreen = (id: string, data: Object): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    putFetch(`/rs/screen/${id}`, data)
+      .then((res) => resolve(res.json()))
+      .catch(function (error) {
+        reject(new Error('Failed to get username'))
+      })
+  })
+}
+
 const Header = (props) => {
-  let navigate = useNavigate()
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
+  const createRequest = useRequest(createScreen, {
+    manual: true,
+    onSuccess: (result: any, params) => {
+      if (result?.status === 200) {
+        // props.history.push(`/design/${result.data.id}`)
+        console.log('', result)
+      }
+    },
+    onError: (error) => {
+      console.log('error', error)
+    },
+  })
+
+  const editRequest = useRequest(editScreen, {
+    manual: true,
+    onSuccess: (result: any, params) => {
+      if (result?.status === 200) {
+        // props.history.push(`/design/${result.data.id}`)
+        console.log('', result)
+      }
+    },
+    onError: (error) => {
+      console.log('error', error)
+    },
+  })
+
   const yulan = () => {
     // navigate('/preview' + location.search)
     const newWindow = window.open(`/#/preview`, '_blank')
@@ -27,7 +74,7 @@ const Header = (props) => {
       }
     }
   }
-  const save = () => {
+  const save1 = () => {
     // console.log('保存')
     // console.log(screenData)
     // console.log(widgetData)
@@ -35,6 +82,7 @@ const Header = (props) => {
       screenData,
       widgetData,
     }
+    console.log('', JSON.stringify(data))
     const element = document.createElement('a')
 
     let text = JSON.stringify(data, null, 2)
@@ -48,6 +96,32 @@ const Header = (props) => {
 
     element.click()
   }
+
+  const create = () => {
+    let data = {
+      screen: JSON.stringify(screenData),
+      widget: JSON.stringify(widgetData),
+    }
+    createRequest.run(data)
+  }
+
+  const edit = (id: string) => {
+    let data = {
+      screen: JSON.stringify(screenData),
+      widget: JSON.stringify(widgetData),
+    }
+    editRequest.run(id, data)
+  }
+
+  const save = () => {
+    const id = new URLSearchParams(window.location.search).get('id')
+    if (id) {
+      edit(id)
+    } else {
+      create()
+    }
+  }
+
   return (
     <div className={style.header}>
       <div className={style.left}></div>
