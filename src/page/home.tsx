@@ -9,6 +9,17 @@ const Home = () => {
   return (
     <div className={style.body}>
       <div>Hello World!</div>
+      <br />
+      <Button
+        type="primary"
+        onClick={() => {
+          localStorage.removeItem('userToken')
+          navigate('/login')
+        }}
+      >
+        退出登录
+      </Button>
+      <br />
       <Button
         type="primary"
         onClick={() => {
