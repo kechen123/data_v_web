@@ -11,6 +11,9 @@ export const widgetSlice = createSlice({
   initialState,
   // 这里的属性会自动的导出为actions，在组件中可以直接通过dispatch进行触发
   reducers: {
+    initWidget: (state, action: PayloadAction<WidgetMap>) => {
+      state = action.payload
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     setWidget: (state, action: PayloadAction<WidgetObj>) => {
       // state.set(action.payload.id, action.payload.widget)
@@ -25,7 +28,7 @@ export const widgetSlice = createSlice({
   },
 })
 // 导出actions
-export const { setWidget, delWidget } = widgetSlice.actions
+export const { initWidget, setWidget, delWidget } = widgetSlice.actions
 
 // 导出initialState
 export const widget = (state: RootState) => state.widget

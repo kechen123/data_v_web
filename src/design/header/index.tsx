@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { message } from 'antd'
 import { useAppSelector } from '@storeApp/hooks'
 import { useRequest } from 'ahooks'
 import { postFetch, putFetch } from '@utils/request'
@@ -10,7 +11,7 @@ import style from './index.module.less'
 const createScreen = (data: Object): Promise<string> => {
   return new Promise((resolve, reject) => {
     postFetch('/rs/screen', data)
-      .then((res) => resolve(res.json()))
+      .then((res) => resolve(res))
       .catch(function (error) {
         reject(new Error('Failed to get username'))
       })
@@ -20,7 +21,7 @@ const createScreen = (data: Object): Promise<string> => {
 const editScreen = (id: string, data: Object): Promise<string> => {
   return new Promise((resolve, reject) => {
     putFetch(`/rs/screen/${id}`, data)
-      .then((res) => resolve(res.json()))
+      .then((res) => resolve(res))
       .catch(function (error) {
         reject(new Error('Failed to get username'))
       })
@@ -30,16 +31,20 @@ const editScreen = (id: string, data: Object): Promise<string> => {
 const Header = (props) => {
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
+
   const createRequest = useRequest(createScreen, {
     manual: true,
     onSuccess: (result: any, params) => {
       if (result?.status === 200) {
         // props.history.push(`/design/${result.data.id}`)
-        console.log('', result)
+        message.success('保存成功')
+      } else {
+        message.error(result.message)
       }
     },
     onError: (error) => {
       console.log('error', error)
+      message.error('网络错误')
     },
   })
 
@@ -48,11 +53,13 @@ const Header = (props) => {
     onSuccess: (result: any, params) => {
       if (result?.status === 200) {
         // props.history.push(`/design/${result.data.id}`)
-        console.log('', result)
+        message.success('保存成功')
+      } else {
+        message.error(result.message)
       }
     },
     onError: (error) => {
-      console.log('error', error)
+      message.error('网络错误')
     },
   })
 

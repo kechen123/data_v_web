@@ -25,6 +25,10 @@ const widthWidget = (WrappedComponent) => {
     })
 
     useEffect(() => {
+      setState(props)
+    }, [props])
+
+    useEffect(() => {
       if (status === 'ready') {
         try {
           const option: any = window.customPlug({

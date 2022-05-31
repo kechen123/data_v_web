@@ -7,8 +7,9 @@ import ContextMenu from '@components/contextmenu'
 import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 
+import { getFetch } from '@utils/request'
 import { screen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
-import { setWidget, delWidget } from '@features/widgetSlice'
+import { initWidget, setWidget, delWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
@@ -19,6 +20,19 @@ import contextMenuClick from './handleContextClick'
 import style from './index.module.less'
 
 let event: any = null
+
+const defaultWidget = async () => {
+  const id = new URLSearchParams(window.location.search).get('id')
+  if (id) {
+    const res = await getFetch('/rs/screen?id=' + id)
+    if (res.data.length === 1) {
+      const data = res.data[0]
+      const widgetData = data.widget
+      return widgetData
+    }
+  }
+  return {}
+}
 
 const Screen = () => {
   const [widgetMap, setWidgetMap] = useState({}) // 存储所有组件
@@ -204,6 +218,26 @@ const Screen = () => {
       eventBus.removeListener('delActiveWidgets', delActiveWidgetsBus)
       eventBus.removeListener('changePlug', changePlug)
     }
+  }, [])
+
+  //编辑回显
+  useEffect(() => {
+    ;(async () => {
+      const data = await defaultWidget()
+      const widgetMapCopy = { ...widgetMapRef.current }
+      let widgetList = Object.keys(data).map((item) => {
+        return {
+          id: item,
+          widget: data[item],
+        }
+      })
+      widgetList.forEach((item) => {
+        widgetMapCopy[item.id] = item.widget
+      })
+      widgetMapRef.current = widgetMapCopy
+      setWidgetMap(widgetMapCopy)
+      dispatch(initWidget(data))
+    })()
   }, [])
 
   useEventListener('mousedown', viewClick)

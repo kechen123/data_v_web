@@ -65,4 +65,7 @@ const equal = (prevProps, nextProps) => {
   const nextSize = { width: nextRect.width, height: nextRect.height }
   return prevId === nextId && JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)
 }
-export default React.memo(widthWidget(Widget), equal)
+
+const Widget2 = widthWidget(Widget)
+export default React.memo(Widget2, equal)
+// export default React.memo(widthWidget(Widget), equal)
