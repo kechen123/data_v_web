@@ -18,6 +18,10 @@ const Preview = loadable(() => import(`@page/preview`), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
+const ScreenList = loadable(() => import(`@page/screenList`), {
+  fallback: <Loading />,
+  cacheKey: (props) => props.url,
+})
 const App = () => {
   const token = localStorage.getItem('userToken')
   if (token) {
@@ -27,8 +31,10 @@ const App = () => {
         <Route path="/" element={<Home />} />
         {/* <Route path="/" element={<Design />} /> */}
         {/* <Route path="/" element={<Loading />} /> */}
-        <Route path="design" element={<Design />} />
+
         <Route path="preview" element={<Preview />} />
+        <Route path="screenList" element={<ScreenList />} />
+        <Route path="design" element={<Design />} />
         <Route path="login" element={<Login />} />
       </Routes>
     )

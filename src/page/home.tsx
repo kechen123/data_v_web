@@ -8,7 +8,24 @@ const Home = () => {
 
   return (
     <div className={style.body}>
-      <div>Hello World!</div>
+      <br />
+      <Button
+        type="primary"
+        onClick={() => {
+          navigate('/screenList')
+        }}
+      >
+        大屏列表
+      </Button>
+      <br />
+      <Button
+        type="primary"
+        onClick={() => {
+          navigate('/design')
+        }}
+      >
+        新建大屏
+      </Button>
       <br />
       <Button
         type="primary"
@@ -18,15 +35,6 @@ const Home = () => {
         }}
       >
         退出登录
-      </Button>
-      <br />
-      <Button
-        type="primary"
-        onClick={() => {
-          navigate('/design')
-        }}
-      >
-        编辑大屏
       </Button>
     </div>
   )
