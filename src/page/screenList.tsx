@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { message } from 'antd'
 import { getFetch } from '@utils/request'
 import style from '@assets/less/screenList.module.less'
 
@@ -109,6 +110,7 @@ const BodyContent = () => {
         console.log(arr)
         setList(arr)
       } else {
+        message.error('获取大屏数据失败')
       }
     })()
   }, [])
