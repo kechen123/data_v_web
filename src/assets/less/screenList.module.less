@@ -1,6 +1,206 @@
-.body {
+.container {
   width: 100vw;
   height: 100vh;
-  color: #333;
-  background-color: #fff;
+  background-color: var(--navy);
+  color: var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  a {
+    text-decoration: none;
+  }
+  /*去除未被访问的a标签的下划线*/
+  a:link {
+    text-decoration: none;
+  }
+  /*去除已经被访问过的a标签的下划线*/
+  a:visited {
+    text-decoration: none;
+  }
+  /*去除鼠标悬停时的a标签的下划线*/
+  a:hover {
+    text-decoration: none;
+  }
+  /*去除正在点击的a标签的下划线（鼠标按下，尚未松开）*/
+  a:active {
+    text-decoration: none;
+  }
+  /*去除获得焦点的a标签的下划线（被鼠标点击过）*/
+  a:focus {
+    text-decoration: none;
+  }
+  .header {
+    height: 54px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      i {
+        font-size: 30px;
+        color: var(--green);
+      }
+      .title {
+        margin-left: 8px;
+        font-size: 28px;
+        font-weight: bold;
+        color: var(--lightest-slate);
+      }
+    }
+    .menu {
+      margin-right: 20px;
+      .user {
+        background-color: var(--lightest-slate);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        color: var(--pink);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        cursor: pointer;
+        overflow: hidden;
+        background-image: url('../image/screenList/user.jpg');
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .body {
+    height: calc(100vh - 54px);
+    width: 100vw;
+    overflow: auto;
+    display: flex;
+    flex: 1 1;
+    .bodyLeft {
+      width: 100px;
+      padding-top: 20px;
+      .leftHeader {
+        padding: 0 16px 0 24px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .leftHeaderTitle {
+          text-align: center;
+        }
+        .leftHeaderBtn {
+          cursor: pointer;
+          font-size: 24px;
+          color: var(--green);
+          display: flex;
+          align-items: center;
+        }
+      }
+      .list {
+        flex: 1 1;
+        height: 100%;
+        ul {
+          li {
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            color: var(--light-slate);
+            font-size: 14px;
+            cursor: pointer;
+            &:hover {
+              background-color: var(--light-navy);
+            }
+            .listTitle {
+              text-align: center;
+              font-size: inherit;
+            }
+            .listBtn {
+              font-size: inherit;
+              cursor: pointer;
+            }
+          }
+          .active {
+            color: var(--green);
+          }
+        }
+      }
+    }
+    .content {
+      flex: 1 1;
+      .list {
+        padding: 20px;
+        color: var(--light-slate);
+        // background-color: var(--light-navy);
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 260px);
+        // grid-template-rows: repeat(auto-fill, 200px);
+        gap: 20px;
+        .screen {
+          height: 200px;
+          background-color: var(--light-navy);
+          border-radius: 4px;
+          transform: translateY(0px);
+          transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 0.81);
+          cursor: pointer;
+          .screenItem {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 16px 16px 0 16px;
+            .thumb {
+              background-image: url('../image/screenList/default.png');
+              background-size: 100%;
+              background-position: 50%;
+              background-repeat: no-repeat;
+              flex: 1 1;
+              img {
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+              }
+            }
+            .bottom {
+              height: 46px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: var(--light-slate);
+              .name {
+                font-size: 14px;
+              }
+              .btns {
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                /*去除a标签下划线*/
+
+                i {
+                  font-size: 16px;
+                  margin-right: 8px;
+                  color: var(--light-slate);
+                  &:hover {
+                    color: var(--green);
+                  }
+                }
+              }
+            }
+          }
+
+          &:hover {
+            transform: translateY(-7px);
+            box-shadow: 4px 8px 10px 0 rgb(0 0 0 / 20%);
+          }
+        }
+      }
+    }
+  }
 }

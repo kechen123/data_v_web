@@ -10,6 +10,7 @@ interface screenWidget {
 }
 interface zoom {}
 export interface screenState {
+  name: string
   width: number
   height: number
   scale: number
@@ -25,6 +26,7 @@ export interface screenState {
 }
 
 const initialState: screenState = {
+  name: '未命名大屏',
   width: SCREENWIDTH,
   height: SCREENHEIGHT,
   scale: 100,
