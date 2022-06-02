@@ -107,7 +107,6 @@ const BodyContent = () => {
             url: item.screen?.backgroundImage,
           }
         })
-        console.log(arr)
         setList(arr)
       } else {
         message.error('获取大屏数据失败')
@@ -120,24 +119,24 @@ const BodyContent = () => {
         {list.map((item, index) => {
           return (
             <div key={index} className={style.screen}>
-              <Link to={`/preview?id=${item.id}`} target="_blank">
-                <div className={style.screenItem}>
-                  <div className={style.thumb}>
+              <div className={style.screenItem}>
+                <div className={style.thumb}>
+                  <Link to={`/preview?id=${item.id}`} target="_blank">
                     <img src={item?.url} />
-                  </div>
-                  <div className={style.bottom}>
-                    <div className={style.name}>{item?.name}</div>
-                    <div className={style.btns}>
-                      <Link to={`/design?id=${item.id}`} target="_blank">
-                        <i className="icon iconfont icon-bianji"></i>
-                      </Link>
-                      <Link to={`/preview?id=${item.id}`} target="_blank">
-                        <i className="icon iconfont icon-daohang"></i>
-                      </Link>
-                    </div>
+                  </Link>
+                </div>
+                <div className={style.bottom}>
+                  <div className={style.name}>{item?.name}</div>
+                  <div className={style.btns}>
+                    <Link to={`/design?id=${item.id}`} target="_blank">
+                      <i className="icon iconfont icon-bianji"></i>
+                    </Link>
+                    <Link to={`/preview?id=${item.id}`} target="_blank">
+                      <i className="icon iconfont icon-daohang"></i>
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             </div>
           )
         })}
