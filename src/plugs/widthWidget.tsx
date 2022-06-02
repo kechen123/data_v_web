@@ -18,11 +18,14 @@ const widthWidget = (WrappedComponent) => {
     const [error, setError] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
 
-    const status = useExternal('./customized/index.js', {
-      js: {
-        async: true,
-      },
-    })
+    const status =
+      window.location.pathname.indexOf('design') > -1
+        ? 'design'
+        : useExternal('./customized/index.js', {
+            js: {
+              async: true,
+            },
+          })
 
     useEffect(() => {
       setState(props)
