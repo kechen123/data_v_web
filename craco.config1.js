@@ -1,18 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const CracoAntDesignPlugin = require('craco-antd')
+const CracoLessPlugin = require('craco-less')
+const { loaderByName } = require('@craco/craco')
 
 // Don't open the browser during development
 process.env.BROWSER = 'none'
 const path = require('path')
+
 module.exports = {
-  //class-name
-  // style: {
-  //   modules: {
-  //     localIdentName: '[file]__[local]_[hash:base64:6]',
-  //   },
-  // },
   plugins: [
     {
+      //https://github.com/DocSpring/craco-antd
       plugin: CracoAntDesignPlugin,
       options: {
         customizeTheme: {
@@ -35,6 +32,35 @@ module.exports = {
         },
       },
     },
+    {
+      plugin: CracoLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            noIeCompat: true,
+            javascriptEnabled: true,
+          },
+        },
+        modifyLessRule(lessRule, context) {
+          // You have to exclude these file suffixes first,
+          // if you want to modify the less module's suffix
+          lessRule.exclude = /\.m\.less$/
+          return lessRule
+        },
+        modifyLessModuleRule(lessModuleRule, context) {
+          // Configure the file suffix
+          lessModuleRule.test = /\.m\.less$/
+
+          // Configure the generated local ident name.
+          const cssLoader = lessModuleRule.use.find(loaderByName('css-loader'))
+          cssLoader.options.modules = {
+            localIdentName: '[local]_[hash:base64:5]',
+          }
+
+          return lessModuleRule
+        },
+      },
+    },
   ],
   webpack: {
     alias: {
@@ -51,32 +77,15 @@ module.exports = {
       '@page': path.resolve(__dirname, './src/page'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
     },
+    plugins: {
+      add: [] /* An array of plugins */,
+      remove: [] /* An array of plugin constructor's names (i.e. "StyleLintPlugin", "ESLintWebpackPlugin" ) */,
+    },
     configure: {
       /* Any webpack configuration options: https://webpack.js.org/configuration */
     },
-    // 打包文件名 https://github.com/gsoft-inc/craco/issues/382
-    // configure: (webpackConfig, { env, paths }) => {
-    //
-    //   const miniCssExtractPlugin = webpackConfig.plugins.find((plugin) => plugin.constructor.name === 'MiniCssExtractPlugin')
-
-    //   if (miniCssExtractPlugin) {
-    //     miniCssExtractPlugin.options.filename = 'static/css/[name].css'
-    //   }
-    //   return {
-    //     ...webpackConfig,
-    //     entry: {
-    //       main: [env === 'development' && require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs].filter(Boolean),
-    //       content: './src/chromeServices/DOMEvaluator.tsx',
-    //     },
-    //     output: {
-    //       ...webpackConfig.output,
-    //       filename: 'static/js/[name].js',
-    //     },
-    //     optimization: {
-    //       ...webpackConfig.optimization,
-    //       runtimeChunk: false,
-    //     },
-    //   }
-    // },
+    configure: (webpackConfig, { env, paths }) => {
+      return webpackConfig
+    },
   },
 }
