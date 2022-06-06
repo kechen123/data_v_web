@@ -44,18 +44,20 @@ const Ul = styled.ul`
 const Header = () => {
   return (
     <header className={style.header}>
-      <div className={style.logo}>
-        <div>
-          <i className="icon iconfont icon-dataflow"></i>
+      <Link to={`/`}>
+        <div className={style.logo}>
+          <div>
+            <i className="icon iconfont icon-dataflow"></i>
+          </div>
+          <div className={style.title}>
+            <span>DATAKK</span>
+          </div>
         </div>
-        <div className={style.title}>
-          <span>DATAKK</span>
+        <div className={style.content}></div>
+        <div className={style.menu}>
+          <div className={style.user}></div>
         </div>
-      </div>
-      <div className={style.content}></div>
-      <div className={style.menu}>
-        <div className={style.user}></div>
-      </div>
+      </Link>
     </header>
   )
 }
