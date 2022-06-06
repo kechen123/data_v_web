@@ -48,7 +48,9 @@ const Header = () => {
         <div>
           <i className="icon iconfont icon-dataflow"></i>
         </div>
-        <div className={style.title}>DATAKK</div>
+        <div className={style.title}>
+          <span>DATAKK</span>
+        </div>
       </div>
       <div className={style.content}></div>
       <div className={style.menu}>
@@ -90,6 +92,21 @@ const BodyLeft = () => {
   )
 }
 
+const Create = () => {
+  return (
+    <div className={style.screen}>
+      <Link to={`/design`} target="_blank">
+        <div className={style.create}>
+          <div className={style.createBtn}>
+            <i className="icon iconfont icon-zengjia"></i>
+          </div>
+          <div className={style.createTitle}>新建大屏</div>
+        </div>
+      </Link>
+    </div>
+  )
+}
+
 const BodyContent = () => {
   const defaultWidget = async () => {
     return await getFetch('/rs/screen')
@@ -116,6 +133,7 @@ const BodyContent = () => {
   return (
     <section className={style.content}>
       <div className={style.list}>
+        <Create />
         {list.map((item, index) => {
           return (
             <div key={index} className={style.screen}>

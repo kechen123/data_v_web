@@ -48,6 +48,12 @@
         font-size: 28px;
         font-weight: bold;
         color: var(--lightest-slate);
+        span {
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          -webkit-background-clip: text;
+          background-image: linear-gradient(147deg, var(--blue) 0px, var(--pink) 32.4%, var(--green) 62%, var(--white) 100%);
+        }
       }
     }
     .menu {
@@ -197,6 +203,29 @@
                   }
                 }
               }
+            }
+          }
+          .create {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 16px 16px 0 16px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--light-slate);
+            .createTitle {
+              font-size: 16px;
+            }
+            .createBtn {
+              cursor: pointer;
+              i {
+                font-size: 36px;
+              }
+            }
+            &:hover {
+              color: var(--green);
             }
           }
 
