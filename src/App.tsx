@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import loadable from '@loadable/component'
+import pMinDelay from 'p-min-delay'
 import Loading from '@page/loading1'
 // import Home from '@page/home'
 // import Login from '@page/login'
@@ -7,26 +8,30 @@ import Loading from '@page/loading1'
 // import Preview from '@page/preview'
 // import ScreenList from '@page/screenList'
 
-const Home = loadable(() => import(`@page/home`), {
+const time = 1000
+
+const Home = loadable(() => pMinDelay(import(`@page/home`), time), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
-const Login = loadable(() => import(`@page/login`), {
+const Login = loadable(() => pMinDelay(import(`@page/login`), time), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
-const Design = loadable(() => import(`@page/design`), {
+const Design = loadable(() => pMinDelay(import(`@page/design`), time), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
-const Preview = loadable(() => import(`@page/preview`), {
+const Preview = loadable(() => pMinDelay(import(`@page/preview`), time), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
-const ScreenList = loadable(() => import(`@page/screenList`), {
+
+const ScreenList = loadable(() => pMinDelay(import(`@page/screenList`), time), {
   fallback: <Loading />,
   cacheKey: (props) => props.url,
 })
+
 const App = () => {
   const token = localStorage.getItem('userToken')
   if (token) {
