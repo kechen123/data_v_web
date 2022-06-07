@@ -4,6 +4,7 @@ import Loading from './loading'
 import Loading1 from './loading1'
 import Error404Boundary from './404'
 import widthWidget from './widthWidget'
+import BasicBar from './echart/basicBar'
 import { WidgetObj } from '@_types/Plugin'
 
 const Widget = (props: WidgetObj) => {
@@ -16,7 +17,7 @@ const Widget = (props: WidgetObj) => {
   } = props
 
   const OtherComponent = loadable(() => import(`./${url}/index`), {
-    fallback: <Loading {...props} />,
+    // fallback: <Loading {...props} />,
     /**
      *  插件缓存功能
      *  https://loadable-components.com/docs/dynamic-import/
@@ -24,10 +25,20 @@ const Widget = (props: WidgetObj) => {
     cacheKey: (props) => props.url,
   })
 
+  // const OtherComponent = (props: any) => {
+  //   switch (url) {
+  //     case 'basicBar':
+  //       return <BasicBar {...props} />
+
+  //     default:
+  //       return <BasicBar {...props} />
+  //   }
+  // }
+
   return (
     <Error404Boundary>
       {/* <Loading {...props} /> */}
-      <OtherComponent {...config} />
+      <OtherComponent {...props} />
     </Error404Boundary>
   )
 }
@@ -44,7 +55,8 @@ const equal = (prevProps, nextProps) => {
     widget: { config: nextConfig, rect: nextRect },
   } = nextProps
   const nextSize = { width: nextRect.width, height: nextRect.height }
-  return prevId === nextId && JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)
+  // return prevId === nextId && JSON.stringify(prevConfig) === JSON.stringify(nextConfig) && JSON.stringify(prevSize) === JSON.stringify(nextSize)
+  return prevId === nextId
 }
 
 const Widget2 = widthWidget(Widget)
