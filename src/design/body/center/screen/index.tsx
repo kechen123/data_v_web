@@ -16,13 +16,14 @@ import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
+import { getUrlParam } from '@utils/common'
 import contextMenuClick from './handleContextClick'
 import style from './index.module.less'
 
 let event: any = null
 
 const defaultWidget = async () => {
-  const id = new URLSearchParams(window.location.search).get('id')
+  const id = getUrlParam('id')
   if (id) {
     const res = await getFetch('/rs/screen?id=' + id)
     if (res.data.length === 1) {

@@ -19,7 +19,7 @@ const widthWidget = (WrappedComponent) => {
     const ref = useRef<HTMLDivElement>(null)
 
     const status =
-      window.location.pathname.indexOf('design') > -1
+      window.location.href.indexOf('design') > -1
         ? 'design'
         : useExternal('./customized/index.js', {
             js: {

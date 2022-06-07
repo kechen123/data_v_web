@@ -6,6 +6,7 @@ import { useRequest } from 'ahooks'
 import { postFetch, putFetch } from '@utils/request'
 import { screen } from '@features/screenSlice'
 import { widget } from '@features/widgetSlice'
+import { getUrlParam } from '@utils/common'
 import style from './index.module.less'
 
 const createScreen = (data: Object): Promise<string> => {
@@ -121,7 +122,7 @@ const Header = (props) => {
   }
 
   const save = () => {
-    const id = new URLSearchParams(window.location.search).get('id')
+    const id = getUrlParam('id')
     if (id) {
       edit(id)
     } else {

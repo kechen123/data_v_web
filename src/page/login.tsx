@@ -30,7 +30,7 @@ const Home = () => {
     onSuccess: (result: any, params) => {
       if (result?.status === 200) {
         localStorage.setItem('userToken', result.token)
-        if (window.location.pathname.indexOf('/login') > -1) {
+        if (window.location.href.indexOf('/login') > -1) {
           window.location.href = '/'
         } else {
           window.location.reload()

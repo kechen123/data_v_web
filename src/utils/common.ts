@@ -18,3 +18,18 @@ export const getObjByPath = (field: string, value: any) => {
   eval(`obj${th}={$set: value}`)
   return obj
 }
+
+export const getUrlParam = (name: string) => {
+  let url = window.location.hash
+  let obj = {}
+  if (url.indexOf('?') !== -1) {
+    let startIndex = url.indexOf('?') + 1
+    let str = url.substr(startIndex)
+    let strs = str.split('&')
+    for (let i = 0; i < strs.length; i++) {
+      obj[strs[i].split('=')[0]] = strs[i].split('=')[1]
+    }
+    return obj[name]
+  }
+  return undefined
+}
