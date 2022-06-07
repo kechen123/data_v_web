@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 import { useRequest } from 'ahooks'
@@ -18,6 +18,10 @@ const login = (username, password): Promise<string> => {
 const Home = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    localStorage.removeItem('userToken')
+  }, [])
 
   const { loading, run, runAsync } = useRequest(login, {
     manual: true,

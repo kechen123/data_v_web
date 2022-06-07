@@ -24,31 +24,12 @@ const Widget = (props: WidgetObj) => {
     cacheKey: (props) => props.url,
   })
 
-  const OtherComponent1 = loadable(() => import(`../components/customized/plugs/index`), {
-    fallback: <Loading {...props} />,
-    /**
-     *  插件缓存功能
-     *  https://loadable-components.com/docs/dynamic-import/
-     */
-    cacheKey: (props) => props.url,
-  })
-
   return (
     <Error404Boundary>
       {/* <Loading {...props} /> */}
       <OtherComponent {...config} />
     </Error404Boundary>
   )
-}
-
-const Wiget1 = (props: WidgetObj) => {
-  const {
-    widget: {
-      plugin: { url },
-      config,
-    },
-  } = props
-  return <div style={{ backgroundColor: config.color[0], width: '100px', height: '100px' }}></div>
 }
 
 //组件配置项参数和尺寸变化时 重新渲染

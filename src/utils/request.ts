@@ -14,7 +14,7 @@ export const baseFetch = (url, options) => {
       if (data.status === 200) {
         return data
       } else if (data.status === 400) {
-        window.location.href = '/login'
+        window.location.href = '/#/login'
       } else {
         const error = new Error(data.message)
         throw error
