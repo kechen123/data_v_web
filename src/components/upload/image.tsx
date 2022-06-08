@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef, CSSProperties } from 'react'
+import { message } from 'antd'
 import { useEventListener } from 'ahooks'
 import { useDropzone } from 'react-dropzone'
+import { baseHost } from '@config/http'
+import { upload } from '@utils/request'
 import './image.css'
 interface imgData {
   url: String
@@ -17,6 +20,18 @@ const img = {
   maxWidth: '100%',
   maxHeight: '100%',
 }
+
+const uploadImage = async (file: File) => {
+  let formData = new FormData()
+  formData.append('file', file, file.name)
+  const data = await upload('/op/upload', formData)
+  if (data.status === 200) {
+    return data.url
+  } else {
+    message.error(data.msg)
+  }
+}
+
 const IImage = ({ url, delFun }) => {
   const content: CSSProperties = {
     position: 'relative',
@@ -28,6 +43,7 @@ const IImage = ({ url, delFun }) => {
     'click',
     (e) => {
       e.preventDefault()
+      e.stopPropagation()
       delFun()
     },
     { target: delBtn }
@@ -62,29 +78,42 @@ export const ImageBox = (props: props) => {
 
   const [files, setFiles] = useState<any>([])
   const [url, setUrl] = useState(imgData?.url)
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   accept: 'image/*' as any,
-  //   onDrop: (acceptedFiles) => {
-  //     fileToBase64(acceptedFiles[0]).then((res) => {
-  //       setFiles([res])
-  //     })
-  //   },
-  // })
-
-  const { getRootProps, getInputProps } = useDropzone()
-  useEffect(() => {
-    if (files.length > 0 && files[0]) {
-      setUrl(files[0])
-      if (upImage) {
-        upImage(files[0])
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { 'image/*': [] },
+    onDrop: (acceptedFiles) => {
+      const size = acceptedFiles[0].size
+      if (size > 1024 * 1024 * 2) {
+        message.error('图片大小不能超过2M')
+        return
       }
-    } else {
-      setUrl('')
-    }
-  }, [files])
+      uploadImage(acceptedFiles[0]).then((url) => {
+        setUrl(url)
+        if (upImage) {
+          upImage(url)
+        }
+      })
+      console.log('acceptedFiles', acceptedFiles)
+      // fileToBase64(acceptedFiles[0]).then((res) => {
+      //   setFiles([res])
+      // })
+    },
+  })
+
+  // useEffect(() => {
+  //   if (files.length > 0 && files[0]) {
+  //     setUrl(files[0])
+  //     if (upImage) {
+  //       upImage(files[0])
+  //     }
+  //   } else {
+  //     setUrl('')
+  //   }
+  // }, [files])
+
   useEffect(() => {
     setUrl(imgData?.url)
   }, [imgData])
+
   const delFun = () => {
     setFiles([])
     if (upImage) {
@@ -95,7 +124,7 @@ export const ImageBox = (props: props) => {
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      {url ? <IImage url={url} delFun={delFun}></IImage> : <div>选择或拖动图片到此处</div>}
+      {url ? <IImage url={baseHost + url} delFun={delFun}></IImage> : <div>选择或拖动图片到此处</div>}
     </div>
   )
 }

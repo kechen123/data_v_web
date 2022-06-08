@@ -17,6 +17,7 @@ import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
 import { getUrlParam } from '@utils/common'
+import { baseHost } from '@config/http'
 import contextMenuClick from './handleContextClick'
 import style from './index.module.less'
 
@@ -231,6 +232,8 @@ const Screen = () => {
   //编辑回显
   useEffect(() => {
     ;(async () => {
+      const id = getUrlParam('id')
+      if (!id) return
       const { widgetData, screenData } = await defaultScreenData()
       const widgetMapCopy = { ...widgetMapRef.current }
       let widgetList = Object.keys(widgetData).map((item) => {
@@ -273,7 +276,7 @@ const Screen = () => {
           height: height + 'px',
           transform: `translate(0px, 0px) scale(${scale / 100})`,
           backgroundColor: backgroundColor,
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(${baseHost + backgroundImage})`,
           backgroundSize: 'auto 100%',
         }}
       >

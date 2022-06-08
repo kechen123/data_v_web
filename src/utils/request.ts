@@ -66,3 +66,13 @@ export const deleteFetch = (url) => {
     method: 'DELETE',
   })
 }
+export const upload = (url, data) => {
+  return baseFetch(url, {
+    headers: {
+      token: localStorage.getItem('userToken') || '',
+      // 'content-type': 'application/json',
+    },
+    method: 'POST',
+    body: data,
+  })
+}
