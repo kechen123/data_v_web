@@ -33,25 +33,17 @@ const ScreenList = loadable(() => pMinDelay(import(`@page/screenList`), time), {
 })
 
 const App = () => {
-  const token = localStorage.getItem('userToken')
-  if (token) {
-    return (
-      <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/" element={<Design />} /> */}
-        {/* <Route path="/" element={<Loading />} /> */}
-
-        <Route path="preview" element={<Preview />} />
-        <Route path="screenList" element={<ScreenList />} />
-        <Route path="design" element={<Design />} />
-        <Route path="login" element={<Login />} />
-      </Routes>
-    )
-  }
   return (
     <Routes>
-      <Route path="*" element={<Login />} />
+      {/* <Route path="/" element={<Login />} /> */}
+      <Route path="/" element={<Home />} />
+      {/* <Route path="/" element={<Design />} /> */}
+      {/* <Route path="/" element={<Loading />} /> */}
+
+      <Route path="preview" element={<Preview />} />
+      <Route path="screenList" element={<ScreenList />} />
+      <Route path="design" element={<Design />} />
+      <Route path="login" element={<Login />} />
     </Routes>
   )
 }

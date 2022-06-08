@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import useWidgetBus from '@hooks/useWigetBus'
 import { Text as TextType } from './_types'
 import { getOption } from './option'
 import style from './index.module.less'
@@ -15,8 +16,18 @@ const justifyContent = {
   right: 'flex-end',
 }
 
-const Index = (config: TextType) => {
-  const option = getOption(config)
+const Index = (props: any) => {
+  const { id, widget } = props
+  const [config, setConfig] = useState(widget.config)
+  useWidgetBus(id, (data) => {
+    const newConfig = data.widget.config
+    if (JSON.stringify(config) !== JSON.stringify(newConfig)) {
+      setConfig(newConfig)
+    }
+  })
+  const option = useMemo(() => {
+    return getOption(config)
+  }, [config])
   let baseStyle = {
     fontFamily: option.fontFamily,
     fontSize: option.fontSize,
@@ -56,7 +67,6 @@ const Index = (config: TextType) => {
   if (option.showShadow) {
     otherSpanStyle['textShadow'] = `${option.shadowColor} ${option.shadowOffsetX}px ${option.shadowOffsetY}px ${option.shadowBlur}px`
   }
-
   return (
     <div className={style.text}>
       <div className={style.baseStyle} style={baseStyle}>

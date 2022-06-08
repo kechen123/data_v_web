@@ -8,7 +8,10 @@ import '@assets/less/login.less'
 const login = (username, password): Promise<string> => {
   return new Promise((resolve, reject) => {
     postFetch('/op/login', { username: username, password: password })
-      .then((res) => resolve(res))
+      .then((res) => {
+        console.log('res>>>>', res)
+        resolve(res)
+      })
       .catch(function (error) {
         reject(new Error('Failed to get username'))
       })
@@ -23,28 +26,31 @@ const Home = () => {
     localStorage.removeItem('userToken')
   }, [])
 
-  const { loading, run, runAsync } = useRequest(login, {
+  const { loading, run } = useRequest(login, {
     manual: true,
     debounceWait: 300,
-    throttleWait: 300,
     onSuccess: (result: any, params) => {
       if (result?.status === 200) {
+        message.success('登陆成功')
         localStorage.setItem('userToken', result.token)
-        if (window.location.href.indexOf('/login') > -1) {
-          window.location.href = '/'
-        } else {
-          window.location.reload()
-        }
+        setTimeout(() => {
+          if (window.location.href.indexOf('/login') > -1) {
+            window.location.href = '/'
+          } else {
+            window.location.reload()
+          }
+        }, 1000)
       } else {
         message.error(result.message)
       }
     },
     onError: (error) => {
-      message.error('网络错误')
+      message.error('登录失败')
     },
   })
 
-  const onFinish = () => {
+  const onFinish = (e) => {
+    e.preventDefault()
     if (username && password && !loading) {
       run(username, password)
     }

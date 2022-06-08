@@ -1,4 +1,5 @@
 import { baseHost } from '@config/http'
+import { message } from 'antd'
 
 export const baseFetch = (url, options) => {
   const path = baseHost + url
@@ -13,8 +14,10 @@ export const baseFetch = (url, options) => {
     .then((data) => {
       if (data.status === 200) {
         return data
-      } else if (data.status === 400) {
-        window.location.href = '/#/login'
+      } else if (data.status === 400 || data.status === 413) {
+        setTimeout(() => {
+          window.location.href = '/#/login'
+        }, 1000)
       } else {
         const error = new Error(data.message)
         throw error

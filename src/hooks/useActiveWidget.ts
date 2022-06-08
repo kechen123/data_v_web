@@ -32,8 +32,8 @@ const useActiveWidget = () => {
 
   const setActiveWidget = (widgetObj: WidgetObj) => {
     setWidgetObj(widgetObj)
-    eventBus.emit('setWidgetMap', widgetObj)
-    dispatch(setWidget(widgetObj))
+    eventBus.emit('setWidgetMap', widgetObj) //更新页面数据
+    dispatch(setWidget(widgetObj)) //更新store数据
   }
 
   const setActiveWidgetValueByPath = (path: string, value: any) => {

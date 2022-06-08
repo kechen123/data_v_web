@@ -12,7 +12,9 @@ export const widgetSlice = createSlice({
   // 这里的属性会自动的导出为actions，在组件中可以直接通过dispatch进行触发
   reducers: {
     initWidget: (state, action: PayloadAction<WidgetMap>) => {
-      state = action.payload
+      Object.keys(action.payload).forEach((key) => {
+        state[key] = action.payload[key]
+      })
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     setWidget: (state, action: PayloadAction<WidgetObj>) => {

@@ -3,7 +3,7 @@ import loadable from '@loadable/component'
 import Loading from './loading'
 import Loading1 from './loading1'
 import Error404Boundary from './404'
-import widthWidget from './widthWidget'
+import loadWidget from './loadWidget'
 import BasicBar from './echart/basicBar'
 import { WidgetObj } from '@_types/Plugin'
 
@@ -59,6 +59,6 @@ const equal = (prevProps, nextProps) => {
   return prevId === nextId
 }
 
-const Widget2 = widthWidget(Widget)
+const Widget2 = loadWidget(Widget)
 export default React.memo(Widget2, equal)
-// export default React.memo(widthWidget(Widget), equal)
+// export default React.memo(loadWidget(Widget), equal)

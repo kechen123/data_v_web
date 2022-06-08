@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
 import eventBus from '@utils/eventBus'
+import useWidgetBus from '@hooks/useWigetBus'
 import { WidgetObj } from '@_types/Plugin'
 
 interface Props {
@@ -22,8 +23,7 @@ const Index = ({ widget, getOption }: Props) => {
   const [rect, setRect] = useState(widget.widget.rect)
   const barRef = useRef<HTMLDivElement | null>(null)
 
-  const setWidgetMapBus = (data: WidgetObj) => {
-    if (data.id !== id) return
+  useWidgetBus(id, (data) => {
     const newOption = getOption(data.widget.config)
     const newRect = data.widget.rect
     if (JSON.stringify(option) !== JSON.stringify(newOption)) {
@@ -32,17 +32,29 @@ const Index = ({ widget, getOption }: Props) => {
     if (rect.width !== newRect.width || rect.height !== newRect.height) {
       setRect(newRect)
     }
-  }
+  })
+
+  // const setWidgetMapBus = (data: WidgetObj) => {
+  //   if (data.id !== id) return
+  //   const newOption = getOption(data.widget.config)
+  //   const newRect = data.widget.rect
+  //   if (JSON.stringify(option) !== JSON.stringify(newOption)) {
+  //     setOption(newOption)
+  //   }
+  //   if (rect.width !== newRect.width || rect.height !== newRect.height) {
+  //     setRect(newRect)
+  //   }
+  // }
 
   useEffect(() => {
     if (barRef.current && !chartRef.current) {
       const echart = echarts.init(barRef.current)
       chartRef.current = echart
     }
-    eventBus.addListener('setWidgetMap', setWidgetMapBus)
-    return () => {
-      eventBus.removeListener('setWidgetMap', setWidgetMapBus)
-    }
+    // eventBus.addListener('setWidgetMap', setWidgetMapBus)
+    // return () => {
+    //   eventBus.removeListener('setWidgetMap', setWidgetMapBus)
+    // }
   }, [])
 
   useEffect(() => {
