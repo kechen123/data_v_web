@@ -209,8 +209,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         e.target.style.transform = e.transform
         onDrag(e)
       }}
-      onDragEnd={() => {
-        onMoveableEventEnd()
+      onDragEnd={(args) => {
+        const { isDrag } = args
+        if (isDrag) onMoveableEventEnd()
       }}
       onResize={(e) => {
         const beforeTranslate = e.drag.beforeTranslate
@@ -219,8 +220,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px) rotate(${frame.widget.rotate}deg)`
         onResize(e)
       }}
-      onResizeEnd={() => {
-        onMoveableEventEnd()
+      onResizeEnd={(args) => {
+        console.log('', args)
+        const { isDrag } = args
+        if (isDrag) onMoveableEventEnd()
       }}
       onRotateStart={(e) => {
         let rotate = frame.widget.rotate || 0
@@ -230,12 +233,14 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         e.target.style.transform = e.transform
         onRotate(e)
       }}
-      onRotateEnd={() => {
-        onMoveableEventEnd()
+      onRotateEnd={(args) => {
+        const { isDrag } = args
+        if (isDrag) onMoveableEventEnd()
       }}
-      onRenderEnd={() => {
-        onMoveableEventEnd()
-      }}
+      // onRenderEnd={(args) => {
+      //   console.log('', args)
+      //   onMoveableEventEnd()
+      // }}
     />
   )
 }

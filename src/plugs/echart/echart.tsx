@@ -8,8 +8,6 @@ interface Props {
   getOption: (config: any) => any
 }
 
-let echart: any = null
-
 const Index = ({ widget, getOption }: Props) => {
   const {
     id,
@@ -19,24 +17,28 @@ const Index = ({ widget, getOption }: Props) => {
     },
   } = widget
 
+  const chartRef = useRef<any>()
+  // const [chart, setChart] = useState<echarts.ECharts>()
   const [option, setOption] = useState(getOption(config))
   const [rect, setRect] = useState(widget.widget.rect)
   const barRef = useRef<HTMLDivElement | null>(null)
 
   const setWidgetMapBus = (data: WidgetObj) => {
+    if (data.id !== id) return
     const newOption = getOption(data.widget.config)
     const newRect = data.widget.rect
-    if (data.id === id && JSON.stringify(option) !== JSON.stringify(newOption)) {
+    if (JSON.stringify(option) !== JSON.stringify(newOption)) {
       setOption(newOption)
     }
-    if (data.id === id && JSON.stringify(rect) !== JSON.stringify(newRect)) {
+    if (rect.width !== newRect.width || rect.height !== newRect.height) {
       setRect(newRect)
     }
   }
 
   useEffect(() => {
-    if (barRef.current && !echart) {
-      echart = echarts.init(barRef.current)
+    if (barRef.current && !chartRef.current) {
+      const echart = echarts.init(barRef.current)
+      chartRef.current = echart
     }
     eventBus.addListener('setWidgetMap', setWidgetMapBus)
     return () => {
@@ -45,14 +47,14 @@ const Index = ({ widget, getOption }: Props) => {
   }, [])
 
   useEffect(() => {
-    if (barRef.current && echart) {
-      echart.setOption(option)
+    if (barRef.current && chartRef.current) {
+      chartRef.current.setOption(option)
     }
   }, [option])
 
   useEffect(() => {
-    if (barRef.current && echart) {
-      echart.resize()
+    if (barRef.current && chartRef.current) {
+      chartRef.current.resize()
     }
   }, [rect])
   return <div key={id} style={{ width: '100%', height: '100%' }} ref={barRef}></div>

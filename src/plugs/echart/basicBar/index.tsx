@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
 import { getOption } from './option'
 import Echart from '../echart'
 
-const Index = (config: any) => {
-  const data = {}
-  return <Echart />
+const Index = (props: any) => {
+  const data = {
+    getOption,
+    widget: props,
+  }
+  return <Echart {...data} />
 }
 
 export default Index

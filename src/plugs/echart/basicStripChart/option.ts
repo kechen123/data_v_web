@@ -192,4 +192,7 @@ const option = {
     },
   ],
 }
-export default option
+
+export const getOption = (data) => {
+  return option
+}

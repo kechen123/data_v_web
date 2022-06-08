@@ -53,11 +53,11 @@ const Header = () => {
             <span>DATAKK</span>
           </div>
         </div>
-        <div className={style.content}></div>
-        <div className={style.menu}>
-          <div className={style.user}></div>
-        </div>
       </Link>
+      <div className={style.content}></div>
+      <div className={style.menu}>
+        <div className={style.user}></div>
+      </div>
     </header>
   )
 }

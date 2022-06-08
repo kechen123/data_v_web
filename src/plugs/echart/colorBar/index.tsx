@@ -1,18 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
-import * as echarts from 'echarts'
 import { getOption } from './option'
+import Echart from '../echart'
 
-const Index = (config: any) => {
-  const option = getOption(config)
-  const barRef = useRef<HTMLDivElement | null>(null)
-  let echart: any = null
-  useEffect(() => {
-    if (barRef.current) {
-      echart = echarts.init(barRef.current)
-      echart.setOption(option)
-    }
-  }, [])
-  return <div style={{ width: '100%', height: '100%' }} ref={barRef}></div>
+const Index = (props: any) => {
+  const data = {
+    getOption,
+    widget: props,
+  }
+  return <Echart {...data} />
 }
 
 export default Index
