@@ -18,7 +18,6 @@ const Index = ({ widget, getOption }: Props) => {
   } = widget
 
   const chartRef = useRef<any>()
-  // const [chart, setChart] = useState<echarts.ECharts>()
   const [option, setOption] = useState(getOption(config))
   const [rect, setRect] = useState(widget.widget.rect)
   const barRef = useRef<HTMLDivElement | null>(null)

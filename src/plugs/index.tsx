@@ -17,7 +17,7 @@ const Widget = (props: WidgetObj) => {
   } = props
 
   const OtherComponent = loadable(() => import(`./${url}/index`), {
-    // fallback: <Loading {...props} />,
+    fallback: <Loading {...props} />,
     /**
      *  插件缓存功能
      *  https://loadable-components.com/docs/dynamic-import/

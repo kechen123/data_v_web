@@ -221,7 +221,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         onResize(e)
       }}
       onResizeEnd={(args) => {
-        console.log('', args)
         const { isDrag } = args
         if (isDrag) onMoveableEventEnd()
       }}
