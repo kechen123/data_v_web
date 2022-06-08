@@ -9,7 +9,6 @@ const login = (username, password): Promise<string> => {
   return new Promise((resolve, reject) => {
     postFetch('/op/login', { username: username, password: password })
       .then((res) => {
-        console.log('res>>>>', res)
         resolve(res)
       })
       .catch(function (error) {
