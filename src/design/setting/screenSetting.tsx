@@ -24,7 +24,13 @@ const ScreenSetting = () => {
       <TabPane tab="大屏" key="1">
         <Form {...layout}>
           <Form.Item label="名称">
-            <Input placeholder="大屏名称" />
+            <Input
+              placeholder="大屏名称"
+              onChange={(e) => {
+                let name = e.target.value
+                dispatch(setScreen(['name', name]))
+              }}
+            />
           </Form.Item>
           <Form.Item label="尺寸" style={{ marginBottom: 0 }}>
             <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginRight: '6px' }}>

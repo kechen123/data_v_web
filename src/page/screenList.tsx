@@ -111,7 +111,7 @@ const Create = () => {
 
 const BodyContent = () => {
   const defaultWidget = async () => {
-    return await getFetch('/rs/screen')
+    return await getFetch('/rs/screen?sort=update_time desc')
   }
   const [list, setList] = useState<Array<Screen>>([])
   const navigate = useNavigate()

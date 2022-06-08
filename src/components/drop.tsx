@@ -5,7 +5,7 @@ import eventBus from '@utils/eventBus'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
 import { Widget } from '@_types/Plugin'
-import { drop } from '@features/screenSlice'
+import { drop, screen } from '@features/screenSlice'
 
 const style: React.CSSProperties = {
   width: '100%',
@@ -20,7 +20,8 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   const [isHovering, setIsHovering] = useState(false)
   const dropRef = useRef<HTMLDivElement | null>(null)
   const { status } = useAppSelector(dropDrag)
-
+  const { widgetIndex } = useAppSelector(screen)
+  console.log(widgetIndex)
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (status === '') {

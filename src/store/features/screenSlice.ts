@@ -43,6 +43,11 @@ export const screenSlice = createSlice({
   initialState,
   // 这里的属性会自动的导出为actions，在组件中可以直接通过dispatch进行触发
   reducers: {
+    initScreen: (state, action: PayloadAction<screenState>) => {
+      Object.keys(action.payload).forEach((key) => {
+        state[key] = action.payload[key]
+      })
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     setScreen: (state, action: PayloadAction<any[]>) => {
       state[action.payload[0]] = action.payload[1]
@@ -63,7 +68,7 @@ export const screenSlice = createSlice({
   },
 })
 // 导出actions
-export const { setScreen, setActiveWidgets, drop } = screenSlice.actions
+export const { initScreen, setScreen, setActiveWidgets, drop } = screenSlice.actions
 
 // 导出initialState
 export const screen = (state: RootState) => state.screen

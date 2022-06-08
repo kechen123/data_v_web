@@ -8,7 +8,7 @@ import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 
 import { getFetch } from '@utils/request'
-import { screen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
+import { screen, initScreen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
 import { initWidget, setWidget, delWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
@@ -22,14 +22,15 @@ import style from './index.module.less'
 
 let event: any = null
 
-const defaultWidget = async () => {
+const defaultScreenData = async () => {
   const id = getUrlParam('id')
   if (id) {
     const res = await getFetch('/rs/screen?id=' + id)
     if (res.data.length === 1) {
       const data = res.data[0]
       const widgetData = data.widget
-      return widgetData
+      const screenData = data.screen
+      return { widgetData, screenData }
     }
   }
   return {}
@@ -173,6 +174,9 @@ const Screen = () => {
   //选中组件切换
   useEffect(() => {
     dispatch(setActiveWidgetsStore(activeWidgets))
+    target.forEach((item) => {
+      item.classList.remove('active')
+    })
     if (activeWidgets.length === 0 && target.length > 0) {
       setTarget([])
     } else if (activeWidgets.length === 1) {
@@ -190,6 +194,9 @@ const Screen = () => {
 
   //选中/取消选中组件
   useEffect(() => {
+    target.forEach((item) => {
+      item.classList.add('active')
+    })
     if (target.length === 1) {
       if (childRef.current && event != null && event.type === 'mousedown') {
         const moveable = childRef.current.moveable
@@ -224,12 +231,12 @@ const Screen = () => {
   //编辑回显
   useEffect(() => {
     ;(async () => {
-      const data = await defaultWidget()
+      const { widgetData, screenData } = await defaultScreenData()
       const widgetMapCopy = { ...widgetMapRef.current }
-      let widgetList = Object.keys(data).map((item) => {
+      let widgetList = Object.keys(widgetData).map((item) => {
         return {
           id: item,
-          widget: data[item],
+          widget: widgetData[item],
         }
       })
       widgetList.forEach((item) => {
@@ -237,7 +244,8 @@ const Screen = () => {
       })
       widgetMapRef.current = widgetMapCopy
       setWidgetMap(widgetMapCopy)
-      dispatch(initWidget(data))
+      dispatch(initWidget(widgetData))
+      dispatch(initScreen(screenData))
     })()
   }, [])
 
