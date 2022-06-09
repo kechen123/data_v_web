@@ -4,7 +4,6 @@ import { getFetch } from '@utils/request'
 import App from '../design'
 import Loading from '@page/loading1'
 import '@assets/less/design.less'
-import '@assets/less/global.less'
 
 const Design = () => {
   return <App />
