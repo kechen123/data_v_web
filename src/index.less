@@ -11,28 +11,27 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-:root {
-  --screen-margin: 20px;
-  --scroll-bg-color: #495670;
-  --dark-navy: #020c1b;
-  --navy: #0a192f;
-  --light-navy: #112240;
-  --input-border: #495670;
-  --input-hover-border: #8096c2;
-  --light-gray: #f5f5f5;
-  --lightest-navy: #233554;
-  --navy-shadow: rgba(29, 44, 66, 0.7);
-  --dark-slate: #495670;
-  --slate: #8892b0;
-  --light-slate: #a8b2d1;
-  --lightest-slate: #ccd6f6;
-  --white: #e6f1ff;
-  --green: #64ffda;
-  --green-tint: rgba(100, 255, 218, 0.1);
-  --pink: #f57dff;
-  --blue: #57cbff;
-}
-.widget {
-  position: absolute;
+  a {
+    text-decoration: none;
+  }
+  /*去除未被访问的a标签的下划线*/
+  a:link {
+    text-decoration: none;
+  }
+  /*去除已经被访问过的a标签的下划线*/
+  a:visited {
+    text-decoration: none;
+  }
+  /*去除鼠标悬停时的a标签的下划线*/
+  a:hover {
+    text-decoration: none;
+  }
+  /*去除正在点击的a标签的下划线（鼠标按下，尚未松开）*/
+  a:active {
+    text-decoration: none;
+  }
+  /*去除获得焦点的a标签的下划线（被鼠标点击过）*/
+  a:focus {
+    text-decoration: none;
+  }
 }
