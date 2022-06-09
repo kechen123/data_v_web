@@ -16,13 +16,12 @@ module.exports = {
       plugin: CracoAntDesignPlugin,
       options: {
         customizeTheme: {
-          '@primary-color': '#56cfb2',
+          '@primary-color': 'rgba(100, 255, 218, 0.6)',
           '@border-color-base': 'var(--input-border)',
           '@collapse-header-arrow-left': '6px',
           '@collapse-header-padding-extra': '26px',
           '@collapse-header-bg': 'var(--navy)',
           '@collapse-content-bg': 'var(--navy)',
-          '@tooltip-bg': 'rgba(10, 24, 46, 0.5)',
           '@form-item-margin-bottom': '8px',
           '@slider-rail-background-color': 'var(--scroll-bg-color)',
           '@slider-rail-background-color-hover': 'var(--scroll-bg-color)',
@@ -32,6 +31,8 @@ module.exports = {
           '@slider-handle-color-hover': 'var(--green)',
           '@slider-handle-color-tooltip-open': 'var(--green)',
           '@tooltip-color': 'var(--pink)',
+          '@tooltip-bg': '#112240',
+          '@popover-background': 'var(--light-navy)',
         },
       },
     },

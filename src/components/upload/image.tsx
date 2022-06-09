@@ -120,11 +120,11 @@ export const ImageBox = (props: props) => {
       upImage('')
     }
   }
-
+  const imgUrl = url && url.indexOf('upload') > -1 ? `${baseHost}${url}` : url
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      {url ? <IImage url={baseHost + url} delFun={delFun}></IImage> : <div>选择或拖动图片到此处</div>}
+      {url ? <IImage url={imgUrl} delFun={delFun}></IImage> : <div>选择或拖动图片到此处</div>}
     </div>
   )
 }

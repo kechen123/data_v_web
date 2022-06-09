@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { message } from 'antd'
 import { getFetch } from '@utils/request'
 import style from '@assets/less/screenList.module.less'
+import { url } from 'inspector'
 
 type Screen = {
   id: string
@@ -123,7 +124,7 @@ const BodyContent = () => {
           return {
             id: item.id,
             name: item.screen?.name,
-            url: item.screen?.backgroundImage,
+            url: item.screen?.coverImage,
           }
         })
         setList(arr)
@@ -132,6 +133,9 @@ const BodyContent = () => {
       }
     })()
   }, [])
+  const bgImg = (url: string | undefined) => {
+    return url ? { backgroundImage: `url(${url})` } : {}
+  }
   return (
     <section className={style.content}>
       <div className={style.list}>
@@ -140,11 +144,9 @@ const BodyContent = () => {
           return (
             <div key={index} className={style.screen}>
               <div className={style.screenItem}>
-                <div className={style.thumb}>
-                  <Link to={`/preview?id=${item.id}`} target="_blank">
-                    <img src={item?.url} />
-                  </Link>
-                </div>
+                <Link to={`/preview?id=${item.id}`} target="_blank">
+                  <div className={style.thumb} style={{ ...bgImg(item.url) }}></div>
+                </Link>
                 <div className={style.bottom}>
                   <div className={style.name}>{item?.name}</div>
                   <div className={style.btns}>

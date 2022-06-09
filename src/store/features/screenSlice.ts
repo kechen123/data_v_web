@@ -13,6 +13,7 @@ export interface screenState {
   name: string
   width: number
   height: number
+  coverImage: string
   scale: number
   screenZoom: 'scaling' | 'Hscaling' | 'Wscaling' | 'phone' | 'none'
   backgroundColor: string
@@ -29,6 +30,7 @@ const initialState: screenState = {
   name: '未命名大屏',
   width: SCREENWIDTH,
   height: SCREENHEIGHT,
+  coverImage: '', //封面图片
   scale: 100,
   screenZoom: 'none',
   backgroundColor: '#0d2a43',
