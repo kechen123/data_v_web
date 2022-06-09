@@ -21,7 +21,6 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
   const dropRef = useRef<HTMLDivElement | null>(null)
   const { status } = useAppSelector(dropDrag)
   const { widgetIndex } = useAppSelector(screen)
-  console.log(widgetIndex)
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (status === '') {
