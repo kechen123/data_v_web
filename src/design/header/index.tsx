@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 import { useAppSelector } from '@storeApp/hooks'
-import { useRequest } from 'ahooks'
+import { useRequest, useFullscreen } from 'ahooks'
 import { postFetch, putFetch } from '@utils/request'
 import { screen } from '@features/screenSlice'
 import { widget } from '@features/widgetSlice'
@@ -32,6 +32,8 @@ const editScreen = (id: string, data: Object): Promise<string> => {
 const Header = (props) => {
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
+
+  const [, { enterFullscreen }] = useFullscreen(() => document.getElementById('screen'))
 
   const createRequest = useRequest(createScreen, {
     manual: true,
@@ -135,15 +137,14 @@ const Header = (props) => {
       <div className={style.left}></div>
       <div className={style.center}></div>
       <div className={style.right}>
-        <div className={style.btn}>
-          <i className="icon iconfont icon-yulan " onClick={yulan}></i>
-          {/* <Link to="/preview" target="_blank">
-            <i className="icon iconfont icon-yulan "></i>
-          </Link> */}
+        <div className={style.btn} onClick={enterFullscreen}>
+          <i className="icon iconfont icon-yulan "></i>
+          <span>预览</span>
         </div>
 
-        <div className={style.btn}>
-          <i className="icon iconfont icon-baocun " onClick={save}></i>
+        <div className={style.btn} onClick={save}>
+          <i className="icon iconfont icon-baocun "></i>
+          <span>保存</span>
         </div>
       </div>
     </div>
