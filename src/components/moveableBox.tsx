@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
+import { flushSync } from 'react-dom'
 import Moveable from 'react-moveable'
 import { useGetState } from 'ahooks'
 import update from 'immutability-helper'
@@ -191,6 +192,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   }, [])
   return (
     <Moveable
+      flushSync={flushSync}
       ref={(e) => {
         setMoveable(e)
       }}
