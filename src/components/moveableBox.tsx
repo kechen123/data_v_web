@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
+import React, { useState, useEffect, useContext, useTransition, useRef, forwardRef, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 import { flushSync } from 'react-dom'
 import Moveable from 'react-moveable'
 import { useGetState } from 'ahooks'
@@ -6,9 +6,13 @@ import update from 'immutability-helper'
 import { useAppDispatch } from '@storeApp/hooks'
 import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
-import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
+import { WidgetObj, Rect, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 export interface cRef {
   moveable: any
+}
+interface Rects {
+  rect: Rect
+  rotate?: number
 }
 
 // const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
@@ -55,6 +59,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
+    render({
+      rect: newFrame.widget.rect,
+      rotate: newFrame.widget.rotate,
+    })
   }
 
   const onResize = (args) => {
@@ -83,6 +91,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
+    render({
+      rect: newFrame.widget.rect,
+      rotate: newFrame.widget.rotate,
+    })
   }
 
   const onRotate = (args) => {
@@ -96,6 +108,10 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     setFrame(newFrame)
+    render({
+      rect: newFrame.widget.rect,
+      rotate: newFrame.widget.rotate,
+    })
   }
 
   //move resize rotate 事件结束 更新
@@ -134,14 +150,30 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       widget: newFrame.widget,
     })
   }
-  const render = () => {
+  const render = (props?: Rects) => {
+    // let props: any = undefined
     if (moveable) {
-      let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
-      let leftM = Math.round(left),
-        topM = Math.round(top),
-        offsetWidthM = Math.round(offsetWidth),
-        offsetHeightM = Math.round(offsetHeight),
-        rotationM = Math.round(rotation)
+      if (!props) {
+        let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+        props = {
+          rect: {
+            left,
+            top,
+            width: offsetWidth,
+            height: offsetHeight,
+          },
+          rotate: rotation,
+        }
+      }
+      let {
+        rect: { left, top, width, height },
+        rotate,
+      } = props
+      let leftM = Math.round(left || 0),
+        topM = Math.round(top || 0),
+        offsetWidthM = Math.round(width || 0),
+        offsetHeightM = Math.round(height || 0),
+        rotationM = Math.round(rotate || 0)
       eventBus.emit('widgetMove', {
         left: leftM,
         top: topM,
@@ -206,7 +238,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       draggable={true}
       resizable={true}
       rotatable={false}
-      onRender={render}
+      // onRender={render}
       onDrag={(e) => {
         e.target.style.transform = e.transform
         onDrag(e)
