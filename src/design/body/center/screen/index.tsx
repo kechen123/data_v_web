@@ -9,7 +9,7 @@ import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 
 import { getFetch } from '@utils/request'
 import { screen, initScreen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
-import { initWidget, setWidget, delWidget } from '@features/widgetSlice'
+import { widget, initWidget, setWidget, delWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
@@ -18,7 +18,8 @@ import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
 import { getUrlParam } from '@utils/common'
 import { baseHost } from '@config/http'
-import contextMenuClick from './handleContextClick'
+// import contextMenuClick from './handleContextClick'
+import useContextClick from './useContextClick'
 import style from './index.module.less'
 
 let event: any = null
@@ -38,15 +39,17 @@ const defaultScreenData = async () => {
 }
 
 const Screen = () => {
-  const [widgetMap, setWidgetMap] = useState({}) // 存储所有组件
-  const [activeWidgets, setActiveWidgets] = useState<any>([]) // 存储当前激活的组件
-  const widgetMapRef = useRef<any>([]) // 所有组件最新值
-  const activeWidgetsRef = useRef<any>([]) // 当前激活的组件最新值
+  // const [widgetMap, setWidgetMap] = useState({}) // 存储所有组件
+  // const [activeWidgets, setActiveWidgets] = useState<any>([]) // 存储当前激活的组件
+  // const widgetMapRef = useRef<any>([]) // 所有组件最新值
+  // const activeWidgetsRef = useRef<any>([]) // 当前激活的组件最新值
   const moveContent = useRef<HTMLDivElement>(null) // 移动组件的容器
   const [target, setTarget] = useState<Array<HTMLDivElement>>([]) // 目标组件 可以拖拽的组件
-  const { width, height, scale, backgroundColor, backgroundImage, screenWidget } = useAppSelector(screen) // 获取当前屏幕基本信息
+  const widgetMap = useAppSelector(widget)
+  const { width, height, scale, backgroundColor, backgroundImage, screenWidget, activeWidgets } = useAppSelector(screen) // 获取当前屏幕基本信息
   const childRef = useRef<cRef>(null)
   const dispatch = useAppDispatch()
+  const contextMenuClick = useContextClick({ widgetMap, activeWidgets })
 
   //组件取消选中
   const viewClick = (e) => {
@@ -57,13 +60,41 @@ const Screen = () => {
     event = null
     let id = e.target.getAttribute('id')
     if (activeWidgets.length > 0 && id && id === 'screen') {
-      setActiveWidgets([])
+      dispatch(setActiveWidgetsStore([]))
     }
   }
 
   //右键菜单
   const handleContextMenuClick = (...params) => {
-    contextMenuClick(params)
+    console.log('del', params)
+    const [ev, group, item] = params
+    const { id, label } = item
+    switch (id) {
+      case 'copy':
+      case 'top':
+      case 'bottom':
+      case 'up':
+      case 'down':
+      case 'group':
+      case 'hide':
+      case 'lock':
+      case 'del':
+        contextMenuClick[id]()
+        break
+      default:
+        break
+    }
+
+    // const param = {
+    //   ev: ev,
+    //   group: group,
+    //   item: item,
+    //   data: {
+    //     widgetMap: widgetMapRef.current,
+    //     activeWidget: activeWidgetsRef.current,
+    //   },
+    // }
+    // contextMenuClick(param)
   }
 
   //组件list
@@ -75,13 +106,6 @@ const Screen = () => {
       }
     })
   }, [widgetMap])
-
-  //当前选中组件data-id
-  const targetId: any = useMemo(() => {
-    return target.map((item) => {
-      return item.getAttribute('data-id')
-    })
-  }, [target])
 
   //组件移动参数
   const moveableBoxProps: MoveableBoxProps = useMemo(() => {
@@ -104,80 +128,76 @@ const Screen = () => {
   }, [target])
 
   //新增，变更组件
-  const setWidgetMapBus = useCallback(
-    (data: WidgetObj) => {
-      const widgetMapCopy = { ...widgetMapRef.current }
-      widgetMapCopy[data.id] = data.widget
-      widgetMapRef.current = widgetMapCopy
-      setWidgetMap(widgetMapCopy)
-      dispatch(setWidget(data))
-    },
-    [widgetMap]
-  )
-
-  //设置选中组件id
-  const setActiveWidgetsBus = (arr: Array<any>) => {
-    setActiveWidgets(arr)
-    activeWidgetsRef.current = arr
-  }
+  // const setWidgetMapBus = useCallback(
+  //   (data: WidgetObj) => {
+  //     dispatch(setWidget(data))
+  //   },
+  //   [widgetMap]
+  // )
 
   //组件选中
   const widgetSelect = (e) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
-    setActiveWidgetsBus([targetId])
+    dispatch(setActiveWidgetsStore([targetId]))
     event = e
   }
 
   //删除组件
-  const delWidgetMapBus = useCallback(
-    (ids: string[] | string) => {
-      const widgetMapCopy = { ...widgetMapRef.current }
-      if (typeof ids === 'string') {
-        delete widgetMapCopy[ids]
-      } else {
-        ids.forEach((id) => {
-          delete widgetMapCopy[id]
-        })
-      }
-      widgetMapRef.current = widgetMapCopy
-      setWidgetMap(widgetMapCopy)
-      dispatch(delWidget(ids))
-      message.success('删除成功')
-    },
-    [widgetMap]
-  )
+  // const delWidgetMapBus = useCallback(
+  //   (ids: string[] | string) => {
+  //     const widgetMapCopy = { ...widgetMapRef.current }
+  //     if (typeof ids === 'string') {
+  //       delete widgetMapCopy[ids]
+  //     } else {
+  //       ids.forEach((id) => {
+  //         delete widgetMapCopy[id]
+  //       })
+  //     }
+  //     widgetMapRef.current = widgetMapCopy
+  //     setWidgetMap(widgetMapCopy)
+  //     dispatch(delWidget(ids))
+  //     message.success('删除成功')
+  //   },
+  //   [widgetMap]
+  // )
 
   //删除选中组件
-  const delActiveWidgetsBus = useCallback(() => {
-    delWidgetMapBus(activeWidgetsRef.current)
-    setActiveWidgetsBus([])
-  }, [activeWidgets])
+  // const delActiveWidgetsBus = useCallback(() => {
+  //   delWidgetMapBus(activeWidgetsRef.current)
+  //   setActiveWidgetsBus([])
+  // }, [activeWidgets])
 
   //参数修改
-  const changePlug = useCallback(
-    (id, data: any) => {
-      let widgetCopy = { ...widgetMapRef.current[id] }
-      widgetCopy = {
-        ...widgetCopy,
-        ...data,
-      }
-      const widgetMapCopy = {
-        ...widgetMapRef.current,
-        [id]: widgetCopy,
-      }
-      widgetMapRef.current = widgetMapCopy
-      setWidgetMap(widgetMapCopy)
-    },
-    [widgetMap]
-  )
+  // const changePlug = useCallback(
+  //   (id, data: any) => {
+  //     // let widgetCopy = { ...widgetMapRef.current[id] }
+  //     // widgetCopy = {
+  //     //   ...widgetCopy,
+  //     //   ...data,
+  //     // }
+  //     // const widgetMapCopy = {
+  //     //   ...widgetMapRef.current,
+  //     //   [id]: widgetCopy,
+  //     // }
+  //     // widgetMapRef.current = widgetMapCopy
+  //     // setWidgetMap(widgetMapCopy)
+  //   },
+  //   [widgetMap]
+  // )
 
-  //选中组件切换
+  //设置可以拖拽的组件
   useEffect(() => {
-    dispatch(setActiveWidgetsStore(activeWidgets))
-    target.forEach((item) => {
+    document.querySelectorAll(`.widget`).forEach((item) => {
       item.classList.remove('active')
+      if (item.classList.contains('active')) {
+        item.classList.remove('active')
+      }
+      if (activeWidgets.includes(item.getAttribute('data-id') || '')) {
+        item.classList.add('active')
+      }
     })
+
     if (activeWidgets.length === 0 && target.length > 0) {
       setTarget([])
     } else if (activeWidgets.length === 1) {
@@ -195,10 +215,7 @@ const Screen = () => {
 
   //选中/取消选中组件
   useEffect(() => {
-    target.forEach((item) => {
-      item.classList.add('active')
-    })
-    if (target.length === 1) {
+    if (activeWidgets.length === 1) {
       if (childRef.current && event != null && event.type === 'mousedown') {
         const moveable = childRef.current.moveable
         moveable.dragStart(event)
@@ -206,26 +223,18 @@ const Screen = () => {
     }
   }, [target])
 
-  //更新选中组件id
-  useEffect(() => {
-    if (event != null && targetId.sort().join('') != activeWidgets.sort().join('')) {
-      setActiveWidgets([targetId])
-    }
-  }, [targetId])
-
   //订阅组件变更
   useEffect(() => {
-    eventBus.addListener('setWidgetMap', setWidgetMapBus)
-    eventBus.addListener('delWidgetMap', delWidgetMapBus)
-    eventBus.addListener('setActiveWidgets', setActiveWidgetsBus)
-    eventBus.addListener('delActiveWidgets', delActiveWidgetsBus)
-    eventBus.addListener('changePlug', changePlug)
+    // eventBus.addListener('setWidgetMap', setWidgetMapBus)
+    // eventBus.addListener('delWidgetMap', delWidgetMapBus)
+    // eventBus.addListener('delActiveWidgets', delActiveWidgetsBus)
+    // eventBus.addListener('changePlug', changePlug)
     return () => {
-      eventBus.removeListener('setWidgetMap', setWidgetMapBus)
-      eventBus.removeListener('delWidgetMap', delWidgetMapBus)
-      eventBus.removeListener('setActiveWidgets', setActiveWidgetsBus)
-      eventBus.removeListener('delActiveWidgets', delActiveWidgetsBus)
-      eventBus.removeListener('changePlug', changePlug)
+      // eventBus.removeListener('setWidgetMap', setWidgetMapBus)
+      // eventBus.removeListener('delWidgetMap', delWidgetMapBus)
+      // eventBus.removeListener('setActiveWidgets', setActiveWidgetsBus)
+      // eventBus.removeListener('delActiveWidgets', delActiveWidgetsBus)
+      // eventBus.removeListener('changePlug', changePlug)
     }
   }, [])
 
@@ -235,18 +244,18 @@ const Screen = () => {
       const id = getUrlParam('id')
       if (!id) return
       const { widgetData, screenData } = await defaultScreenData()
-      const widgetMapCopy = { ...widgetMapRef.current }
-      let widgetList = Object.keys(widgetData).map((item) => {
-        return {
-          id: item,
-          widget: widgetData[item],
-        }
-      })
-      widgetList.forEach((item) => {
-        widgetMapCopy[item.id] = item.widget
-      })
-      widgetMapRef.current = widgetMapCopy
-      setWidgetMap(widgetMapCopy)
+      // const widgetMapCopy = { ...widgetMapRef.current }
+      // let widgetList = Object.keys(widgetData).map((item) => {
+      //   return {
+      //     id: item,
+      //     widget: widgetData[item],
+      //   }
+      // })
+      // widgetList.forEach((item) => {
+      //   widgetMapCopy[item.id] = item.widget
+      // })
+      // widgetMapRef.current = widgetMapCopy
+      // setWidgetMap(widgetMapCopy)
       dispatch(initWidget(widgetData))
       dispatch(initScreen(screenData))
     })()
@@ -259,7 +268,7 @@ const Screen = () => {
 
   let bodyW = (scale / 100) * width + SCREENMARGIN[1] + SCREENMARGIN[3]
   let bodyH = (scale / 100) * height + SCREENMARGIN[0] + SCREENMARGIN[2]
-
+  console.log(WidgetObjList)
   return (
     <div
       ref={moveContent}

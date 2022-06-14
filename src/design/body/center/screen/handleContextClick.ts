@@ -1,7 +1,15 @@
 import eventBus from '@utils/eventBus'
 import { message, Modal } from 'antd'
+import { v4 as uuidv4 } from 'uuid'
+import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
+import { initWidget, setWidget, delWidget } from '@features/widgetSlice'
 
-const copy = (text: string) => {}
+const copy = (text: string) => {
+  console.log('', text)
+  const uid: string = uuidv4().substring(0, 8)
+  // const newWidgetObj = {
+  // ...widgetObj,
+}
 
 const top = (text: string) => {}
 
@@ -17,7 +25,8 @@ const hide = (text: string) => {}
 
 const lock = (text: string) => {}
 
-const del = (text: string) => {
+const del = (args) => {
+  console.log('del', args)
   Modal.confirm({
     title: '删除组件',
     centered: true,
@@ -25,17 +34,19 @@ const del = (text: string) => {
     okText: '确认',
     cancelText: '取消',
     onOk: () => {
-      eventBus.emit('delActiveWidgets')
+      // dispatch(delWidget(args))
+      // eventBus.emit('delActiveWidgets')
     },
   })
 }
 
-const click = (params: any[]) => {
-  const [ev, group, item] = params
+const Click = (params: any) => {
+  const { ev, group, item, data } = params
   const { id, label } = item
+  const dispatch = useAppDispatch()
   switch (id) {
     case 'copy':
-      copy(label)
+      copy(data)
       break
     case 'top':
       top(label)
@@ -59,11 +70,11 @@ const click = (params: any[]) => {
       lock(label)
       break
     case 'del':
-      del(label)
+      del(data.acitveWidget)
       break
     default:
       break
   }
 }
 
-export default click
+export default Click

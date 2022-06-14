@@ -34,14 +34,14 @@ const Info = React.memo(
     useEffect(() => {
       setFrame(props)
     }, [props])
-    const setConfig = useCallback(
-      (key, val) => {
-        eventBus.emit('changePlug', frame.id, {
-          [key]: val,
-        })
-      },
-      [props]
-    )
+    // const setConfig = useCallback(
+    //   (key, val) => {
+    //     eventBus.emit('changePlug', frame.id, {
+    //       [key]: val,
+    //     })
+    //   },
+    //   [props]
+    // )
     return (
       <Row style={margin}>
         <Space size={20}>
@@ -53,7 +53,7 @@ const Info = React.memo(
             onChange={(e) => {
               let name = e.target.value
               setFrame({ ...frame, name: name })
-              setConfig('name', name)
+              // setConfig('name', name)
             }}
           />
 

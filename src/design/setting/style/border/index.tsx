@@ -24,22 +24,22 @@ const Index = (widgetObj) => {
     const hex = e.hex
     let newColors = [hex, selfColor[1]]
     setSelfColor(newColors)
-    changeConfig(newColors)
+    // changeConfig(newColors)
   }
   const onChange2 = (e) => {
     const hex = e.hex
     let newColors = [selfColor[0], hex]
     setSelfColor(newColors)
-    changeConfig(newColors)
+    // changeConfig(newColors)
   }
 
-  const changeConfig = (colors) => {
-    eventBus.emit('changePlug', id, {
-      config: {
-        color: colors,
-      },
-    })
-  }
+  // const changeConfig = (colors) => {
+  //   eventBus.emit('changePlug', id, {
+  //     config: {
+  //       color: colors,
+  //     },
+  //   })
+  // }
 
   return (
     <Collapse bordered={false} defaultActiveKey={[1]}>

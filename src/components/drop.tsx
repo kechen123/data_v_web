@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from 'uuid'
 import eventBus from '@utils/eventBus'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { dropDrag, setStatus } from '@features/dropDragSlice'
+import { setWidget } from '@features/widgetSlice'
 import { Widget } from '@_types/Plugin'
-import { drop, screen } from '@features/screenSlice'
+import { drop, screen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
 
 const style: React.CSSProperties = {
   width: '100%',
@@ -56,11 +57,14 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
         config: widgetObj.config,
       }
       const uid: string = uuidv4().substring(0, 8)
-      eventBus.emit('setWidgetMap', {
-        id: uid,
-        widget: widget,
-      })
-      eventBus.emit('setActiveWidgets', [uid])
+      dispatch(
+        setWidget({
+          id: uid,
+          widget: widget,
+        })
+      )
+      dispatch(setActiveWidgetsStore([uid]))
+      // eventBus.emit('setActiveWidgets', [uid])
       // dispatch(setWidget(obj))
       dispatch(drop(uid))
     },

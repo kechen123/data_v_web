@@ -8,9 +8,9 @@ const useWidgetBus = (id: string, onChange: (data: WidgetObj) => void) => {
     onChange(data)
   }
   useEffect(() => {
-    eventBus.addListener('setWidgetMap', setWidgetMapBus)
+    eventBus.addListener('chengeActiveConfig', setWidgetMapBus)
     return () => {
-      eventBus.removeListener('setWidgetMap', setWidgetMapBus)
+      eventBus.removeListener('chengeActiveConfig', setWidgetMapBus)
     }
   }, [])
 }

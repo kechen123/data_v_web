@@ -145,10 +145,13 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       },
     })
     const id = target[0].getAttribute('data-id')
-    eventBus.emit('setWidgetMap', {
-      id: id,
-      widget: newFrame.widget,
-    })
+
+    dispatch(
+      setWidget({
+        id: id || '',
+        widget: newFrame.widget,
+      })
+    )
   }
   const render = (props?: Rects) => {
     // let props: any = undefined
