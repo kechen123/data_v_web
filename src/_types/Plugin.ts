@@ -29,8 +29,8 @@ export interface WidgetObj {
 }
 
 export interface MoveableBox {
-  container: HTMLDivElement | null
+  container?: HTMLDivElement | null
   target: Array<HTMLDivElement>
-  setTarget: Function
+  setTarget?: Function
   widgetList: Array<WidgetObj>
 }

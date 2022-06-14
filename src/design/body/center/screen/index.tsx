@@ -6,11 +6,9 @@ import Drop from '@components/drop'
 import ContextMenu from '@components/contextmenu'
 import MoveableBox, { cRef } from '@components/moveableBox'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
-
 import { getFetch } from '@utils/request'
 import { screen, initScreen, setActiveWidgets as setActiveWidgetsStore } from '@features/screenSlice'
 import { widget, initWidget, setWidget, delWidget } from '@features/widgetSlice'
-import eventBus from '@utils/eventBus'
 import Widget from '@plugs/index'
 import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
@@ -18,7 +16,6 @@ import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
 import { getUrlParam } from '@utils/common'
 import { baseHost } from '@config/http'
-// import contextMenuClick from './handleContextClick'
 import useContextClick from './useContextClick'
 import style from './index.module.less'
 
@@ -39,10 +36,6 @@ const defaultScreenData = async () => {
 }
 
 const Screen = () => {
-  // const [widgetMap, setWidgetMap] = useState({}) // 存储所有组件
-  // const [activeWidgets, setActiveWidgets] = useState<any>([]) // 存储当前激活的组件
-  // const widgetMapRef = useRef<any>([]) // 所有组件最新值
-  // const activeWidgetsRef = useRef<any>([]) // 当前激活的组件最新值
   const moveContent = useRef<HTMLDivElement>(null) // 移动组件的容器
   const [target, setTarget] = useState<Array<HTMLDivElement>>([]) // 目标组件 可以拖拽的组件
   const widgetMap = useAppSelector(widget)
@@ -66,7 +59,6 @@ const Screen = () => {
 
   //右键菜单
   const handleContextMenuClick = (...params) => {
-    console.log('del', params)
     const [ev, group, item] = params
     const { id, label } = item
     switch (id) {
@@ -84,17 +76,6 @@ const Screen = () => {
       default:
         break
     }
-
-    // const param = {
-    //   ev: ev,
-    //   group: group,
-    //   item: item,
-    //   data: {
-    //     widgetMap: widgetMapRef.current,
-    //     activeWidget: activeWidgetsRef.current,
-    //   },
-    // }
-    // contextMenuClick(param)
   }
 
   //组件list
@@ -120,20 +101,10 @@ const Screen = () => {
       }
     })
     return {
-      container: moveContent.current,
       target,
-      setTarget,
       widgetList: widgetList,
     }
   }, [target])
-
-  //新增，变更组件
-  // const setWidgetMapBus = useCallback(
-  //   (data: WidgetObj) => {
-  //     dispatch(setWidget(data))
-  //   },
-  //   [widgetMap]
-  // )
 
   //组件选中
   const widgetSelect = (e) => {
@@ -142,49 +113,6 @@ const Screen = () => {
     dispatch(setActiveWidgetsStore([targetId]))
     event = e
   }
-
-  //删除组件
-  // const delWidgetMapBus = useCallback(
-  //   (ids: string[] | string) => {
-  //     const widgetMapCopy = { ...widgetMapRef.current }
-  //     if (typeof ids === 'string') {
-  //       delete widgetMapCopy[ids]
-  //     } else {
-  //       ids.forEach((id) => {
-  //         delete widgetMapCopy[id]
-  //       })
-  //     }
-  //     widgetMapRef.current = widgetMapCopy
-  //     setWidgetMap(widgetMapCopy)
-  //     dispatch(delWidget(ids))
-  //     message.success('删除成功')
-  //   },
-  //   [widgetMap]
-  // )
-
-  //删除选中组件
-  // const delActiveWidgetsBus = useCallback(() => {
-  //   delWidgetMapBus(activeWidgetsRef.current)
-  //   setActiveWidgetsBus([])
-  // }, [activeWidgets])
-
-  //参数修改
-  // const changePlug = useCallback(
-  //   (id, data: any) => {
-  //     // let widgetCopy = { ...widgetMapRef.current[id] }
-  //     // widgetCopy = {
-  //     //   ...widgetCopy,
-  //     //   ...data,
-  //     // }
-  //     // const widgetMapCopy = {
-  //     //   ...widgetMapRef.current,
-  //     //   [id]: widgetCopy,
-  //     // }
-  //     // widgetMapRef.current = widgetMapCopy
-  //     // setWidgetMap(widgetMapCopy)
-  //   },
-  //   [widgetMap]
-  // )
 
   //设置可以拖拽的组件
   useEffect(() => {
@@ -223,39 +151,12 @@ const Screen = () => {
     }
   }, [target])
 
-  //订阅组件变更
-  useEffect(() => {
-    // eventBus.addListener('setWidgetMap', setWidgetMapBus)
-    // eventBus.addListener('delWidgetMap', delWidgetMapBus)
-    // eventBus.addListener('delActiveWidgets', delActiveWidgetsBus)
-    // eventBus.addListener('changePlug', changePlug)
-    return () => {
-      // eventBus.removeListener('setWidgetMap', setWidgetMapBus)
-      // eventBus.removeListener('delWidgetMap', delWidgetMapBus)
-      // eventBus.removeListener('setActiveWidgets', setActiveWidgetsBus)
-      // eventBus.removeListener('delActiveWidgets', delActiveWidgetsBus)
-      // eventBus.removeListener('changePlug', changePlug)
-    }
-  }, [])
-
   //编辑回显
   useEffect(() => {
     ;(async () => {
       const id = getUrlParam('id')
       if (!id) return
       const { widgetData, screenData } = await defaultScreenData()
-      // const widgetMapCopy = { ...widgetMapRef.current }
-      // let widgetList = Object.keys(widgetData).map((item) => {
-      //   return {
-      //     id: item,
-      //     widget: widgetData[item],
-      //   }
-      // })
-      // widgetList.forEach((item) => {
-      //   widgetMapCopy[item.id] = item.widget
-      // })
-      // widgetMapRef.current = widgetMapCopy
-      // setWidgetMap(widgetMapCopy)
       dispatch(initWidget(widgetData))
       dispatch(initScreen(screenData))
     })()
@@ -268,7 +169,6 @@ const Screen = () => {
 
   let bodyW = (scale / 100) * width + SCREENMARGIN[1] + SCREENMARGIN[3]
   let bodyH = (scale / 100) * height + SCREENMARGIN[0] + SCREENMARGIN[2]
-  console.log(WidgetObjList)
   return (
     <div
       ref={moveContent}

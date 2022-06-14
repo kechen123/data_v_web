@@ -19,14 +19,17 @@ interface Rects {
 const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
   const dispatch = useAppDispatch()
   const [moveable, setMoveable, getMoveable] = useGetState<any>(null)
+  const [frame, setFrame] = useState(() => {
+    return widgetList[0]
+  })
 
-  let frame = widgetList[0]
-  const setFrame = (data: any) => {
-    frame = data
-  }
-  const getFrame = () => {
-    return frame
-  }
+  // let frame = widgetList[0]
+  // const setFrame = (data: any) => {
+  //   frame = data
+  // }
+  // const getFrame = () => {
+  //   return frame
+  // }
 
   // const [frame, setFrame, getFrame] = useGetState<WidgetObj>(widgetList[0])
   useEffect(() => {
@@ -45,7 +48,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   const onDrag = (param) => {
     const { translate } = param
-    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rect: {
@@ -71,7 +73,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       offsetHeight,
       drag: { translate },
     } = args
-    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rect: {
@@ -99,7 +100,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   const onRotate = (args) => {
     const { rotate } = args
-    const frame = getFrame()
     let newFrame = update(frame, {
       widget: {
         rotate: {
@@ -115,9 +115,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   }
 
   //move resize rotate 事件结束 更新
-  const onMoveableEventEnd = () => {
-    const frame = getFrame()
+  const onMoveableEventEnd = (from?: string) => {
     let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+
     let leftM = Math.round(left),
       topM = Math.round(top),
       offsetWidthM = Math.round(offsetWidth),
@@ -189,7 +189,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   }
 
   useEffect(() => {
-    eventBus.addListener('requestMoveable', (key: string, val: number) => {
+    const request = (key: string, val: number) => {
       const moveable = getMoveable()
       let requester: any = undefined
       if (!moveable) return
@@ -222,8 +222,12 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         default:
           break
       }
-      // if (requester) requester.requestEnd()
-    })
+    }
+
+    eventBus.addListener('requestMoveable', request)
+    return () => {
+      eventBus.removeListener('requestMoveable', request)
+    }
   }, [])
   return (
     <Moveable
@@ -248,7 +252,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       }}
       onDragEnd={(args) => {
         const { isDrag } = args
-        if (isDrag) onMoveableEventEnd()
+        if (isDrag) onMoveableEventEnd('drag')
       }}
       onResize={(e) => {
         const beforeTranslate = e.drag.beforeTranslate
@@ -259,7 +263,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       }}
       onResizeEnd={(args) => {
         const { isDrag } = args
-        if (isDrag) onMoveableEventEnd()
+        if (isDrag) onMoveableEventEnd('resize')
       }}
       onRotateStart={(e) => {
         let rotate = frame.widget.rotate || 0
@@ -271,7 +275,7 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       }}
       onRotateEnd={(args) => {
         const { isDrag } = args
-        if (isDrag) onMoveableEventEnd()
+        if (isDrag) onMoveableEventEnd('rotate')
       }}
       // onRenderEnd={(args) => {
       //   console.log('', args)

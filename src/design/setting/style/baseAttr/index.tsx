@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useSetState } from 'ahooks'
 import { Form, Tooltip, Row, Col, Space, Input, InputNumber } from 'antd'
 import eventBus from '@utils/eventBus'
+import { getObjByPath } from '@utils/common'
 import style from './index.module.less'
 const margin = { marginBottom: '8px', paddingRight: '20px', paddingLeft: '20px' }
 const layout = {
@@ -30,10 +31,7 @@ const BaseAttr = (props) => {
 
 const Info = React.memo(
   (props: any) => {
-    const [frame, setFrame] = useSetState(props)
-    useEffect(() => {
-      setFrame(props)
-    }, [props])
+    // const [frame, setFrame] = useSetState(props)
     // const setConfig = useCallback(
     //   (key, val) => {
     //     eventBus.emit('changePlug', frame.id, {
@@ -49,10 +47,13 @@ const Info = React.memo(
             style={{ width: '200px' }}
             placeholder="组件名称"
             // bordered={false}
-            value={frame.name}
+            value={props.name}
             onChange={(e) => {
-              let name = e.target.value
-              setFrame({ ...frame, name: name })
+              let value = e.target.value
+              console.log('组件名称')
+              eventBus.emit('changeSettingBase', 'name', value)
+              // eventBus.emit('changeSettingConfig', path, value)
+              // setFrame({ ...frame, name: name })
               // setConfig('name', name)
             }}
           />
@@ -77,12 +78,14 @@ const Info = React.memo(
 )
 
 const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
-  const [frame, setFrame] = useSetState<State>({
-    left: left,
-    top: top,
-    width: width,
-    height: height,
-    rotate: rotate,
+  const [frame, setFrame] = useSetState<State>(() => {
+    return {
+      left: left,
+      top: top,
+      width: width,
+      height: height,
+      rotate: rotate,
+    }
   })
   useEffect(() => {
     eventBus.addListener('widgetMove', (data: any) => {
@@ -92,8 +95,12 @@ const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
 
   const change = (key, value) => {
     setFrame({ ...frame, [key]: value })
+
+    /*
+      两种都可以实现,第一种直接修改数据更新视图，第二种通过Moveable插件requester实现
+    */
     eventBus.emit('changeSettingRect', key, value)
-    eventBus.emit('requestMoveable', key, value)
+    // eventBus.emit('requestMoveable', key, value)
   }
 
   return (
