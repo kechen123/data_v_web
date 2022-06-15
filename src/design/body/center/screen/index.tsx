@@ -14,7 +14,7 @@ import { WidgetObj, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
-import { getUrlParam } from '@utils/common'
+import { getUrlParam, equalArr } from '@utils/common'
 import { baseHost } from '@config/http'
 import useContextClick from './useContextClick'
 import style from './index.module.less'
@@ -110,7 +110,8 @@ const Screen = () => {
   const widgetSelect = (e) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
-    dispatch(setActiveWidgetsStore([targetId]))
+    const newActiveWidgets = [targetId]
+    if (!equalArr(newActiveWidgets, activeWidgets)) dispatch(setActiveWidgetsStore(newActiveWidgets))
     event = e
   }
 

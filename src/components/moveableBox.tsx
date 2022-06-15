@@ -6,6 +6,7 @@ import update from 'immutability-helper'
 import { useAppDispatch } from '@storeApp/hooks'
 import { setWidget } from '@features/widgetSlice'
 import eventBus from '@utils/eventBus'
+import useActiveWidget from '@hooks/useActiveWidget'
 import { WidgetObj, Rect, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
 export interface cRef {
   moveable: any
@@ -22,6 +23,8 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
   const [frame, setFrame] = useState(() => {
     return widgetList[0]
   })
+
+  const { setWidgetObj } = useActiveWidget()
 
   // let frame = widgetList[0]
   // const setFrame = (data: any) => {
@@ -116,49 +119,48 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
 
   //move resize rotate 事件结束 更新
   const onMoveableEventEnd = (from?: string) => {
-    let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
+    if (moveable) {
+      let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
 
-    let leftM = Math.round(left),
-      topM = Math.round(top),
-      offsetWidthM = Math.round(offsetWidth),
-      offsetHeightM = Math.round(offsetHeight),
-      rotationM = Math.round(rotation)
-    let newFrame = update(frame, {
-      widget: {
-        rect: {
-          left: {
-            $set: leftM,
+      let leftM = Math.round(left),
+        topM = Math.round(top),
+        offsetWidthM = Math.round(offsetWidth),
+        offsetHeightM = Math.round(offsetHeight),
+        rotationM = Math.round(rotation)
+      let newFrame = update(frame, {
+        widget: {
+          rect: {
+            left: {
+              $set: leftM,
+            },
+            top: {
+              $set: topM,
+            },
+            width: {
+              $set: offsetWidthM,
+            },
+            height: {
+              $set: offsetHeightM,
+            },
           },
-          top: {
-            $set: topM,
-          },
-          width: {
-            $set: offsetWidthM,
-          },
-          height: {
-            $set: offsetHeightM,
+          rotate: {
+            $set: rotationM,
           },
         },
-        rotate: {
-          $set: rotationM,
-        },
-      },
-    })
-    const id = target[0].getAttribute('data-id')
-
-    dispatch(
-      setWidget({
+      })
+      const id = target[0].getAttribute('data-id')
+      setWidgetObj({
         id: id || '',
         widget: newFrame.widget,
       })
-    )
+    }
   }
   const render = (props?: Rects) => {
-    // let props: any = undefined
+    let data = props
     if (moveable) {
-      if (!props) {
+      if (!data) {
         let { left, top, offsetWidth, offsetHeight, rotation } = moveable.getRect()
-        props = {
+        data = {
           rect: {
             left,
             top,
@@ -171,19 +173,21 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
       let {
         rect: { left, top, width, height },
         rotate,
-      } = props
+      } = data
       let leftM = Math.round(left || 0),
         topM = Math.round(top || 0),
         offsetWidthM = Math.round(width || 0),
         offsetHeightM = Math.round(height || 0),
         rotationM = Math.round(rotate || 0)
-      eventBus.emit('widgetMove', {
-        left: leftM,
-        top: topM,
-        width: offsetWidthM,
-        height: offsetHeightM,
-        rotate: rotationM,
-      })
+      if (props) {
+        eventBus.emit('widgetMove', {
+          left: leftM,
+          top: topM,
+          width: offsetWidthM,
+          height: offsetHeightM,
+          rotate: rotationM,
+        })
+      }
       eventBus.emit('widgetMoveEye', [offsetWidthM, offsetHeightM, leftM, topM, rotationM])
     }
   }
@@ -223,7 +227,6 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
           break
       }
     }
-
     eventBus.addListener('requestMoveable', request)
     return () => {
       eventBus.removeListener('requestMoveable', request)
@@ -251,8 +254,9 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         onDrag(e)
       }}
       onDragEnd={(args) => {
-        const { isDrag } = args
-        if (isDrag) onMoveableEventEnd('drag')
+        const { isDrag, inputEvent } = args
+        console.log(args)
+        if (isDrag && inputEvent) onMoveableEventEnd('drag')
       }}
       onResize={(e) => {
         const beforeTranslate = e.drag.beforeTranslate
@@ -262,8 +266,8 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         onResize(e)
       }}
       onResizeEnd={(args) => {
-        const { isDrag } = args
-        if (isDrag) onMoveableEventEnd('resize')
+        const { isDrag, inputEvent } = args
+        if (isDrag && inputEvent) onMoveableEventEnd('resize')
       }}
       onRotateStart={(e) => {
         let rotate = frame.widget.rotate || 0
@@ -274,8 +278,8 @@ const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target,
         onRotate(e)
       }}
       onRotateEnd={(args) => {
-        const { isDrag } = args
-        if (isDrag) onMoveableEventEnd('rotate')
+        const { isDrag, inputEvent } = args
+        if (isDrag && inputEvent) onMoveableEventEnd('rotate')
       }}
       // onRenderEnd={(args) => {
       //   console.log('', args)

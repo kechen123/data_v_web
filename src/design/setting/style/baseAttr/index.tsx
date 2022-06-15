@@ -95,12 +95,8 @@ const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
 
   const change = (key, value) => {
     setFrame({ ...frame, [key]: value })
-
-    /*
-      两种都可以实现,第一种直接修改数据更新视图，第二种通过Moveable插件requester实现
-    */
     eventBus.emit('changeSettingRect', key, value)
-    // eventBus.emit('requestMoveable', key, value)
+    eventBus.emit('requestMoveable', key, value)
   }
 
   return (
