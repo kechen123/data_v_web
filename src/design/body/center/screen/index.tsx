@@ -26,9 +26,8 @@ interface Props {
 
 let event: any = null
 
-const defaultScreenData = async () => {
-  const id = getUrlParam('id')
-  if (id) {
+const defaultScreenData = async (id: string) => {
+  try {
     const res = await getFetch('/rs/screen?id=' + id)
     if (res.data.length === 1) {
       const data = res.data[0]
@@ -36,8 +35,12 @@ const defaultScreenData = async () => {
       const screenData = data.screen
       return { widgetData, screenData }
     }
+    const error = new Error(res.data.message)
+    throw error
+  } catch (error: any) {
+    message.error(error.message)
+    return {}
   }
-  return {}
 }
 
 const Screen = (props: Props) => {
@@ -174,7 +177,7 @@ const Screen = (props: Props) => {
     ;(async () => {
       const id = getUrlParam('id')
       if (!id) return
-      const { widgetData, screenData } = await defaultScreenData()
+      const { widgetData, screenData } = await defaultScreenData(id)
       dispatch(initWidget(widgetData))
       dispatch(initScreen(screenData))
     })()
