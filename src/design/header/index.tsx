@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 import { useAppSelector } from '@storeApp/hooks'
@@ -8,6 +8,11 @@ import { screen } from '@features/screenSlice'
 import { widget } from '@features/widgetSlice'
 import { getUrlParam } from '@utils/common'
 import style from './index.module.less'
+
+interface Props {
+  preview: boolean
+  setPreview: (preview: boolean) => void
+}
 
 const createScreen = (data: Object): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -29,11 +34,11 @@ const editScreen = (id: string, data: Object): Promise<string> => {
   })
 }
 
-const Header = (props) => {
+const Header = (props: Props) => {
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
 
-  const [, { enterFullscreen }] = useFullscreen(() => document.getElementById('screen'))
+  const [isFullscreen, { enterFullscreen }] = useFullscreen(() => document.getElementById('screen'))
 
   const createRequest = useRequest(createScreen, {
     manual: true,
@@ -66,7 +71,7 @@ const Header = (props) => {
     },
   })
 
-  const yulan = () => {
+  const _yulan = () => {
     // navigate('/preview' + location.search)
     const newWindow = window.open(`/#/preview`, '_blank')
     if (newWindow) {
@@ -132,6 +137,10 @@ const Header = (props) => {
     }
   }
 
+  useEffect(() => {
+    console.log(isFullscreen)
+    props.setPreview(isFullscreen)
+  }, [isFullscreen])
   return (
     <div className={style.header}>
       <div className={style.left}></div>

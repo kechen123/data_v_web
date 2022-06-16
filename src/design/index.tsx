@@ -6,13 +6,14 @@ import { APPNAME } from '@config/index'
 import style from './index.module.less'
 
 const App = (props) => {
+  const [preview, setPreview] = React.useState(false)
   return (
     <div id={APPNAME} className={style.datav}>
       <header>
-        <Header />
+        <Header {...{ preview, setPreview }} />
       </header>
       <main>
-        <Body />
+        <Body {...{ preview, setPreview }} />
       </main>
       <footer>
         <Footer />

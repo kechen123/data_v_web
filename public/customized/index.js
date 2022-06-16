@@ -2,7 +2,6 @@
 
 function customPlug(props) {
   const { React, ReactDOM, echarts, ref, config } = props
-  console.log(config)
 
   if (ref.current) {
     return editWidget(props)
@@ -50,6 +49,7 @@ function editWidget(props) {
     // root.render(e('div', null, 'hello world'))
 
     const dom = ref.current
+    //错误代码示例 异常处理
     $(dom).cssra({
       width: '100%',
       height: '100%',
@@ -91,5 +91,5 @@ function editWidget(props) {
     top: '0px',
     left: '220px',
   })
-  $(document.body).append(newDom)
+  $('#preview').append(newDom)
 })()

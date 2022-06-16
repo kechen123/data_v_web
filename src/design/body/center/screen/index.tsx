@@ -19,6 +19,11 @@ import { baseHost } from '@config/http'
 import useContextClick from './useContextClick'
 import style from './index.module.less'
 
+interface Props {
+  preview: boolean
+  setPreview: (preview: boolean) => void
+}
+
 let event: any = null
 
 const defaultScreenData = async () => {
@@ -35,27 +40,15 @@ const defaultScreenData = async () => {
   return {}
 }
 
-const Screen = () => {
+const Screen = (props: Props) => {
   const moveContent = useRef<HTMLDivElement>(null) // 移动组件的容器
+  const prohibit = props.preview // 是否预览
   const [target, setTarget] = useState<Array<HTMLDivElement>>([]) // 目标组件 可以拖拽的组件
   const widgetMap = useAppSelector(widget)
   const { width, height, scale, backgroundColor, backgroundImage, screenWidget, activeWidgets } = useAppSelector(screen) // 获取当前屏幕基本信息
   const childRef = useRef<cRef>(null)
   const dispatch = useAppDispatch()
   const contextMenuClick = useContextClick({ widgetMap, activeWidgets })
-
-  //组件取消选中
-  const viewClick = (e) => {
-    let el = e.target.parentElement
-    if (el && el.getAttribute('class') !== null && el.getAttribute('class').indexOf('moveable') > -1) {
-      return
-    }
-    event = null
-    let id = e.target.getAttribute('id')
-    if (activeWidgets.length > 0 && id && id === 'screen') {
-      dispatch(setActiveWidgetsStore([]))
-    }
-  }
 
   //右键菜单
   const handleContextMenuClick = (...params) => {
@@ -108,11 +101,25 @@ const Screen = () => {
 
   //组件选中
   const widgetSelect = (e) => {
+    if (prohibit) return
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
     const newActiveWidgets = [targetId]
     if (!equalArr(newActiveWidgets, activeWidgets)) dispatch(setActiveWidgetsStore(newActiveWidgets))
     event = e
+  }
+
+  //组件取消选中
+  const viewClick = (e) => {
+    let el = e.target.parentElement
+    if (el && el.getAttribute('class') !== null && el.getAttribute('class').indexOf('moveable') > -1) {
+      return
+    }
+    event = null
+    let id = e.target.getAttribute('id')
+    if (activeWidgets.length > 0 && id && id === 'screen') {
+      dispatch(setActiveWidgetsStore([]))
+    }
   }
 
   //设置可以拖拽的组件
@@ -151,6 +158,16 @@ const Screen = () => {
       }
     }
   }, [target])
+
+  //全屏预览取消选中
+  useEffect(() => {
+    console.log('props.preview:', props.preview)
+    console.log('activeWidgets.length:', activeWidgets.length)
+    if (props.preview && activeWidgets.length > 0) {
+      event = null
+      dispatch(setActiveWidgetsStore([]))
+    }
+  }, [props.preview])
 
   //编辑回显
   useEffect(() => {
@@ -241,7 +258,6 @@ const WidgetList = React.memo(({ WidgetObjList, widgetSelect }: any) => {
             data-id={id}
             className={`widget `}
             style={{
-              cursor: 'move',
               width: rect.width + 'px',
               height: rect.height + 'px',
               transform: `translate(${rect.left}px, ${rect.top}px) rotate(${rotate}deg)`,

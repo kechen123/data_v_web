@@ -28,7 +28,7 @@ const useContextClick = (props: ContextMenuProps) => {
                 left: widget.rect.left + 20,
                 top: widget.rect.top + 20,
               },
-              name: `${widgetMap[key].name}_copy`,
+              name: `${widgetMap[key].name} copy`,
             },
           }
           dispatch(setWidget(newWidgetObj))

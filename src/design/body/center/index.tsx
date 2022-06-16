@@ -15,7 +15,7 @@ const Center = (props) => {
       <div className={style.content}>
         <Content {...resize} />
         <div className={style.screen} id="screenBody">
-          <Screen />
+          <Screen {...props} />
         </div>
       </div>
       <div className={style.bottom}>

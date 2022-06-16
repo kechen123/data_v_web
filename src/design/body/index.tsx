@@ -7,7 +7,7 @@ const Body = (props) => {
   return (
     <>
       <Left />
-      <Center />
+      <Center {...props} />
       <Right />
     </>
   )

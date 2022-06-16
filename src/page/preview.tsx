@@ -1,8 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useEventListener } from 'ahooks'
+import { getUrlParam, equalArr } from '@utils/common'
+import { getFetch } from '@utils/request'
+import { Widget as WidgetType } from '@_types/Plugin'
 import Widget from '@plugs/index'
 
-interface Page {
+interface Screen {
   width: number | string
   height: number | string
   scale: number | string
@@ -11,49 +14,71 @@ interface Page {
   backgroundImage?: string
 }
 
-interface PageProps extends Page {
+interface PageProps extends Screen {
   children?: React.ReactNode
 }
 
-interface PreviewProps extends Page {
-  screenWidget: []
+interface PreviewProps {
+  screenData: Screen
+  widgetData: WidgetType[]
+}
+
+const defaultScreenData = async () => {
+  const id = getUrlParam('id')
+  if (id) {
+    const res = await getFetch('/rs/screen?id=' + id)
+    if (res.data.length === 1) {
+      const data = res.data[0]
+      const widgetData = data.widget
+      const screenData = data.screen
+      return { widgetData, screenData }
+    }
+  }
+  return {}
 }
 
 const Preview = () => {
   const [data, setData] = useState<PreviewProps>({
-    width: '100%',
-    height: '100%',
-    scale: 1,
-    screenZoom: 1,
-    backgroundColor: '#fff',
-    backgroundImage: '',
-    screenWidget: [],
+    screenData: {
+      width: '100%',
+      height: '100%',
+      scale: 1,
+      screenZoom: 1,
+      backgroundColor: '#fff',
+      backgroundImage: '',
+    },
+    widgetData: [],
   })
 
-  const body: Page = useMemo(() => {
+  const body: Screen = useMemo(() => {
     return {
-      width: data.width,
-      height: data.height,
-      scale: data.scale,
-      screenZoom: data.screenZoom,
-      backgroundColor: data.backgroundColor,
-      backgroundImage: data.backgroundImage,
+      width: data.screenData.width,
+      height: data.screenData.height,
+      scale: data.screenData.scale,
+      screenZoom: data.screenData.screenZoom,
+      backgroundColor: data.screenData.backgroundColor,
+      backgroundImage: data.screenData.backgroundImage,
     }
   }, [data])
-  useEventListener('message', (e) => {
-    if (e.data.type === 'screen') {
-      setData(e.data.data)
-    }
-  })
+
   const widgetArr = useMemo(() => {
-    const { screenWidget } = data
-    return Object.keys(screenWidget).map((key) => {
+    const { widgetData } = data
+    return Object.keys(widgetData).map((key) => {
       return {
         id: key,
-        widget: screenWidget[key],
+        widget: widgetData[key],
       }
     })
-  }, [data.screenWidget])
+  }, [data.widgetData])
+
+  useEffect(() => {
+    ;(async () => {
+      const id = getUrlParam('id')
+      if (!id) return
+      const { widgetData, screenData } = await defaultScreenData()
+      setData({ widgetData, screenData })
+    })()
+  }, [])
   return (
     <Body {...body}>
       <WidgetList WidgetObjList={widgetArr} />
@@ -72,7 +97,7 @@ const Body = (props: PageProps) => {
 
 const WidgetList = ({ WidgetObjList }: any) => {
   if (WidgetObjList.length === 0) {
-    return <>eee </>
+    return <> </>
   }
   return (
     <>
@@ -87,10 +112,13 @@ const WidgetList = ({ WidgetObjList }: any) => {
             data-id={id}
             className={`widget `}
             style={{
-              cursor: 'move',
               width: rect.width + 'px',
               height: rect.height + 'px',
-              transform: `translate(${rect.left}px, ${rect.top}px) rotate(${rotate}deg)`,
+              position: 'absolute',
+              left: rect.left + 'px',
+              top: rect.top + 'px',
+              transform: `rotate(${rotate}deg)`,
+              // transform: `translate(${rect.left}px, ${rect.top}px) rotate(${rotate}deg)`,
             }}
           >
             <Widget {...item} />
