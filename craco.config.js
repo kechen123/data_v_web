@@ -17,7 +17,7 @@ module.exports = {
       options: {
         customizeTheme: {
           '@primary-color': 'rgba(100, 255, 218, 0.6)',
-          '@border-color-base': 'var(--input-border)',
+          '@border-color-base': 'var(--dark-slate)',
           '@collapse-header-arrow-left': '6px',
           '@collapse-header-padding-extra': '26px',
           '@collapse-header-bg': 'var(--navy)',
@@ -30,8 +30,8 @@ module.exports = {
           '@slider-handle-color': 'var(--green)',
           '@slider-handle-color-hover': 'var(--green)',
           '@slider-handle-color-tooltip-open': 'var(--green)',
-          '@tooltip-color': 'var(--pink)',
-          '@tooltip-bg': '#112240',
+          '@tooltip-color': 'var(--white)',
+          '@tooltip-bg': 'rgb(100 255 218 / 60%)',
           '@popover-background': 'var(--light-navy)',
         },
       },

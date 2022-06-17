@@ -12,6 +12,12 @@ type Screen = {
   url?: string
 }
 
+type LeftProps = {
+  active: number
+  setActive: (index: number) => void
+}
+
+const arr = ['主页', '我的项目', 'Balalala', 'Balalala']
 const Ul = styled.ul`
   list-style: none;
   padding: 0;
@@ -63,23 +69,17 @@ const Header = () => {
   )
 }
 
-const BodyLeft = () => {
-  const [active, setActive] = useState(0)
+const BodyLeft = (props: LeftProps) => {
+  const { active, setActive } = props
   const handleClick = useCallback(
     (index) => {
       setActive(index)
     },
     [setActive]
   )
-  const arr = ['我的项目', 'Balalala', 'Balalala', 'Balalala']
+
   return (
     <div className={style.bodyLeft}>
-      {/* <div className={style.leftHeader}>
-        <span className={style.leftHeaderTitle}>大屏列表</span>
-        <div className={style.leftHeaderBtn}>
-          <i className="icon iconfont icon-shouqijiantouxiao"></i>
-        </div>
-      </div> */}
       <div className={style.list}>
         <Ul index={active}>
           {arr.map((item, index) => {
@@ -110,7 +110,7 @@ const Create = () => {
   )
 }
 
-const BodyContent = () => {
+const ScreenList = () => {
   const defaultWidget = async () => {
     return await getFetch('/rs/screen?sort=update_time desc')
   }
@@ -168,10 +168,22 @@ const BodyContent = () => {
 }
 
 const Body = () => {
+  const [active, setActive] = useState(0)
+  const BodyContent = () => {
+    switch (active) {
+      case 1:
+        return <ScreenList />
+
+      default:
+        return <ScreenList />
+    }
+  }
   return (
     <div className={style.body}>
-      <BodyLeft />
-      <BodyContent />
+      <BodyLeft {...{ active, setActive }} />
+      <section className={style.content}>
+        <BodyContent />
+      </section>
     </div>
   )
 }

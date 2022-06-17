@@ -6,9 +6,12 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding: 10px;
+  @header: 60px;
+  @left: 160px;
 
   .header {
-    height: 54px;
+    height: @header;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,14 +81,15 @@
     }
   }
   .body {
-    height: calc(100vh - 54px);
+    height: calc(100vh - @header);
     width: 100vw;
     overflow: auto;
     display: flex;
     flex: 1 1;
+
     .bodyLeft {
-      width: 140px;
-      padding-top: 20px;
+      padding: 20px 0 0 20px;
+
       .leftHeader {
         padding: 0 16px 0 24px;
         height: 48px;
@@ -106,16 +110,19 @@
       .list {
         flex: 1 1;
         height: 100%;
+        width: @left + 20px;
         ul {
           li {
-            width: 140px;
+            width: @left;
             text-align: center;
             height: var(--nav-height);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
+            margin-right: 16px;
             color: var(--light-slate);
+            border-radius: 4px;
             font-size: 14px;
             cursor: pointer;
             &:hover {
@@ -123,7 +130,7 @@
             }
             .listTitle {
               width: 100%;
-              text-align: center;
+              text-align: left;
               font-size: inherit;
             }
             .listBtn {
