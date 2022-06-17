@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tabs } from 'antd'
-import Setting from '@setting/index'
+import Setting from './setting'
 import './index.less'
 import style from './index.module.less'
 

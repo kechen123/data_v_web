@@ -73,7 +73,6 @@ module.exports = {
       '@features': path.resolve(__dirname, './src/store/features'),
       '@config': path.resolve(__dirname, './src/config'),
       '@plugs': path.resolve(__dirname, './src/plugs'),
-      '@setting': path.resolve(__dirname, './src/design/setting'),
       '@page': path.resolve(__dirname, './src/page'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
     },

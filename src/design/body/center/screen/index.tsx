@@ -108,7 +108,9 @@ const Screen = (props: Props) => {
     e.stopPropagation()
     const targetId = e.currentTarget.getAttribute('data-id')
     const newActiveWidgets = [targetId]
-    if (!equalArr(newActiveWidgets, activeWidgets)) dispatch(setActiveWidgetsStore(newActiveWidgets))
+    if (!equalArr(newActiveWidgets, activeWidgets)) {
+      dispatch(setActiveWidgetsStore(newActiveWidgets))
+    }
     event = e
   }
 
@@ -164,8 +166,6 @@ const Screen = (props: Props) => {
 
   //全屏预览取消选中
   useEffect(() => {
-    console.log('props.preview:', props.preview)
-    console.log('activeWidgets.length:', activeWidgets.length)
     if (props.preview && activeWidgets.length > 0) {
       event = null
       dispatch(setActiveWidgetsStore([]))

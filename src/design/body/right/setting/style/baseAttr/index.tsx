@@ -77,7 +77,8 @@ const Info = React.memo(
   }
 )
 
-const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
+const Rect = React.memo((props: any) => {
+  const { left, top, width, height, rotate } = props
   const [frame, setFrame] = useSetState<State>(() => {
     return {
       left: left,
@@ -88,13 +89,26 @@ const Rect = React.memo(({ left, top, width, height, rotate }: any) => {
     }
   })
   useEffect(() => {
-    eventBus.addListener('widgetMove', (data: any) => {
+    const setData = (data: any) => {
       setFrame(data)
-    })
+    }
+    eventBus.addListener('widgetMove', setData)
+    return () => {
+      eventBus.removeListener('widgetMove', setData)
+    }
   }, [])
 
+  useEffect(() => {
+    setFrame({
+      left: props.left,
+      top: props.top,
+      width: props.width,
+      height: props.height,
+      rotate: props.rotate,
+    })
+  }, [props])
+
   const change = (key, value) => {
-    setFrame({ ...frame, [key]: value })
     eventBus.emit('changeSettingRect', key, value)
     eventBus.emit('requestMoveable', key, value)
   }

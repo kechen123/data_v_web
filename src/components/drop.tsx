@@ -48,10 +48,10 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
 
         img: widgetObj.img,
         rect: {
-          width: rect.width,
-          height: rect.height,
-          left: left,
-          top: top,
+          width: Math.round(rect.width),
+          height: Math.round(rect.height),
+          left: Math.round(left),
+          top: Math.round(top),
         },
         rotate: 0,
         config: widgetObj.config,

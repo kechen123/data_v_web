@@ -97,7 +97,6 @@ const Header = (props: Props) => {
       screenData,
       widgetData,
     }
-    console.log('', JSON.stringify(data))
     const element = document.createElement('a')
 
     let text = JSON.stringify(data, null, 2)
@@ -138,7 +137,6 @@ const Header = (props: Props) => {
   }
 
   useEffect(() => {
-    console.log(isFullscreen)
     props.setPreview(isFullscreen)
   }, [isFullscreen])
   return (

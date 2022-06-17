@@ -39,7 +39,7 @@ const DetailAttr = React.memo(
   }
 )
 
-const Style = React.memo(({ widgetObj }: Props) => {
+const Style = ({ widgetObj }: Props) => {
   if (widgetObj === undefined) {
     return <></>
   } else {
@@ -52,7 +52,6 @@ const Style = React.memo(({ widgetObj }: Props) => {
         config,
       },
     } = widgetObj
-
     return (
       <>
         <BaseAttr {...widgetObj} />
@@ -60,6 +59,6 @@ const Style = React.memo(({ widgetObj }: Props) => {
       </>
     )
   }
-})
+}
 
 export default Style
