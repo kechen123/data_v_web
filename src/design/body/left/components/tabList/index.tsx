@@ -13,12 +13,11 @@ const TabList = (props: ChosenInterface) => {
     <div className={style.tabListView}>
       {MENU.sort((a, b) => a.index - b.index).map((item, i) => {
         return (
-          <Tooltip placement="right" title={item.name}>
+          <Tooltip key={i} placement="right" title={item.name}>
             <div
               onClick={(e) => {
                 handlerClick(item)
               }}
-              key={i}
               data-name={item.name}
               className={`${style.toolBar} ${chosen === item.name ? style.active : ''}`}
             >

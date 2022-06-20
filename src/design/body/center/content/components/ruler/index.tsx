@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useAppSelector } from '@storeApp/hooks'
 import { screen as screenStore } from '@features/screenSlice'
+import BaseRuler from '@components/ruler'
 import style from './index.module.less'
 
 const Ruler = (props) => {
@@ -21,9 +22,22 @@ const Ruler = (props) => {
       // })
     }
   }, [])
+  const x = {
+    width: width,
+    height: 20,
+    scale: scale,
+    backgroundColor: '#0a192f',
+    lineColor: '#FFF',
+    textColor: '#666',
+    fontSize: 12,
+    min: 0,
+    max: 1080,
+  }
   return (
     <div className={style.ruler}>
-      <div className={style.hContainer} style={{ width: width + 'px' }}></div>
+      <div className={style.hContainer} style={{ width: width + 'px' }}>
+        <BaseRuler {...x} />
+      </div>
       <div className={style.vContainer} style={{ height: height + 'px' }}></div>
     </div>
   )
