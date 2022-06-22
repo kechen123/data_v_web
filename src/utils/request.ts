@@ -19,6 +19,7 @@ export const baseFetch = (url, options) => {
       } else if (data.status === 400 || data.status === 413) {
         setTimeout(() => {
           const pathname = window.location.pathname
+          const search = window.location.search
           if (!showModal) {
             showModal = true
             Modal.confirm({
@@ -28,7 +29,7 @@ export const baseFetch = (url, options) => {
               okText: '确认',
               cancelText: '取消',
               onOk() {
-                window.location.href = '/login?path=' + pathname
+                window.location.href = '/login?path=' + pathname + search
               },
               onCancel() {
                 showModal = false

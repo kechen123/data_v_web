@@ -23,7 +23,6 @@ const Home = () => {
   const navigate = useNavigate()
   const [search] = useSearchParams()
   const path = search.get('path')
-
   useEffect(() => {
     localStorage.removeItem('userToken')
   }, [])
