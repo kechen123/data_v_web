@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 import { useRequest } from 'ahooks'
 import { postFetch } from '@utils/request'
@@ -20,6 +20,9 @@ const login = (username, password): Promise<string> => {
 const Home = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const [search] = useSearchParams()
+  const path = search.get('path')
 
   useEffect(() => {
     localStorage.removeItem('userToken')
@@ -33,11 +36,12 @@ const Home = () => {
         message.success('登陆成功')
         localStorage.setItem('userToken', result.token)
         setTimeout(() => {
-          if (window.location.href.indexOf('/login') > -1) {
-            window.location.href = '/'
-          } else {
-            window.location.reload()
-          }
+          navigate(path || '/')
+          // if (window.location.href.indexOf('/login') > -1) {
+          //   window.location.href = '/'
+          // } else {
+          //   window.location.reload()
+          // }
         }, 1000)
       } else {
         message.error(result.message)

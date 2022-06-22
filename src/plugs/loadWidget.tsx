@@ -6,12 +6,6 @@ import { useExternal } from 'ahooks'
 import CustomErrorBoundary from './customError'
 import { WidgetObj } from '@_types/Plugin'
 
-declare global {
-  interface Window {
-    customPlug: any
-  }
-}
-
 const widthWidget = (WrappedComponent) => {
   return (props: WidgetObj) => {
     const [state, setState] = useState(props)

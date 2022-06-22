@@ -2,9 +2,10 @@ import React, { useEffect, useState, useRef, CSSProperties } from 'react'
 import { message } from 'antd'
 import { useEventListener } from 'ahooks'
 import { useDropzone } from 'react-dropzone'
-import { baseHost } from '@config/http'
 import { upload } from '@utils/request'
 import './image.css'
+
+const baseHost = window.gConfig.baseHost
 interface imgData {
   url: String
   opacity?: number

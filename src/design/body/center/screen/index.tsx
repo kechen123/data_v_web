@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useEventListener } from 'ahooks'
 import { message, Modal } from 'antd'
 import Selecto from 'react-selecto'
@@ -15,9 +16,10 @@ import { Scroll as ScrollInterface } from '@_types/Scroll'
 import { SCREENMARGIN } from '@config/index'
 import { tabContextMenu } from '@config/contextmenu'
 import { getUrlParam, equalArr } from '@utils/common'
-import { baseHost } from '@config/http'
 import useContextClick from './useContextClick'
 import style from './index.module.less'
+
+const baseHost = window.gConfig.baseHost
 
 interface Props {
   preview: boolean
@@ -44,6 +46,7 @@ const defaultScreenData = async (id: string) => {
 }
 
 const Screen = (props: Props) => {
+  const [searchParams] = useSearchParams()
   const moveContent = useRef<HTMLDivElement>(null) // 移动组件的容器
   const prohibit = props.preview // 是否预览
   const [target, setTarget] = useState<Array<HTMLDivElement>>([]) // 目标组件 可以拖拽的组件
@@ -175,7 +178,8 @@ const Screen = (props: Props) => {
   //编辑回显
   useEffect(() => {
     ;(async () => {
-      const id = getUrlParam('id')
+      // const id = getUrlParam('id')
+      const id = searchParams.get('id')
       if (!id) return
       const { widgetData, screenData } = await defaultScreenData(id)
       dispatch(initWidget(widgetData))

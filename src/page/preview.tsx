@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useEventListener } from 'ahooks'
 import { message } from 'antd'
 import { getUrlParam, equalArr } from '@utils/common'
@@ -42,6 +43,7 @@ const defaultScreenData = async (id: string) => {
 }
 
 const Preview = () => {
+  const [searchParams] = useSearchParams()
   const [data, setData] = useState<PreviewProps>({
     screenData: {
       width: '100%',
@@ -77,7 +79,8 @@ const Preview = () => {
 
   useEffect(() => {
     ;(async () => {
-      const id = getUrlParam('id')
+      // const id = getUrlParam('id')
+      const id = searchParams.get('id')
       if (!id) return
       const { widgetData, screenData } = await defaultScreenData(id)
       setData({ widgetData, screenData })

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { message } from 'antd'
 import { useAppSelector } from '@storeApp/hooks'
 import { useRequest, useFullscreen } from 'ahooks'
@@ -35,6 +35,7 @@ const editScreen = (id: string, data: Object): Promise<string> => {
 }
 
 const Header = (props: Props) => {
+  const [searchParams] = useSearchParams()
   const screenData = useAppSelector(screen)
   const widgetData = useAppSelector(widget)
 
@@ -128,7 +129,8 @@ const Header = (props: Props) => {
   }
 
   const save = () => {
-    const id = getUrlParam('id')
+    // const id = getUrlParam('id')
+    const id = searchParams.get('id')
     if (id) {
       edit(id)
     } else {

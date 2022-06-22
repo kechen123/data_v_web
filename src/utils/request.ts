@@ -1,5 +1,7 @@
-import { baseHost } from '@config/http'
-import { message } from 'antd'
+import { message, Modal } from 'antd'
+
+let showModal = false
+const baseHost = window.gConfig.baseHost
 
 export const baseFetch = (url, options) => {
   const path = baseHost + url
@@ -16,7 +18,23 @@ export const baseFetch = (url, options) => {
         return data
       } else if (data.status === 400 || data.status === 413) {
         setTimeout(() => {
-          window.location.href = '/#/login'
+          const pathname = window.location.pathname
+          if (!showModal) {
+            showModal = true
+            Modal.confirm({
+              title: '提示',
+              centered: true,
+              content: '您的登录状态已过期，请重新登录',
+              okText: '确认',
+              cancelText: '取消',
+              onOk() {
+                window.location.href = '/login?path=' + pathname
+              },
+              onCancel() {
+                showModal = false
+              },
+            })
+          }
         }, 1000)
       } else {
         const error = new Error(data.message)

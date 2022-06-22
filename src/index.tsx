@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { HashRouter as Router } from 'react-router-dom'
-// import { BrowserRouter as Router } from 'react-router-dom'
+// import { HashRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import './index.less'
 import App from './App'
@@ -12,6 +12,7 @@ import { store } from '@storeApp/store'
 declare global {
   interface Window {
     customPlug: any
+    gConfig: any
   }
 }
 
