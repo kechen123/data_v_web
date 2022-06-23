@@ -40,7 +40,7 @@ const colorStyle: React.CSSProperties = {
 
 const getColor = (color) => {
   if (typeof color === 'object') {
-    return `rgb(${color.r},${color.g},${color.b},${color.a})`
+    return `rgba(${color.r},${color.g},${color.b},${color.a})`
   } else {
     return color
   }

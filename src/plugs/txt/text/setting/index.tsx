@@ -6,8 +6,6 @@ import Color from '@components/color'
 import { borderTypeOption, fontFamilyOption, fontWeightOption } from '@/utils/formData'
 import { Text as TextType } from '../_types'
 
-import './index.less'
-
 const { Panel } = Collapse
 const { Option } = Select
 
@@ -34,7 +32,7 @@ const Index = (props: TextType) => {
         </span>
       )}
       onChange={(key) => setActive(key)}
-      className="basicBar"
+      className="collapse-1"
     >
       <Panel header="文本样式" key="1" className="panel">
         <Form {...layout} initialValues={{ layout: 'Inline' }} labelAlign="right">

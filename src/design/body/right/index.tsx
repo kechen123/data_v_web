@@ -8,7 +8,7 @@ const { TabPane } = Tabs
 const Right = (props) => {
   return (
     <div className={style.right}>
-      <aside>
+      <aside className="setting">
         <Setting />
       </aside>
     </div>

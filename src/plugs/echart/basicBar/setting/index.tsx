@@ -7,7 +7,6 @@ import X from './x'
 import Y from './y'
 import Legend from './legend'
 import Tooltip from './tooltip'
-import './index.less'
 
 const { Panel } = Collapse
 
@@ -24,7 +23,7 @@ const Index = (props: BasicBarType) => {
         </span>
       )}
       onChange={(key) => setActive(key)}
-      className="basicBar"
+      className="collapse-1"
     >
       <Panel header="边距" key="1" className="panel">
         <Margin {...bar.grid} />

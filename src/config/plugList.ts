@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, textConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, textConfig, QxConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -74,6 +74,35 @@ export const Echarts: Array<Widget> = [
       color: ['#235fa7', '#4fd2dd'],
     },
   },
+  {
+    name: '迁徙图',
+    plugin: {
+      name: 'qx',
+      url: 'echart/qxMap',
+    },
+    rect: {
+      width: 650,
+      height: 500,
+    },
+    img: 'datavImage/txt/text.png',
+    config: QxConfig,
+  },
+]
+
+export const Map: Array<Widget> = [
+  {
+    name: '迁徙图',
+    plugin: {
+      name: 'qx',
+      url: 'echart/qxMap',
+    },
+    rect: {
+      width: 650,
+      height: 500,
+    },
+    img: 'datavImage/txt/text.png',
+    config: QxConfig,
+  },
 ]
 export const Texts: Array<Widget> = [
   {
@@ -83,8 +112,8 @@ export const Texts: Array<Widget> = [
       url: 'txt/text',
     },
     rect: {
-      width: 570,
-      height: 312,
+      width: 300,
+      height: 130,
     },
     img: 'datavImage/txt/text.png',
     config: textConfig,

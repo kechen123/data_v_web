@@ -42,7 +42,7 @@ const Index = ({ widget, getOption }: Props) => {
   }, [])
 
   useEffect(() => {
-    if (barRef.current && chartRef.current) {
+    if (option && barRef.current && chartRef.current) {
       chartRef.current.setOption(option)
     }
   }, [option])
