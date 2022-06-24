@@ -95,14 +95,16 @@ const Area = (props: Props) => {
 
   const onChange = (value, option) => {
     if (option) {
+      console.log(option)
+      const map_code = option.data.substring(0, 6)
       setMap((data) => {
         return {
-          ...data,
-          code: option.data,
+          zoom: data.zoom,
+          code: map_code,
           map: option.value,
         }
       })
-      change('map_code', option.data)
+      change('map_code', map_code)
       change('map', option.value)
     }
   }

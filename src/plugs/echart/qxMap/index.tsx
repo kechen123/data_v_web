@@ -45,9 +45,10 @@ const Index = (props: any) => {
 
   useEffect(() => {
     const config = echartData.widget.widget.config
-    const code = config.map_code.substring(0, 6)
+    const code = config.map_code
     const map = config.map
     const maps = echarts.getMap(map)
+    console.log(map, code)
     setIsLoading(true)
     if (!maps) {
       ;(async () => {
