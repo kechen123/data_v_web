@@ -104,13 +104,14 @@ const defaultRuler: Ruler = {
   dot: '点',
 }
 export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
-  const { map_code, label, itemStyle, emphasis, line, dot } = config
+  const { map, label, itemStyle, emphasis, line, dot } = config
+  const isDesign = window.location.pathname.indexOf('design') > -1 ? true : false
   let option: any = {
     geo: {
-      map: map_code,
+      map: map,
       zoom: config.zoom,
       center: config.center,
-      roam: config.roam,
+      roam: isDesign ? false : config.roam, //编辑页面禁止移动缩放
       label,
       itemStyle: itemStyle,
       emphasis: emphasis,

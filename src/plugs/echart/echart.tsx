@@ -7,10 +7,12 @@ import { WidgetObj } from '@_types/Plugin'
 
 interface Props {
   widget: WidgetObj
+  isUseWidgetBus?: boolean
   getOption: (config: any) => any
 }
 
-const Index = ({ widget, getOption }: Props) => {
+const Index = (props: Props) => {
+  const { widget, getOption, isUseWidgetBus = true } = props
   const {
     id,
     widget: {
@@ -51,28 +53,30 @@ const Index = ({ widget, getOption }: Props) => {
   }
 
   useWidgetBus(id, (data) => {
-    const oldOption = getNowOption()
-    console.log(data.widget.config.dot.show)
-    const newOption = getOption(data.widget.config)
-    const newRect = data.widget.rect
-    if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
-      setOption(newOption)
-    }
-    if (rect.width !== newRect.width || rect.height !== newRect.height) {
-      setRect(newRect)
+    if (isUseWidgetBus) {
+      const oldOption = getNowOption()
+      const newOption = getOption(data.widget.config)
+      const newRect = data.widget.rect
+      if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
+        setOption(newOption)
+      }
+      if (rect.width !== newRect.width || rect.height !== newRect.height) {
+        setRect(newRect)
+      }
     }
   })
 
   useEffect(() => {
     init()
   }, [])
-
+  console.log('echart')
   useEffect(() => {
     //地图组件部分参数变化需要清除重新设置
     if (option.hasOwnProperty('_willClear') && option['_willClear'] === true) {
       clear()
     }
     if (option && barRef.current && chartRef.current) {
+      const maps = echarts.getMap('陕西省-西安市')
       chartRef.current.setOption(option)
     }
   }, [option])

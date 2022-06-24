@@ -8,9 +8,6 @@ import { symboltOption } from '@/utils/formData'
 import { getObjByPath } from '@utils/common'
 import { Dot as DotType } from '../_types'
 
-const { Option } = Select
-const { Panel } = Collapse
-
 const Dot = (props: DotType) => {
   const layout = {
     labelCol: { span: 6 },

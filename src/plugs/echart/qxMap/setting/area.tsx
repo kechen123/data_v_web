@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, InputNumber, AutoComplete, Select, message } from 'antd'
+import update from 'immutability-helper'
 import InputNumberUnit from '@components/form/inputNumberUnit'
 import eventBus from '@utils/eventBus'
+import { getObjByPath } from '@utils/common'
 import { QXMAP } from '../_types'
-const { Option } = Select
 
 interface Props extends QXMAP {
   chinaArea: any
 }
-
-const mockVal = (str: string, repeat = 1) => ({
-  value: str.repeat(repeat),
-  label: str.repeat(repeat),
-})
 
 const searchTree = (val, arr) => {
   let newArr: any = []
@@ -75,10 +71,10 @@ const Area = (props: Props) => {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 },
   }
-
   const [map, setMap] = useState({
     code: props.map_code,
     map: props.map,
+    zoom: props.zoom,
   })
 
   const [options, setOptions] = useState<{ value: string }[]>([])
@@ -89,7 +85,26 @@ const Area = (props: Props) => {
   }
 
   const onChange = (value, option) => {
-    console.log('onChange', value, option)
+    if (option) {
+      setMap((data) => {
+        return {
+          ...data,
+          code: option.data,
+          map: option.value,
+        }
+      })
+      change('map_code', option.data)
+      change('map', option.value)
+    }
+  }
+
+  const change = (key, value) => {
+    const obj = getObjByPath(key, value)
+    if (obj) {
+      setMap(update(map, obj))
+      const path = key
+      eventBus.emit('changeSettingConfig', path, value)
+    }
   }
 
   return (
@@ -98,7 +113,7 @@ const Area = (props: Props) => {
         <AutoComplete defaultValue={map.map} options={options} onChange={onChange} onSearch={searchArea} placeholder="XX省XX市" />
       </Form.Item>
       <Form.Item label="缩放">
-        <InputNumberUnit />
+        <InputNumberUnit value={map.zoom} stringMode={true} min={0.1} max={10} onChange={(value) => change('zoom', value)} />
       </Form.Item>
     </Form>
   )

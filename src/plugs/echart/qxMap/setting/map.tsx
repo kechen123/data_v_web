@@ -8,7 +8,6 @@ import { getObjByPath } from '@utils/common'
 import { fontFamilyOption } from '@/utils/formData'
 import { QXMAP } from '../_types'
 
-const { Option } = Select
 const { Panel } = Collapse
 
 const Map = (props: QXMAP) => {

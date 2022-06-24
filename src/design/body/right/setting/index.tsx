@@ -21,9 +21,13 @@ const style: React.CSSProperties = {
 const { TabPane } = Tabs
 
 const Setting = () => {
-  const { widgetObj, setActiveWidgetValueByPath, setActiveWidgetConfigValue, setActiveWidgetRectValue } = useActiveWidget()
-  const setConfig = (key: string, val: any) => {
-    setActiveWidgetConfigValue(key, val)
+  const { widgetObj, setWidgetObj, setActiveWidgetValueByPath, setActiveWidgetConfigValue, setActiveWidgetRectValue } = useActiveWidget()
+  const setConfig = (key: string | WidgetObj, val?: any) => {
+    if (typeof key === 'object' && !val) {
+      setWidgetObj(key)
+    } else if (typeof key === 'string' && val) {
+      setActiveWidgetConfigValue(key, val)
+    }
   }
   const setRect = (key: string, val: any) => {
     setActiveWidgetRectValue(key, val)
