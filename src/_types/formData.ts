@@ -18,8 +18,9 @@ export type Input = {
 }
 
 export type InputNumber = Input & {
-  min?: number
-  max?: number
+  min?: number | string
+  max?: number | string
+  stringMode?: boolean
 }
 
 export type LegendPosition = 'top' | 'top_left' | 'top_right' | 'bottom' | 'left_top' | 'left_bottom' | 'right_top' | 'right_bottom'

@@ -5,7 +5,7 @@ import { legendPosition } from '@/utils/formData'
 
 export const defaultConfig: QXMAPType = {
   map_code: 'china',
-  map_depth: 1,
+  map: '中国',
   zoom: 1,
   roam: true,
   label: {
@@ -13,34 +13,42 @@ export const defaultConfig: QXMAPType = {
     color: '#FFF',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    fontFamily: 'serif',
+    fontFamily: 'Microsoft YaHei',
     fontSize: 12,
   },
   itemStyle: {
-    normal: {
-      color: '#FFF',
-      borderColor: 'rgba(147, 235, 248, 1)',
-      borderWidth: 1,
-      areaColor: {
-        type: 'radial',
-        x: 0.5,
-        y: 0.5,
-        r: 0.8,
-        colorStops: [
-          {
-            offset: 0,
-            color: 'rgba(147, 235, 248, 0)', // 0% 处的颜色
-          },
-          {
-            offset: 1,
-            color: 'rgba(147, 235, 248, .2)', // 100% 处的颜色
-          },
-        ],
-        globalCoord: false, // 缺省为 false
-      },
-      shadowColor: 'rgba(128, 217, 248, 1)',
+    color: '#000',
+    borderColor: 'rgba(147, 235, 248, 1)',
+    borderWidth: 1,
+    areaColor: {
+      type: 'radial',
+      x: 0.5,
+      y: 0.5,
+      r: 0.8,
+      colorStops: [
+        {
+          offset: 0,
+          color: 'rgba(147, 235, 248, 0)', // 0% 处的颜色
+        },
+        {
+          offset: 1,
+          color: 'rgba(147, 235, 248, .2)', // 100% 处的颜色
+        },
+      ],
+      globalCoord: false, // 缺省为 false
     },
-    emphasis: {
+    shadowColor: 'rgba(128, 217, 248, 1)',
+  },
+  emphasis: {
+    label: {
+      show: true,
+      color: '#FFF',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontFamily: 'Microsoft YaHei',
+      fontSize: 14,
+    },
+    itemStyle: {
       color: '#FFF',
       borderColor: 'rgba(147, 235, 248, 0.8)',
       borderWidth: 1,
@@ -96,7 +104,7 @@ const defaultRuler: Ruler = {
   dot: '点',
 }
 export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
-  const { map_code, label, itemStyle, line, dot } = config
+  const { map_code, label, itemStyle, emphasis, line, dot } = config
   let option: any = {
     geo: {
       map: map_code,
@@ -104,15 +112,18 @@ export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Rul
       center: config.center,
       roam: config.roam,
       label,
-      itemStyle,
+      itemStyle: itemStyle,
+      emphasis: emphasis,
       regions: [
         {
           name: '南海诸岛',
           label,
-          itemStyle,
+          itemStyle: itemStyle,
+          emphasis: emphasis,
         },
       ],
     },
+    _willClear: true,
     series: [],
   }
   if (line.show) {

@@ -37,6 +37,20 @@ export const legend: SelectType = {
   default: 'top',
 }
 
+export const symbol: SelectType = {
+  options: [
+    { value: 'circle', label: '圆形' },
+    { value: 'rect', label: '矩形' },
+    { value: 'roundRect', label: '圆角矩形' },
+    { value: 'triangle', label: '三角形' },
+    { value: 'diamond', label: '菱形' },
+    { value: 'pin', label: '水滴' },
+    { value: 'arrow', label: '箭头' },
+    { value: 'none', label: '无' },
+  ],
+  default: 'none',
+}
+
 export const fontWeight: SelectType = {
   options: [
     { value: 'normal', label: '正常' },
@@ -61,6 +75,14 @@ export const fontFamilyOption = fontFamily.options.map((item) => {
 })
 
 export const legendOption = legend.options.map((item) => {
+  return (
+    <Option key={item.value} value={item.value}>
+      {item.label}
+    </Option>
+  )
+})
+
+export const symboltOption = symbol.options.map((item) => {
   return (
     <Option key={item.value} value={item.value}>
       {item.label}

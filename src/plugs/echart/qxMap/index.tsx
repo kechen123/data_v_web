@@ -17,8 +17,7 @@ const Index = (props: any) => {
     const maps = echarts.getMap(code)
     if (!maps) {
       ;(async () => {
-        const path = depth === 1 ? code : depth === 2 ? `province/${code}` : `citys/${code}`
-        const response = await fetch(`./geoMapData/${path}.json`)
+        const response = await fetch(`./geoMapData/${code}.json`)
         const data = await response.json()
         echarts.registerMap(code, data)
         setIsLoading(false)

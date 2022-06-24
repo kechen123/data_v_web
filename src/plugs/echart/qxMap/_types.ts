@@ -31,35 +31,34 @@ export type Dot = {
   }
 }
 
+type ItemStyle = {
+  color: any
+  borderColor: any
+  borderWidth: number
+  areaColor: any
+  shadowColor: any
+}
+
+type Label = {
+  show: boolean
+  color: any
+  fontStyle: 'normal' | 'italic' | 'oblique'
+  fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter' | number
+  fontFamily: string
+  fontSize: number
+}
+
 export type QXMAP = {
   map_code: string
-  map_depth: 1 | 2 | 3
+  map: string
   zoom: number //缩放级别
   center?: number[]
   roam: 'scale' | 'move' | boolean
-  label: {
-    show: boolean
-    color: any
-    fontStyle: 'normal' | 'italic' | 'oblique'
-    fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter' | number
-    fontFamily: string
-    fontSize: number
-  }
-  itemStyle: {
-    normal: {
-      color: any
-      borderColor: any
-      borderWidth: number
-      areaColor: any
-      shadowColor: any
-    }
-    emphasis: {
-      color: any
-      borderColor: any
-      borderWidth: number
-      areaColor: any
-      shadowColor: any
-    }
+  label: Label
+  itemStyle: ItemStyle
+  emphasis: {
+    label: Label
+    itemStyle: ItemStyle
   }
   line: Line
   dot: Dot

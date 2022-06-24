@@ -6,8 +6,9 @@ import { Option as OptionType, Select as SelectType, InputNumber as InputType } 
 const { Option } = Select
 
 const InputNumberUnit = (props: InputType) => {
+  const { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, stringMode = false } = props
   const valueStr = props?.value?.toString()
-  const defaultUnit = valueStr?.replace(/[0-9]+/g, '')
+  const defaultUnit = valueStr?.replace(/[0-9]+/g, '').replace(/./, '')
   const defaultValue = valueStr?.replace(defaultUnit || '', '')
   const [unit, setUnit] = useState(defaultUnit || '')
   const [value, setValue] = useState(defaultValue || '')
@@ -46,6 +47,7 @@ const InputNumberUnit = (props: InputType) => {
       props.onChange(value + val)
     }
   }
+
   const onChange = (val: string) => {
     setValue(val)
     if (props.onChange) {
@@ -67,10 +69,10 @@ const InputNumberUnit = (props: InputType) => {
   }
 
   if (props.unit) {
-    return <InputNumber addonAfter={selectAfter(getGap())} value={defaultValue} onChange={onChange} style={props.style} />
+    return <InputNumber min={min as any} max={max as any} stringMode={stringMode} addonAfter={selectAfter(getGap())} value={defaultValue} onChange={onChange} style={props.style} />
   }
 
-  return <InputNumber value={defaultValue} onChange={props.onChange} style={props.style} />
+  return <InputNumber min={min as any} max={max as any} stringMode={stringMode} value={defaultValue} onChange={props.onChange} style={props.style} />
 }
 
 export default InputNumberUnit
