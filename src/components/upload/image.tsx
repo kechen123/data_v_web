@@ -93,7 +93,7 @@ export const ImageBox = (props: props) => {
           upImage(url)
         }
       })
-      console.log('acceptedFiles', acceptedFiles)
+      // console.log('acceptedFiles', acceptedFiles)
       // fileToBase64(acceptedFiles[0]).then((res) => {
       //   setFiles([res])
       // })

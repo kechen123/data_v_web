@@ -26,7 +26,6 @@ const hide = (text: string) => {}
 const lock = (text: string) => {}
 
 const del = (args) => {
-  console.log('del', args)
   Modal.confirm({
     title: '删除组件',
     centered: true,

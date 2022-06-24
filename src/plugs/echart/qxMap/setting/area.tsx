@@ -85,7 +85,6 @@ const Area = (props: Props) => {
     map: props.map,
     zoom: props.zoom,
   })
-  console.log(map)
 
   const [options, setOptions] = useState<{ value: string }[]>([])
 

@@ -82,7 +82,6 @@ const Index = (props: Props) => {
       clear()
     }
     if (option && barRef.current && chartRef.current) {
-      console.log('setoption')
       chartRef.current.setOption(option)
     }
   }, [option])

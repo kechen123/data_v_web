@@ -50,7 +50,7 @@ const Info = React.memo(
             value={props.name}
             onChange={(e) => {
               let value = e.target.value
-              console.log('组件名称')
+              // console.log('组件名称')
               eventBus.emit('changeSettingBase', 'name', value)
               // eventBus.emit('changeSettingConfig', path, value)
               // setFrame({ ...frame, name: name })

@@ -57,7 +57,6 @@ const EchartColor = (props: Props) => {
           }
         })
       }
-      console.log(propsColor)
       onChange(propsColor)
     }
   }
