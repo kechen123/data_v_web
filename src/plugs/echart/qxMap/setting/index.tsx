@@ -8,7 +8,7 @@ import { QXMAP } from '../_types'
 const { Panel } = Collapse
 
 const Index = (props: QXMAP) => {
-  const [qx, setQx] = useState<QXMAP>(props)
+  const qx = props
   const [active, setActive] = useState<string | string[]>([''])
   const [chinaArea, setChinaArea] = useState()
   useEffect(() => {

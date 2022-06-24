@@ -43,6 +43,15 @@ const searchTree = (val, arr) => {
 //https://blog.csdn.net/reffdf/article/details/124298707
 const searchOptions = (txt, chinaArea) => {
   if (txt) {
+    if (txt === '中国') {
+      return [
+        {
+          value: '中国',
+          label: '中国',
+          data: 'china',
+        },
+      ]
+    }
     const arr = searchTree(txt, chinaArea)
     if (Array.isArray(arr)) {
       const list = arr.map((item) => {
@@ -76,6 +85,7 @@ const Area = (props: Props) => {
     map: props.map,
     zoom: props.zoom,
   })
+  console.log(map)
 
   const [options, setOptions] = useState<{ value: string }[]>([])
 
@@ -110,7 +120,7 @@ const Area = (props: Props) => {
   return (
     <Form {...layout} initialValues={{ layout: 'Inline' }} labelAlign="right">
       <Form.Item label="地区">
-        <AutoComplete defaultValue={map.map} options={options} onChange={onChange} onSearch={searchArea} placeholder="XX省XX市" />
+        <AutoComplete defaultValue={map.map} options={options} onSelect={onChange} onSearch={searchArea} placeholder="XX省XX市" />
       </Form.Item>
       <Form.Item label="缩放">
         <InputNumberUnit value={map.zoom} stringMode={true} min={0.1} max={10} onChange={(value) => change('zoom', value)} />

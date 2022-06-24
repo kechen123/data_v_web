@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react'
 import * as echarts from 'echarts'
+import { useGetState } from 'ahooks'
 import { getFetch } from '@utils/request'
 import useWidgetBus from '@hooks/useWigetBus'
 import { getOption } from './option'
 import Echart from '../echart'
 
 const Index = (props: any) => {
-  const data = {
-    getOption,
-    isUseWidgetBus: false,
-    widget: props,
-  }
   const { id, widget: config } = props
-  const [echartData, setEchartData] = useState(data)
+  const [echartData, setEchartData, getEchartData] = useGetState(() => {
+    return {
+      getOption,
+      isUseWidgetBus: false,
+      widget: props,
+    }
+  })
+
   const [isLoading, setIsLoading] = useState(true)
-  console.log('props>>>', props)
+
   useWidgetBus(id, (data) => {
-    const oldConfig = echartData.widget.widget.config
+    const oldConfig = getEchartData().widget.widget.config
     const newConfig = data.widget.config
     if (oldConfig.map_code !== newConfig.map_code) {
       setEchartData((data) => {
@@ -39,13 +42,14 @@ const Index = (props: any) => {
       })
     }
   })
+
   useEffect(() => {
     const config = echartData.widget.widget.config
     const code = config.map_code.substring(0, 6)
     const map = config.map
     const maps = echarts.getMap(map)
+    setIsLoading(true)
     if (!maps) {
-      setIsLoading(true)
       ;(async () => {
         const path = map === '中国' ? 'china' : map.indexOf('-') > -1 ? 'citys/' + code : 'province/' + code
         const response = await fetch(`./geoMapData/${path}.json`)
@@ -57,10 +61,10 @@ const Index = (props: any) => {
       setIsLoading(false)
     }
   }, [echartData])
+
   if (isLoading) {
     return <></>
   }
-
   return <Echart {...echartData} />
 }
 

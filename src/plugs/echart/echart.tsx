@@ -69,14 +69,20 @@ const Index = (props: Props) => {
   useEffect(() => {
     init()
   }, [])
-  console.log('echart')
+
+  useEffect(() => {
+    if (isUseWidgetBus === false) {
+      setOption(getOption(config))
+    }
+  }, [config])
+
   useEffect(() => {
     //地图组件部分参数变化需要清除重新设置
     if (option.hasOwnProperty('_willClear') && option['_willClear'] === true) {
       clear()
     }
     if (option && barRef.current && chartRef.current) {
-      const maps = echarts.getMap('陕西省-西安市')
+      console.log('setoption')
       chartRef.current.setOption(option)
     }
   }, [option])
@@ -84,6 +90,7 @@ const Index = (props: Props) => {
   useEffect(() => {
     resize()
   }, [rect])
+
   return <div key={id} style={{ width: '100%', height: '100%' }} ref={barRef}></div>
 }
 
