@@ -73,8 +73,9 @@ const Index = (props: Props) => {
   useEffect(() => {
     if (isUseWidgetBus === false) {
       setOption(getOption(config))
+      setRect(widget.widget.rect)
     }
-  }, [config])
+  }, [config, widget.widget.rect])
 
   useEffect(() => {
     //地图组件部分参数变化需要清除重新设置

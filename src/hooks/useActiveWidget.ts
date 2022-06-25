@@ -1,5 +1,5 @@
 import { widget } from './../store/features/widgetSlice'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import update from 'immutability-helper'
 import { useGetState } from 'ahooks'
 import eventBus from '@utils/eventBus'
@@ -11,16 +11,25 @@ import { getObjByPath } from '@utils/common'
 
 const useActiveWidget = () => {
   const [widgetObj, setWidgetObj, getWidgetObj] = useGetState<WidgetObj>()
-  const { activeWidgets } = useAppSelector(screen)
+  const { activeWidgets: activeWidgetsId } = useAppSelector(screen)
   const widget = useAppSelector(widgetSotre)
   const dispatch = useAppDispatch()
 
+  const activeWidgets = useMemo(() => {
+    return activeWidgetsId.map((id) => {
+      return {
+        id,
+        widget: widget[id],
+      }
+    })
+  }, [activeWidgetsId, widget])
+
   useEffect(() => {
-    const newWidget = widget[activeWidgets[0]]
+    const newWidget = widget[activeWidgetsId[0]]
     if (newWidget) {
       if (JSON.stringify(newWidget) !== JSON.stringify(widgetObj)) {
         const newWidgetObj = {
-          id: activeWidgets[0],
+          id: activeWidgetsId[0],
           widget: newWidget,
         }
         setWidgetObj(newWidgetObj)
@@ -28,7 +37,7 @@ const useActiveWidget = () => {
     } else {
       setWidgetObj(undefined)
     }
-  }, [activeWidgets, widget])
+  }, [activeWidgetsId, widget])
 
   const setActiveWidget = (widgetObj: WidgetObj) => {
     setWidgetObj(widgetObj)
@@ -61,6 +70,6 @@ const useActiveWidget = () => {
     setActiveWidgetValueByPath(path, value)
   }
 
-  return { widgetObj, setWidgetObj: setActiveWidget, setActiveWidgetValueByPath, setActiveWidgetRectValue, setActiveWidgetConfigValue }
+  return { widgetObj, activeWidgets, activeWidgetsId, setWidgetObj: setActiveWidget, setActiveWidgetValueByPath, setActiveWidgetRectValue, setActiveWidgetConfigValue }
 }
 export default useActiveWidget

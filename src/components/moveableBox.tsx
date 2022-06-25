@@ -3,8 +3,9 @@ import { flushSync } from 'react-dom'
 import Moveable from 'react-moveable'
 import { useGetState } from 'ahooks'
 import update from 'immutability-helper'
-import { useAppDispatch } from '@storeApp/hooks'
-import { setWidget } from '@features/widgetSlice'
+import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
+import { widget as widgetSotre, setWidget } from '@features/widgetSlice'
+import { screen } from '@features/screenSlice'
 import eventBus from '@utils/eventBus'
 import useActiveWidget from '@hooks/useActiveWidget'
 import { WidgetObj, Rect, MoveableBox as MoveableBoxProps } from '@_types/Plugin'
@@ -17,14 +18,15 @@ interface Rects {
 }
 
 // const MoveableBox  = ({ target, widgetList }: MoveableBoxProps) => {
-const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target, widgetList }, childRef) => {
+const MoveableBox: ForwardRefRenderFunction<cRef, MoveableBoxProps> = ({ target }, childRef) => {
   const dispatch = useAppDispatch()
+  const { setWidgetObj, activeWidgets: widgetList } = useActiveWidget()
   const [moveable, setMoveable, getMoveable] = useGetState<any>(null)
-  const [frame, setFrame] = useState(() => {
-    return widgetList[0]
-  })
+  // const [frame, setFrame] = useState(() => {
+  //   return widgetList[0]
+  // })
 
-  const { setWidgetObj } = useActiveWidget()
+  const [frame, setFrame] = useState(widgetList[0])
 
   // let frame = widgetList[0]
   // const setFrame = (data: any) => {

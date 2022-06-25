@@ -8,7 +8,15 @@ import Echart from '../echart'
 
 const Index = (props: any) => {
   const { id, widget: config } = props
-  const [echartData, setEchartData, getEchartData] = useGetState(() => {
+  // const [echartData, setEchartData, getEchartData] = useGetState(() => {
+  //   return {
+  //     getOption,
+  //     isUseWidgetBus: false,
+  //     widget: props,
+  //   }
+  // })
+
+  const [echartData, setEchartData] = useState(() => {
     return {
       getOption,
       isUseWidgetBus: false,
@@ -19,36 +27,35 @@ const Index = (props: any) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useWidgetBus(id, (data) => {
-    const oldConfig = getEchartData().widget.widget.config
-    const newConfig = data.widget.config
-    if (oldConfig.map_code !== newConfig.map_code) {
-      setEchartData((data) => {
-        const widget = JSON.parse(JSON.stringify(data.widget))
-        widget.widget.config.map_code = newConfig.map_code
-        return {
-          ...data,
-          widget,
-        }
-      })
-    }
-    if (oldConfig.map !== newConfig.map) {
-      setEchartData((data) => {
-        const widget = JSON.parse(JSON.stringify(data.widget))
-        widget.widget.config.map = newConfig.map
-        return {
-          ...data,
-          widget,
-        }
-      })
-    }
+    setEchartData((echartData) => {
+      return {
+        ...echartData,
+        widget: data,
+      }
+    })
   })
+
+  // useWidgetBus(id, (data) => {
+  //   const oldConfig = getEchartData().widget.widget.config
+  //   const newConfig = data.widget.config
+  //   if (oldConfig.map_code !== newConfig.map_code || oldConfig.map !== newConfig.map) {
+  //     setEchartData((data) => {
+  //       const widget = JSON.parse(JSON.stringify(data.widget))
+  //       widget.widget.config.map_code = newConfig.map_code
+  //       widget.widget.config.map = newConfig.map
+  //       return {
+  //         ...data,
+  //         widget,
+  //       }
+  //     })
+  //   }
+  // })
 
   useEffect(() => {
     const config = echartData.widget.widget.config
     const code = config.map_code
     const map = config.map
     const maps = echarts.getMap(map)
-    console.log(map, code)
     setIsLoading(true)
     if (!maps) {
       ;(async () => {

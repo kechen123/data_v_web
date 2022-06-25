@@ -95,7 +95,6 @@ const Area = (props: Props) => {
 
   const onChange = (value, option) => {
     if (option) {
-      console.log(option)
       const map_code = option.data.substring(0, 6)
       setMap((data) => {
         return {
@@ -104,8 +103,19 @@ const Area = (props: Props) => {
           map: option.value,
         }
       })
-      change('map_code', map_code)
-      change('map', option.value)
+      const newConfig = {
+        ...props,
+        zoom: map.zoom,
+        map_code: map_code,
+        map: option.value,
+      }
+      delete newConfig.chinaArea
+      const path = 'config'
+      const obj = getObjByPath(path, newConfig)
+      if (obj) {
+        setMap(update(map, obj))
+        eventBus.emit('changeSettingBase', path, newConfig)
+      }
     }
   }
 
