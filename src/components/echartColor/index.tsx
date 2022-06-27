@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import update, { extend } from 'immutability-helper'
 import Color, { getColor } from '@components/color'
-import { Color as ColorType, BaseColor as BaseColorType, LinearColor as LinearColorType, RadialColor as RadialColorType } from '@_types/color'
+import { Color as ColorType, BaseColor as BaseColorType, LinearColor as LinearColorType, RadialColor as RadialColorType } from '@/_types/Color'
 import styles from './index.module.less'
 
 type ColorT = BaseColorType | LinearColorType | RadialColorType

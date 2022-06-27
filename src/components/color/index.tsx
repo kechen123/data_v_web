@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { SketchPicker } from 'react-color'
-import { Color as ColorType, BaseColor as BaseColorType, RgbaColor as RgbaColorType } from '@_types/color'
+import { Color as ColorType, BaseColor as BaseColorType, RgbaColor as RgbaColorType } from '@/_types/Color'
 import styles from './index.module.less'
 
 interface Props {

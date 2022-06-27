@@ -4,7 +4,7 @@ import { legendPosition } from '@/utils/formData'
 
 export const defaultConfig: BasicBarType = {
   grid: {
-    top: '10%',
+    top: '20%',
     right: '10%',
     bottom: '10%',
     left: '10%',
@@ -189,7 +189,7 @@ export const defaultOption = {
   animation: true,
   legend: {
     type: 'plain',
-    data: ['A区', 'B区'],
+    data: ['降雨量', '蒸发量'],
     show: true,
     orient: 'horizontal',
     left: '72%',
@@ -329,7 +329,7 @@ export const defaultOption = {
   },
   series: [
     {
-      name: 'A区',
+      name: '降雨量',
       type: 'bar',
       barWidth: '20%',
       barGap: '30%',
@@ -396,7 +396,7 @@ export const defaultOption = {
       },
     },
     {
-      name: 'B区',
+      name: '蒸发量',
       type: 'bar',
       barWidth: '20%',
       barGap: '30%',
@@ -467,7 +467,7 @@ export const defaultOption = {
 
 const defaultRuler: Ruler = {
   x: '月份',
-  y: ['A区', 'B区'],
+  y: ['降雨量', '蒸发量'],
 }
 
 export const getOption = (config: BasicBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
