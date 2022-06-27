@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3001689 */
-  src: url('iconfont.woff2?t=1654071497797') format('woff2'),
-       url('iconfont.woff?t=1654071497797') format('woff'),
-       url('iconfont.ttf?t=1654071497797') format('truetype');
+  src: url('iconfont.woff2?t=1656293769366') format('woff2'),
+       url('iconfont.woff?t=1656293769366') format('woff'),
+       url('iconfont.ttf?t=1656293769366') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-duomeiti:before {
+  content: "\e6fd";
+}
+
+.icon-GISditu:before {
+  content: "\e672";
 }
 
 .icon-daohang:before {

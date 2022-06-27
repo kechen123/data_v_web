@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import * as echarts from 'echarts'
 import { useGetState } from 'ahooks'
+import { WidgetObj } from '@_types/Plugin'
 import { getFetch } from '@utils/request'
 import useWidgetBus from '@hooks/useWigetBus'
 import { getOption } from './option'
 import Echart from '../echart'
 
-const Index = (props: any) => {
-  const { id, widget: config } = props
+const Index = (widgetObj: WidgetObj) => {
+  const { id, widget: config } = widgetObj
   // const [echartData, setEchartData, getEchartData] = useGetState(() => {
   //   return {
   //     getOption,
@@ -20,7 +21,7 @@ const Index = (props: any) => {
     return {
       getOption,
       isUseWidgetBus: false,
-      widget: props,
+      widget: widgetObj,
     }
   })
 

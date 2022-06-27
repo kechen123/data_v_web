@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, textConfig, QxConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -74,19 +74,6 @@ export const Echarts: Array<Widget> = [
       color: ['#235fa7', '#4fd2dd'],
     },
   },
-  {
-    name: '迁徙图',
-    plugin: {
-      name: 'qx',
-      url: 'echart/qxMap',
-    },
-    rect: {
-      width: 650,
-      height: 500,
-    },
-    img: 'datavImage/txt/text.png',
-    config: QxConfig,
-  },
 ]
 
 export const Map: Array<Widget> = [
@@ -102,6 +89,21 @@ export const Map: Array<Widget> = [
     },
     img: 'datavImage/txt/text.png',
     config: QxConfig,
+  },
+]
+export const Media: Array<Widget> = [
+  {
+    name: '图片',
+    plugin: {
+      name: 'qx',
+      url: 'media/image',
+    },
+    rect: {
+      width: 270,
+      height: 160,
+    },
+    img: 'datavImage/txt/text.png',
+    config: ImageConfig,
   },
 ]
 export const Texts: Array<Widget> = [
@@ -127,24 +129,23 @@ export const MENU: Array<any> = [
     index: 1,
   },
   {
-    name: '文本',
-    icon: 'icon-wenben',
-    plugs: 'Text',
+    name: '地图',
+    icon: 'icon-GISditu',
+    plugs: 'Map',
     index: 2,
   },
   {
-    name: '装饰',
-    icon: 'icon-zhuangshi',
-    plugs: '',
+    name: '媒体',
+    icon: 'icon-duomeiti',
+    plugs: 'Media',
     index: 3,
   },
   {
-    name: '图表',
-    icon: 'icon-tubiao-zhexiantu',
-    plugs: 'DATAVCHART',
+    name: '文本',
+    icon: 'icon-wenben',
+    plugs: 'Text',
     index: 4,
   },
-
   {
     name: '收藏',
     icon: 'icon-fabulous',

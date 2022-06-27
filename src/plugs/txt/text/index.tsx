@@ -20,10 +20,7 @@ const Index = (props: any) => {
   const { id, widget } = props
   const [config, setConfig] = useState(widget.config)
   useWidgetBus(id, (data) => {
-    const newConfig = data.widget.config
-    if (JSON.stringify(config) !== JSON.stringify(newConfig)) {
-      setConfig(newConfig)
-    }
+    setConfig(data.widget.config)
   })
   const option = useMemo(() => {
     return getOption(config)

@@ -1,10 +1,11 @@
+import { WidgetObj } from '@_types/Plugin'
 import { getOption } from './option'
 import Echart from '../echart'
 
-const Index = (props: any) => {
+const Index = (widgetObj: WidgetObj) => {
   const data = {
     getOption,
-    widget: props,
+    widget: widgetObj,
   }
   return <Echart {...data} />
 }

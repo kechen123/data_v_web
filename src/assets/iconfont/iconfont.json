@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8519517",
+      "name": "多媒体",
+      "font_class": "duomeiti",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
+      "icon_id": "24271932",
+      "name": "GIS地图",
+      "font_class": "GISditu",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
       "icon_id": "657989",
       "name": "导航",
       "font_class": "daohang",

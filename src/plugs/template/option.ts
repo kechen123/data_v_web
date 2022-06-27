@@ -1,3 +1,4 @@
+import { WidgetObj } from '@_types/Plugin'
 import defaultData from './data.json'
 import { Text as TextType, Ruler } from './_types'
 
@@ -24,7 +25,7 @@ const defaultRuler: Ruler = {
   x: 'txt',
 }
 
-export const getOption = (config: TextType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
+export const getOption = (config: WidgetObj, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const text = data.map((item) => item[ruler.x])
   const option = Object.assign(config, { text })
   return option
