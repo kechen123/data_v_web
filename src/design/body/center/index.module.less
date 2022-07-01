@@ -14,6 +14,12 @@
     z-index: 2;
     top: var(--screen-margin);
     left: var(--screen-margin);
+    --color-background: var(--navy);
+    background: rgb(10 24 46 / 50%);
+    background-image: linear-gradient(45deg, var(--color-background) 25%, transparent 0, transparent 75%, var(--color-background) 0),
+      linear-gradient(45deg, var(--color-background) 25%, transparent 0, transparent 75%, var(--color-background) 0);
+    background-position: 0 0, 8px 8px;
+    background-size: 16px 16px;
   }
   .content {
     flex: 1 1;

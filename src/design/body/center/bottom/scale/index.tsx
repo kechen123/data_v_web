@@ -72,7 +72,7 @@ const Index = () => {
       </div>
       <div style={sliderBody}>
         <MinusSquareOutlined style={icon} onClick={subScale} />
-        <Slider style={slider} value={scale} min={20} max={200} onChange={change} />
+        <Slider style={slider} value={scale} step={10} min={20} max={200} onChange={change} />
         <PlusSquareOutlined style={icon} onClick={addScale} />
       </div>
     </>

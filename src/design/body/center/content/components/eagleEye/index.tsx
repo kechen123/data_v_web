@@ -31,6 +31,10 @@ const Index = (props: any) => {
   //可视区域 外层
   const view: any = document.querySelector('#screenBody')
 
+  //尺子
+  const rulerX = document.querySelector('#rulerX canvas') as HTMLCanvasElement
+  const rulerY = document.querySelector('#rulerY canvas') as HTMLCanvasElement
+
   const resize = useSize(view)
   const [selectRect, setSelectRect] = useState({
     x: 0,
@@ -70,10 +74,12 @@ const Index = (props: any) => {
       if (select.current.offsetTop + top <= 0) {
         topV = 0
       }
-
+      const screenLeft = leftV / scaleView
+      const screenTop = topV / scaleView
       select.current.style.left = leftV + 'px'
       select.current.style.top = topV + 'px'
-      view.scrollTo(leftV / scaleView, topV / scaleView)
+
+      view.scrollTo(screenLeft, screenTop)
     }
   }
   const upHandler = (ev: MouseEvent) => {
@@ -148,6 +154,8 @@ const Index = (props: any) => {
   useEffect(() => {
     if (view) {
       const setRect = () => {
+        rulerX.style.left = -view.scrollLeft + 'px'
+        rulerY.style.top = -view.scrollTop + 'px'
         if (move.canMove === false) {
           let vx = view.scrollLeft * scaleView,
             vy = view.scrollTop * scaleView,
@@ -177,13 +185,17 @@ const Index = (props: any) => {
     }
   }, [resize, width, height, scaleView])
   useEffect(() => {
-    eventBus.addListener('widgetMoveEye', (data: any) => {
+    const event = (data: any) => {
       let x = (data[2] + SCREENMARGIN[3]) * scaleView + 1
       let y = (data[3] + SCREENMARGIN[0]) * scaleView + 1
       let w = data[0] * scaleView
       let h = data[1] * scaleView
       setActive([w, h, x, y, data[4]])
-    })
+    }
+    eventBus.addListener('widgetMoveEye', event)
+    return () => {
+      eventBus.removeListener('widgetMoveEye', event)
+    }
   }, [scaleView])
   return (
     <div className={styles.eagleEye}>

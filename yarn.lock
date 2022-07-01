@@ -1600,6 +1600,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@kedachen/ruler@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/@kedachen/ruler/-/ruler-0.1.7.tgz#0be6eb1f730a9d925b5d625f8d17534fd52c4785"
+  integrity sha512-HmGmhrt+bRlWt8DJ1g7axgyE1NF0NaBw572743UYgjt/IdNc7wvReWg70p/R2p6SG+cuvgCJirpBJx5OjFKOFQ==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.npmmirror.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
