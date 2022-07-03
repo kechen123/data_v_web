@@ -157,6 +157,19 @@ const Rulers = (props) => {
     }
   })
   useEventListener('mouseup', (ev) => {
+    const [x, y] = getXY(ev, -70)
+    console.log(x, y)
+    if (mouseDown.lineType === 'x' && y < -50) {
+      let newxLine = update(xLine, {
+        $splice: [[mouseDown.lineIndex, 1]],
+      })
+      setXLine(newxLine)
+    } else if (mouseDown.lineType === 'y' && x < -50) {
+      let newxLine = update(yLine, {
+        $splice: [[mouseDown.lineIndex, 1]],
+      })
+      setYLine(newxLine)
+    }
     setMouseDown({
       down: false,
       lineType: '',
@@ -208,7 +221,7 @@ const Rulers = (props) => {
         <div className={style.rulerYLine}>
           {yLine.map((line, i) => {
             return (
-              <div key={i} style={{ height: height + 'px', transform: `translateX(${line.position - line.scroll}px)` }} className={`${style.line} yline`}>
+              <div key={i} data-i={i} style={{ height: height + 'px', transform: `translateX(${line.position - line.scroll}px)` }} className={`${style.line} yline`}>
                 <div className={style.value}>{line.value}</div>
               </div>
             )
