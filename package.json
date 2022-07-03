@@ -5,7 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "@craco/craco": "^6.4.3",
-    "@kedachen/ruler": "^0.1.7",
+    "@kedachen/ruler": "^0.1.8",
     "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.14.1",

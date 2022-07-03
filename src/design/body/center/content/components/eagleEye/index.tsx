@@ -154,8 +154,10 @@ const Index = (props: any) => {
   useEffect(() => {
     if (view) {
       const setRect = () => {
-        rulerX.style.left = -view.scrollLeft + 'px'
-        rulerY.style.top = -view.scrollTop + 'px'
+        eventBus.emit('setRulerLinePosition', [view.scrollLeft, view.scrollTop])
+        rulerX.style.transform = `translateX(${-view.scrollLeft}px)`
+        rulerY.style.transform = `translateY(${-view.scrollTop}px)`
+        // rulerY.style.top = -view.scrollTop + 'px'
         if (move.canMove === false) {
           let vx = view.scrollLeft * scaleView,
             vy = view.scrollTop * scaleView,
