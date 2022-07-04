@@ -11,7 +11,8 @@ export const defaultConfig: BasicBarType = {
   },
   bar: {
     barGap: '30%',
-    direction: 'horizontally',
+    direction: 'vertical',
+    stack: false,
     bars: [
       {
         color: {
@@ -509,11 +510,12 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
   const seriesOption = ruler.y.map((y_item, index) => {
     const s_data = data.map((d_item) => d_item[y_item])
     const configItem = bar.bars[index]
-    return {
+    const option = {
       name: y_item,
       type: 'bar',
       barWidth: configItem.width,
       barGap: bar.barGap,
+      stack: bar.stack ? 'A' : index,
       data: s_data,
       itemStyle: {
         width: 50,
@@ -547,6 +549,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
         },
       },
     }
+    return option
   })
 
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
@@ -717,6 +720,5 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     },
     series: seriesOption,
   }
-  console.log(JSON.stringify(option, null, 2))
   return option
 }

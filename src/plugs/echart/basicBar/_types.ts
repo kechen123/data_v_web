@@ -22,6 +22,7 @@ export type BarItem = {
 export type Bar = {
   barGap: valueType
   direction: 'vertical' | 'horizontally'
+  stack: boolean
   bars: Array<BarItem>
 }
 

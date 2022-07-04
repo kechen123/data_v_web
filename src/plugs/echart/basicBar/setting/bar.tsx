@@ -58,6 +58,9 @@ const Bar = (props: Props) => {
             <Option value="vertical">垂直</Option>
           </Select>
         </Form.Item>
+        <Form.Item label="堆叠">
+          <Switch checked={bar.stack} onChange={(value) => change(`stack`, value)} />
+        </Form.Item>
       </Form>
       <Form {...layout1} initialValues={{ layout: 'Inline' }} labelAlign="right">
         <Collapse
