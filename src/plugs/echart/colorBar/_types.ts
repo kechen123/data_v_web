@@ -13,20 +13,21 @@ export type Bar = {
     color: any
     border: any
   }> //柱子颜色数组
-  width: valueType //宽度占比
+  width: valueType //宽度
+  direction: 'vertical' | 'horizontally'
   borderRadius: number
   borderWidth: valueType
   borderType: string
-  barPosition: string
-  barUnit: string
 }
 
 export type NumberText = {
   show: boolean
+  position: string
   fontFamily: string
   fontSize: number
   fontStyle: string
   color: any
+  unit: string
 }
 
 export type X = {

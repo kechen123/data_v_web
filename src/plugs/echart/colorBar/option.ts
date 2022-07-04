@@ -1,3 +1,4 @@
+import { borderType } from './../../../utils/formData'
 import defaultData from './data.json'
 import { ColorBar as ColorBarType, Ruler } from './_types'
 import { legendPosition } from '@/utils/formData'
@@ -750,18 +751,19 @@ export const defaultConfig: ColorBarType = {
       },
     ],
     width: '30%',
+    direction: 'vertical',
     borderRadius: 2,
     borderWidth: 2,
     borderType: 'solid',
-    barPosition: 'top',
-    barUnit: '',
   },
   numberText: {
     show: true,
+    position: 'top',
     fontFamily: 'Arial,苹方,微软雅黑',
     fontSize: 16,
     fontStyle: 'normal',
     color: '#fff',
+    unit: '',
   },
   x: {
     show: true,
@@ -819,6 +821,29 @@ const defaultRuler: Ruler = {
 }
 export const getOption = (config: ColorBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { grid, bar, numberText, x, y, tooltip } = config
+  const getColor = (color: string | Object) => {
+    if (bar.direction === 'horizontally') {
+      let newColor = JSON.parse(JSON.stringify(color))
+      newColor.x2 = 1
+      newColor.y2 = 0
+      return newColor
+    }
+    return color
+  }
+
+  const getLabelPosition = (position: string) => {
+    if (bar.direction === 'horizontally') {
+      switch (position) {
+        case 'top':
+          return 'right'
+        case 'bottom':
+          return 'left'
+        default:
+          return position
+      }
+    }
+    return position
+  }
   const gridOption = {
     left: grid.left,
     right: grid.right,
@@ -876,6 +901,7 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
       },
       axisLabel: {
         show: true,
+        formatter: `{value}${x.unit}`,
         interval: x.interval,
         rotate: x.rotate,
         margin: x.margin,
@@ -893,6 +919,8 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
   const yAxisOption = {
     type: 'value',
     show: y.show,
+    position: y.position,
+    offset: y.offset,
     max: y.max,
     min: y.min,
     splitNumber: null,
@@ -932,10 +960,7 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
       textShadowColor: 'rgba(74,146,236,0)',
       textShadowOffsetX: 0,
       textShadowOffsetY: 0,
-      formatter: function (p) {
-        let val = p
-        return val + '' + y.unit
-      },
+      formatter: `{value}${y.unit}`,
     },
   }
   const seriesData = data.map((item: any, index: number) => {
@@ -943,14 +968,15 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
       name: '0' + (index + 1),
       value: item[ruler.y[0]],
       itemStyle: {
-        color: bar.colorArr[index].color,
-        borderColor: bar.colorArr[index].border,
+        color: getColor(bar.colorArr[index].color),
+        borderColor: getColor(bar.colorArr[index].border),
         borderWidth: bar.borderWidth,
+        borderType: bar.borderType,
         borderRadius: bar.borderRadius,
       },
       label: {
         show: numberText.show,
-        position: bar.barPosition,
+        position: getLabelPosition(numberText.position),
         distance: 10,
         backgroundColor: 'rgba(255,255,255,0)',
         color: numberText.color,
@@ -967,6 +993,7 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
         shadowColor: 'rgba(0,0,0,0)',
         padding: [0, 0, 0, 0],
         fontFamily: numberText.fontFamily,
+        formatter: `{b}${numberText.unit}`,
       },
     }
   })
@@ -989,8 +1016,8 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
     },
     tooltip: tooltipOption,
     grid: gridOption,
-    xAxis: xAxisOption,
-    yAxis: yAxisOption,
+    xAxis: bar.direction === 'vertical' ? xAxisOption : yAxisOption,
+    yAxis: bar.direction === 'vertical' ? yAxisOption : xAxisOption,
     series: seriesOption,
   }
   return option

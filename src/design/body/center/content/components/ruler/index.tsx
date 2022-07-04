@@ -72,7 +72,6 @@ const Rulers = (props) => {
     'mousedown',
     (ev) => {
       const [x, y] = getXY(ev, -70)
-      console.log(y)
       setXLine((line) => {
         return line.concat({
           position: y + 70,
@@ -158,7 +157,6 @@ const Rulers = (props) => {
   })
   useEventListener('mouseup', (ev) => {
     const [x, y] = getXY(ev, -70)
-    console.log(x, y)
     if (mouseDown.lineType === 'x' && y < -50) {
       let newxLine = update(xLine, {
         $splice: [[mouseDown.lineIndex, 1]],
