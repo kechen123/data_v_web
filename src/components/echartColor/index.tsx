@@ -60,7 +60,6 @@ const EchartColor = (props: Props) => {
       onChange(propsColor)
     }
   }
-
   return (
     <div className={styles.echartColors}>
       {selfColors.map((color, index) => {

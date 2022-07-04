@@ -109,7 +109,7 @@ const Rulers = (props) => {
   )
   useEventListener('mousedown', (ev) => {
     const target = ev.target as HTMLDivElement
-    if (target) {
+    if (target && target.className) {
       if (target.className.indexOf('xline') > -1 && target.dataset['i']) {
         const i = parseInt(target.dataset['i'])
         setMouseDown({

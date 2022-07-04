@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, LineConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -30,19 +30,17 @@ export const Echarts: Array<Widget> = [
     config: colorBarConfig,
   },
   {
-    name: '堆积柱图',
+    name: '折线图',
     plugin: {
       name: 'border',
-      url: 'echart/stackBar',
+      url: 'echart/line',
     },
     rect: {
       width: 570,
       height: 312,
     },
-    img: 'datavImage/echart/stackBar.png',
-    config: {
-      color: ['#235fa7', '#4fd2dd'],
-    },
+    img: 'datavImage/echart/line.png',
+    config: LineConfig,
   },
   {
     name: '基本条图',
