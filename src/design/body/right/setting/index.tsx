@@ -23,9 +23,9 @@ const { TabPane } = Tabs
 const Setting = () => {
   const { widgetObj, setWidgetObj, setActiveWidgetValueByPath, setActiveWidgetConfigValue, setActiveWidgetRectValue } = useActiveWidget()
   const setConfig = (key: string | WidgetObj, val?: any) => {
-    if (typeof key === 'object' && !val) {
+    if (typeof key === 'object' && typeof val === 'undefined') {
       setWidgetObj(key)
-    } else if (typeof key === 'string' && val) {
+    } else if (typeof key === 'string' && typeof val !== 'undefined') {
       setActiveWidgetConfigValue(key, val)
     }
   }

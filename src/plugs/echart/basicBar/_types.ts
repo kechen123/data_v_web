@@ -14,7 +14,6 @@ export type BarItem = {
   width: valueType
   borderRadius: number
   borderWidth: valueType
-  barPosition: string
   borderType: string
   borderColor: any
   barUnit: string
@@ -22,11 +21,13 @@ export type BarItem = {
 
 export type Bar = {
   barGap: valueType
+  direction: 'vertical' | 'horizontally'
   bars: Array<BarItem>
 }
 
 export type NumberText = {
   show: boolean
+  position: string
   fontFamily: string
   fontSize: number
   fontStyle: string

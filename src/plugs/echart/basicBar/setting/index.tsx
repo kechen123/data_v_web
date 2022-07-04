@@ -13,6 +13,10 @@ const { Panel } = Collapse
 const Index = (props: BasicBarType) => {
   const [bar, setBar] = useState<BasicBarType>(props)
   const [active, setActive] = useState<string | string[]>([''])
+  const barParam = {
+    bar: bar.bar,
+    number: bar.numberText,
+  }
   return (
     <Collapse
       bordered={false}
@@ -29,7 +33,7 @@ const Index = (props: BasicBarType) => {
         <Margin {...bar.grid} />
       </Panel>
       <Panel header="柱状条" key="2" className="panel">
-        <Bar {...bar.bar} />
+        <Bar {...barParam} />
       </Panel>
       <Panel header="X轴" key="3" className="panel">
         <X {...bar.x} />

@@ -66,7 +66,6 @@ const useActiveWidget = () => {
 
   const setActiveWidgetConfigValue = (key: string, value: any) => {
     const path = 'widget.config.' + key
-
     setActiveWidgetValueByPath(path, value)
   }
 

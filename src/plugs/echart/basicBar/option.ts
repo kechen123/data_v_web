@@ -11,6 +11,7 @@ export const defaultConfig: BasicBarType = {
   },
   bar: {
     barGap: '30%',
+    direction: 'horizontally',
     bars: [
       {
         color: {
@@ -52,7 +53,6 @@ export const defaultConfig: BasicBarType = {
         width: '30%',
         borderRadius: 2,
         borderWidth: 1,
-        barPosition: 'top',
         borderType: 'solid',
         borderColor: '#3D7EEB',
         barUnit: '',
@@ -97,7 +97,7 @@ export const defaultConfig: BasicBarType = {
         width: '30%',
         borderRadius: 0,
         borderWidth: 1,
-        barPosition: 'top',
+
         borderType: 'solid',
         borderColor: '#3D7EEB',
         barUnit: '',
@@ -106,6 +106,7 @@ export const defaultConfig: BasicBarType = {
   },
   numberText: {
     show: true,
+    position: 'top',
     fontFamily: 'Microsoft YaHei',
     fontSize: 12,
     fontStyle: 'normal',
@@ -473,6 +474,30 @@ const defaultRuler: Ruler = {
 export const getOption = (config: BasicBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { grid, bar, numberText, x, y, legend, tooltip } = config
 
+  const getColor = (color: string | Object) => {
+    if (bar.direction === 'horizontally') {
+      let newColor = JSON.parse(JSON.stringify(color))
+      newColor.x2 = 1
+      newColor.y2 = 0
+      return newColor
+    }
+    return color
+  }
+
+  const getLabelPosition = (position: string) => {
+    if (bar.direction === 'horizontally') {
+      switch (position) {
+        case 'top':
+          return 'right'
+        case 'bottom':
+          return 'left'
+        default:
+          return position
+      }
+    }
+    return position
+  }
+
   const gridOption = {
     left: grid.left,
     right: grid.right,
@@ -493,14 +518,14 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
       itemStyle: {
         width: 50,
         borderRadius: configItem.borderRadius,
-        color: configItem.color,
+        color: getColor(configItem.color),
         borderType: configItem.borderType,
         borderColor: configItem.borderColor,
         borderWidth: configItem.borderWidth,
       },
       label: {
         show: numberText.show,
-        position: configItem.barPosition,
+        position: getLabelPosition(numberText.position),
         distance: 5,
         color: numberText.color,
         fontSize: numberText.fontSize,
@@ -682,8 +707,8 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     legend: legendOption,
     tooltip: tooltipOption,
     grid: gridOption,
-    xAxis: xAxisOption,
-    yAxis: yAxisOption,
+    xAxis: bar.direction === 'vertical' ? xAxisOption : yAxisOption,
+    yAxis: bar.direction === 'vertical' ? yAxisOption : xAxisOption,
     dataZoom: {
       type: 'slider',
       show: false,
@@ -692,5 +717,6 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     },
     series: seriesOption,
   }
+  console.log(JSON.stringify(option, null, 2))
   return option
 }
