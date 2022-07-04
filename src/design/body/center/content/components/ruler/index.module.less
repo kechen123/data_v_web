@@ -1,24 +1,14 @@
 .ruler {
   position: absolute;
   z-index: 3;
-
-  .hlineTemp {
-    width: 1px;
-    background-color: aliceblue;
-    height: 100%;
+  .value {
+    color: #efe6e6;
+    padding: 2px 6px;
+    background-color: rgb(100 255 218 / 65%);
+    border-radius: 2px;
     position: absolute;
-    top: 0;
-    left: 0;
-    .txt {
-      margin-left: 10px;
-      padding: 3px 12px;
-      background-color: aliceblue;
-      border-radius: 6px;
-      line-height: 20px;
-      min-width: 50px;
-      color: #000;
-    }
   }
+
   .hContainer {
     position: absolute;
     left: var(--screen-margin);
@@ -63,9 +53,7 @@
           bottom: -10px;
         }
         .value {
-          position: absolute;
-          color: rgb(22, 132, 252);
-          left: 16px;
+          top: 4px;
           transform: translateX(4px);
         }
       }
@@ -115,9 +103,7 @@
           right: -10px;
         }
         .value {
-          position: absolute;
-          color: rgb(22, 132, 252);
-          top: 16px;
+          top: 4px;
           transform: translateX(4px);
         }
       }

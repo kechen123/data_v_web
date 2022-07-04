@@ -209,7 +209,7 @@ const Rulers = (props) => {
           {xLine.map((line, i) => {
             return (
               <div key={i} data-i={i} style={{ width: width + 'px', transform: `translateY(${line.position - line.scroll}px)` }} className={`${style.line} xline`}>
-                <div className={style.value}>{line.value}</div>
+                {mouseDown.lineIndex === i && mouseDown.lineType === 'x' ? <div className={style.value}>{line.value}px</div> : ''}
               </div>
             )
           })}
@@ -222,7 +222,7 @@ const Rulers = (props) => {
           {yLine.map((line, i) => {
             return (
               <div key={i} data-i={i} style={{ height: height + 'px', transform: `translateX(${line.position - line.scroll}px)` }} className={`${style.line} yline`}>
-                <div className={style.value}>{line.value}</div>
+                {mouseDown.lineIndex === i && mouseDown.lineType === 'y' ? <div className={style.value}>{line.value}px</div> : ''}
               </div>
             )
           })}
