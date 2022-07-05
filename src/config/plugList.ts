@@ -52,7 +52,7 @@ export const Echarts: Array<Widget> = [
       width: 570,
       height: 312,
     },
-    img: 'datavImage/echart/basicStripChart.png',
+    img: 'datavImage/echart/line&bar.png',
     config: LineBarConfig,
   },
   {
