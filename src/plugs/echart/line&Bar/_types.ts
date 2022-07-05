@@ -95,7 +95,6 @@ export type Legend = {
 }
 
 export type Line = {
-  grid: Margin
   colorArr: any[]
   smooth: boolean //是否平滑曲线显示
   symbol: string
@@ -107,8 +106,38 @@ export type Line = {
   label: Label
   showArea: boolean
   areaColor: any[]
+}
+
+export type BarItem = {
+  color: any
+  emphasisColor: any
+  width: valueType
+  borderRadius: number
+  borderWidth: valueType
+  borderType: string
+  borderColor: any
+  barUnit: string
+}
+
+export type Bar = {
+  barGap: valueType
+  direction: 'vertical' | 'horizontally'
+  stack: boolean
+  bars: Array<BarItem>
+}
+
+export type BaseBar = {
+  baseBar: Bar
+  label: Label
+}
+
+export type BarLine = {
+  grid: Margin
+  line: Line
+  bar: BaseBar
   x: X
-  y: Y
+  barY: Y
+  lineY: Y
   legend: Legend
   tooltip: Tooltip
 }
@@ -116,4 +145,5 @@ export type Line = {
 export type Ruler = {
   x: string
   y: string[]
+  z: string[]
 }

@@ -36,7 +36,7 @@ const Y = (props: YType) => {
         <InputNumber value={y.offset} onChange={(value) => change('offset', value)} />
       </Form.Item>
       <Form.Item label="最小值">
-        <InputNumber value={y.min} onChange={(value) => change('offset', value)} />
+        <InputNumber value={y.min} onChange={(value) => change('min', value)} />
       </Form.Item>
       <Form.Item label="最大值">
         <InputNumber value={y.max} onChange={(value) => change('max', value)} />

@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, LineConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -43,19 +43,17 @@ export const Echarts: Array<Widget> = [
     config: LineConfig,
   },
   {
-    name: '基本条图',
+    name: '双轴图',
     plugin: {
       name: 'border',
-      url: 'echart/basicStripChart',
+      url: 'echart/line&Bar',
     },
     rect: {
       width: 570,
       height: 312,
     },
     img: 'datavImage/echart/basicStripChart.png',
-    config: {
-      color: ['#235fa7', '#4fd2dd'],
-    },
+    config: LineBarConfig,
   },
   {
     name: '彩色条图',

@@ -543,10 +543,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
         textShadowOffsetX: 0,
         textShadowOffsetY: 0,
         padding: [0, 0, 0, 0],
-        formatter: function (p) {
-          let val = p.value
-          return val + configItem.barUnit
-        },
+        formatter: `{c}${configItem.barUnit}`,
       },
     }
     return option

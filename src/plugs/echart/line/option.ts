@@ -1,8 +1,6 @@
-import { symbol } from './../../../utils/formData'
 import defaultData from './data.json'
 import { Line as LineType, Ruler } from './_types'
 import { legendPosition } from '@/utils/formData'
-import { lineBreak } from 'html2canvas/dist/types/css/property-descriptors/line-break'
 
 export const defaultConfig: LineType = {
   grid: {
@@ -394,7 +392,7 @@ export const getOption = (config: LineType, data: any = defaultData, ruler: Rule
         shadowColor: 'rgba(0,0,0,0)',
         padding: [0, 0, 0, 0],
         fontFamily: label.fontFamily,
-        formatter: `{b}${label.unit}`,
+        formatter: `{c}${label.unit}`,
       },
     }
     if (config.showArea) {

@@ -4,3 +4,4 @@ export const textConfig = require('./txt/text/option').defaultConfig
 export const QxConfig = require('./echart/qxMap/option').defaultConfig
 export const ImageConfig = require('./media/image/option').defaultConfig
 export const LineConfig = require('./echart/line/option').defaultConfig
+export const LineBarConfig = require('./echart/line&Bar/option').defaultConfig

@@ -14,13 +14,13 @@ const layout = {
   wrapperCol: { span: 16 },
 }
 
-const Y = (props: YType) => {
+const BarY = (props: YType) => {
   const [y, setY] = useState<YType>(props)
   const change = (key, value) => {
     const obj = getObjByPath(key, value)
     if (obj) {
       setY(update(y, obj))
-      const path = 'y.' + key
+      const path = 'lineY.' + key
       eventBus.emit('changeSettingConfig', path, value)
     }
   }
@@ -79,4 +79,4 @@ const Y = (props: YType) => {
   )
 }
 
-export default Y
+export default BarY
