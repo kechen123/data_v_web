@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, PieConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -56,19 +56,17 @@ export const Echarts: Array<Widget> = [
     config: LineBarConfig,
   },
   {
-    name: '彩色条图',
+    name: '饼图',
     plugin: {
       name: 'border',
-      url: 'echart/colorStripChart',
+      url: 'echart/pie',
     },
     rect: {
       width: 570,
       height: 312,
     },
-    img: 'datavImage/echart/colorBar.png',
-    config: {
-      color: ['#235fa7', '#4fd2dd'],
-    },
+    img: 'datavImage/echart/pie.png',
+    config: PieConfig,
   },
 ]
 
