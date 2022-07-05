@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Collapse } from 'antd'
 import { Text as TextBarType } from '../_types'
 
-import './index.less'
-
 const { Panel } = Collapse
 
 const Index = (props: TextBarType) => {
@@ -19,7 +17,7 @@ const Index = (props: TextBarType) => {
         </span>
       )}
       onChange={(key) => setActive(key)}
-      className="basicBar"
+      className="collapse-1"
     >
       <Panel header="边距" key="1" className="panel">
         jjjj
