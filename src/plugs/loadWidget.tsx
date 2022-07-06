@@ -28,14 +28,16 @@ const widthWidget = (WrappedComponent) => {
     useEffect(() => {
       if (status === 'ready') {
         try {
-          const option: any = window.customPlug({
-            React,
-            ReactDOM,
-            echarts,
-            ref,
-            config: props,
-          })
-          setState(option)
+          ;(async () => {
+            const option: any = await window.customPlug({
+              React,
+              ReactDOM,
+              echarts,
+              ref,
+              config: props,
+            })
+            setState(option)
+          })()
         } catch (error) {
           setError(true)
           console.log(error)

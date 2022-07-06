@@ -1,6 +1,6 @@
 //组件定制化
 
-function customPlug(props) {
+async function customPlug(props) {
   const { React, ReactDOM, echarts, ref, config } = props
 
   if (ref.current) {
