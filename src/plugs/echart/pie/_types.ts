@@ -49,7 +49,7 @@ export type Pie = {
   colors: any[]
   selectedMode: 'none' | 'single' | 'multiple' | 'series' //选中模式 单选，多选以及选择整个系列
   selectedOffset: number
-  roseType: 'none' | 'radius' | 'area' // none:普通饼图 radius: 扇区圆心角展现数据的百分比，半径展现数据的大小 area:所有扇区圆心角相同，仅通过半径展现数据大小
+  roseType: boolean // none:普通饼图 radius: 扇区圆心角展现数据的百分比，半径展现数据的大小 area:所有扇区圆心角相同，仅通过半径展现数据大小
   insideRadius: number | string //内半径
   outsideRadius: number | string //外半径
   borderRadius: number

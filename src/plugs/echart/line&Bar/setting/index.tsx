@@ -7,6 +7,7 @@ import Line from './line'
 import X from './x'
 import BarY from './barY'
 import LineY from './lineY'
+import Legend from './legend'
 import Tooltip from './tooltip'
 
 const { Panel } = Collapse
@@ -43,6 +44,9 @@ const Index = (props: BarLineType) => {
       </Panel>
       <Panel header="折线Y轴" key="6" className="panel">
         <LineY {...barLine.lineY} />
+      </Panel>
+      <Panel header="图例" key="5" className="panel">
+        <Legend {...barLine.legend} />
       </Panel>
       <Panel header="提示层" key="7" className="panel">
         <Tooltip {...barLine.tooltip} />

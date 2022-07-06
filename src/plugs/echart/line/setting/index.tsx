@@ -5,6 +5,7 @@ import Margin from './margin'
 import Line from './line'
 import X from './x'
 import Y from './y'
+import Legend from './legend'
 import Tooltip from './tooltip'
 
 const { Panel } = Collapse
@@ -35,6 +36,9 @@ const Index = (props: LineType) => {
       </Panel>
       <Panel header="Y轴" key="4" className="panel">
         <Y {...line.y} />
+      </Panel>
+      <Panel header="图例" key="5" className="panel">
+        <Legend {...line.legend} />
       </Panel>
       <Panel header="提示层" key="6" className="panel">
         <Tooltip {...line.tooltip} />

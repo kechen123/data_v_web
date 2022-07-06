@@ -7,7 +7,7 @@ export const defaultConfig: PieType = {
   colors: ['#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0', '#d4a4eb', '#d2f5a6'],
   selectedMode: 'single',
   selectedOffset: 10,
-  roseType: 'none',
+  roseType: false,
   insideRadius: 0,
   outsideRadius: '75%',
   borderRadius: 0,
@@ -124,6 +124,9 @@ export const getOption = (config: PieType, data: any = defaultData, ruler: Ruler
   const series = {
     name: '',
     type: 'pie',
+    selectedMode: config.selectedMode === 'none' ? false : config.selectedMode,
+    selectedOffset: config.selectedOffset,
+    roseType: config.roseType ? 'radius' : config.roseType,
     radius: [config.insideRadius, config.outsideRadius],
     data: seriesData,
     itemStyle: {
@@ -157,5 +160,6 @@ export const getOption = (config: PieType, data: any = defaultData, ruler: Ruler
     tooltip: tooltipOption,
     series: series,
   }
+  console.log(JSON.stringify(option, null, 2))
   return option
 }
