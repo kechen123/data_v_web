@@ -160,6 +160,5 @@ export const getOption = (config: PieType, data: any = defaultData, ruler: Ruler
     tooltip: tooltipOption,
     series: series,
   }
-  console.log(JSON.stringify(option, null, 2))
   return option
 }
