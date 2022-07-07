@@ -1,5 +1,4 @@
 import { LegendPosition as LegendPositionType } from '@_types/formData'
-type valueType = number | string
 
 export type Tooltip = {
   show: boolean

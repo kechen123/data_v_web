@@ -6,3 +6,4 @@ export const ImageConfig = require('./media/image/option').defaultConfig
 export const LineConfig = require('./echart/line/option').defaultConfig
 export const LineBarConfig = require('./echart/line&Bar/option').defaultConfig
 export const PieConfig = require('./echart/pie/option').defaultConfig
+export const RadarConfig = require('./echart/radar/option').defaultConfig

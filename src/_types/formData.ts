@@ -24,3 +24,5 @@ export type InputNumber = Input & {
 }
 
 export type LegendPosition = 'top' | 'top_left' | 'top_right' | 'bottom' | 'left_top' | 'left_bottom' | 'right_top' | 'right_bottom'
+
+export type Symbol = 'none' | 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow'

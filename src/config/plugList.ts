@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, PieConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, PieConfig, RadarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -67,6 +67,19 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/pie.png',
     config: PieConfig,
+  },
+  {
+    name: '雷达图',
+    plugin: {
+      name: 'border',
+      url: 'echart/radar',
+    },
+    rect: {
+      width: 570,
+      height: 312,
+    },
+    img: 'datavImage/echart/radar.png',
+    config: RadarConfig,
   },
 ]
 
