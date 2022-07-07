@@ -1,6 +1,6 @@
 import { legend } from './../../../utils/formData'
 import { Symbol, LegendPosition as LegendPositionType } from '@_types/formData'
-export type Baseradar = {
+export type BaseRadar = {
   //雷达图每个指示器名称的配置项
   axisName: {
     show: boolean
@@ -59,6 +59,7 @@ export type Label = {
 }
 
 export type DataItem = {
+  name: string
   symbol: Symbol
   symbolSize: [number, number]
   symbolOffset: [number, number]
@@ -101,7 +102,7 @@ export type Legend = {
 }
 
 export type Radar = {
-  radar: Baseradar
+  radar: BaseRadar
   dataItem: DataItem[]
   tooltip: Tooltip
   legend: Legend

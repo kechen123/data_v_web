@@ -1,5 +1,3 @@
-import { Label } from './../pie/_types'
-import { fontWeight, fontFamily, symbol } from './../../../utils/formData'
 import defaultData from './data.json'
 import { Radar as RadarType, Ruler, DataItem } from './_types'
 import { legendPosition } from '@/utils/formData'
@@ -45,6 +43,7 @@ export const defaultConfig: RadarType = {
   },
   dataItem: [
     {
+      name: '降雨量',
       symbol: 'circle',
       symbolSize: [4, 4],
       symbolOffset: [0, 0],
@@ -92,6 +91,7 @@ export const defaultConfig: RadarType = {
       },
     },
     {
+      name: '蒸发量',
       symbol: 'circle',
       symbolSize: [4, 4],
       symbolOffset: [0, 0],
@@ -307,6 +307,5 @@ export const getOption = (config: RadarType, data: any = defaultData, ruler: Rul
     tooltip: tooltipOption,
     legend: legendOption,
   }
-  console.log(JSON.stringify(option, null, 2))
   return option
 }

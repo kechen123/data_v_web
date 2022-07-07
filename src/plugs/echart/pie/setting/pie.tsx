@@ -55,7 +55,7 @@ const Pie = (props: PieType) => {
         <Form.Item label="玫瑰图">
           <Switch checked={pie.roseType} onChange={(value) => change(`roseType`, value)} />
         </Form.Item>
-        <Form.Item label="内外半价" style={{ marginBottom: 0 }}>
+        <Form.Item label="内外半径" style={{ marginBottom: 0 }}>
           <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginRight: '6px' }}>
             <InputNumber addonBefore="内" value={pie.insideRadius} placeholder="内半径" onChange={(value) => change('insideRadius', value)} />
           </Form.Item>
