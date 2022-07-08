@@ -9,6 +9,7 @@ import useActiveWidget from '@hooks/useActiveWidget'
 import eventBus from '@utils/eventBus'
 import { WidgetObj } from '@_types/Plugin'
 import Style from './style'
+import Data from './data'
 import ScreenSetting from './screenSetting'
 
 const style: React.CSSProperties = {
@@ -66,7 +67,7 @@ const Setting = () => {
             Content of Tab Pane 2
           </TabPane>
           <TabPane tab="数据" key="3">
-            Content of Tab Pane 3
+            <Data />
           </TabPane>
         </Tabs>
       )

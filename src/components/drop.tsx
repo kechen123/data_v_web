@@ -55,6 +55,7 @@ const Drop = ({ children, className, style: pstyle }: Drag) => {
         },
         rotate: 0,
         config: widgetObj.config,
+        dataConfig: widgetObj.dataConfig,
       }
       const uid: string = uuidv4().substring(0, 8)
       dispatch(

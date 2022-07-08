@@ -1,6 +1,6 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
-import { basicBarConfig, colorBarConfig, LineConfig, LineBarConfig, PieConfig, RadarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
+import { basicBarConfig, basicBarData, colorBarConfig, LineConfig, LineBarConfig, PieConfig, RadarConfig, textConfig, QxConfig, ImageConfig } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
   {
@@ -15,6 +15,7 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/baseBar.png',
     config: basicBarConfig,
+    dataConfig: basicBarData,
   },
   {
     name: '彩色柱图',

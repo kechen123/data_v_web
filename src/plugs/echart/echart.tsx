@@ -8,7 +8,7 @@ import { WidgetObj } from '@_types/Plugin'
 interface Props {
   widget: WidgetObj
   isUseWidgetBus?: boolean
-  getOption: (config: any) => any
+  getOption: (...params: any[]) => any
 }
 
 const Index = (props: Props) => {
@@ -18,11 +18,12 @@ const Index = (props: Props) => {
     widget: {
       plugin: { url },
       config,
+      dataConfig,
     },
   } = widget
 
   const chartRef = useRef<any>()
-  const [option, setOption, getNowOption] = useGetState(() => getOption(config))
+  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig))
   const [rect, setRect] = useState(widget.widget.rect)
   const barRef = useRef<HTMLDivElement | null>(null)
 
@@ -54,8 +55,9 @@ const Index = (props: Props) => {
 
   useWidgetBus(id, (data) => {
     if (isUseWidgetBus) {
+      const { widget } = data
       const oldOption = getNowOption()
-      const newOption = getOption(data.widget.config)
+      const newOption = getOption(widget.config, widget.dataConfig)
       const newRect = data.widget.rect
       if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
         setOption(newOption)
@@ -72,10 +74,15 @@ const Index = (props: Props) => {
 
   useEffect(() => {
     if (isUseWidgetBus === false) {
-      setOption(getOption(config))
+      setOption(getOption(config, dataConfig))
+    }
+  }, [config, dataConfig])
+
+  useEffect(() => {
+    if (isUseWidgetBus === false) {
       setRect(widget.widget.rect)
     }
-  }, [config, widget.widget.rect])
+  }, [widget.widget.rect])
 
   useEffect(() => {
     //地图组件部分参数变化需要清除重新设置

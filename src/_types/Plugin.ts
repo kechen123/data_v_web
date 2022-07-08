@@ -10,6 +10,14 @@ export interface plugin {
   name: string
 }
 
+export interface Data {
+  type: 'static' | 'api'
+  staticData?: any
+  apiUrl?: string
+  loop?: number //s
+  ruler: any //数据规则
+}
+
 export interface Widget {
   name: string
   plugin: plugin
@@ -17,6 +25,7 @@ export interface Widget {
   rotate?: number
   img: string
   config: any
+  dataConfig?: Data
 }
 
 export interface WidgetMap {
