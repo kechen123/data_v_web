@@ -67,7 +67,7 @@ const Setting = () => {
             Content of Tab Pane 2
           </TabPane>
           <TabPane tab="数据" key="3">
-            <Data />
+            <Data {...widgetObj} />
           </TabPane>
         </Tabs>
       )

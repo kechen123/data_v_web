@@ -15,7 +15,7 @@ export interface Data {
   staticData?: any
   apiUrl?: string
   loop?: number //s
-  ruler: any //数据规则
+  ruler?: any //数据规则
 }
 
 export interface Widget {

@@ -23,9 +23,10 @@ const Index = (props: Props) => {
   } = widget
 
   const chartRef = useRef<any>()
-  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig))
+  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig?.staticData, dataConfig?.ruler))
   const [rect, setRect] = useState(widget.widget.rect)
   const barRef = useRef<HTMLDivElement | null>(null)
+  const [replaceMerge, setReplaceMerge] = useState(false)
 
   const init = () => {
     if (barRef.current && !chartRef.current) {
@@ -57,9 +58,12 @@ const Index = (props: Props) => {
     if (isUseWidgetBus) {
       const { widget } = data
       const oldOption = getNowOption()
-      const newOption = getOption(widget.config, widget.dataConfig)
+      const newOption = getOption(widget.config, widget.dataConfig?.staticData, widget.dataConfig?.ruler)
       const newRect = data.widget.rect
       if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
+        if (oldOption.series && newOption.series && oldOption.series.length > newOption.series.length) {
+          setReplaceMerge(true)
+        }
         setOption(newOption)
       }
       if (rect.width !== newRect.width || rect.height !== newRect.height) {
@@ -74,7 +78,7 @@ const Index = (props: Props) => {
 
   useEffect(() => {
     if (isUseWidgetBus === false) {
-      setOption(getOption(config, dataConfig))
+      setOption(getOption(config, dataConfig?.staticData, dataConfig?.ruler))
     }
   }, [config, dataConfig])
 
@@ -90,7 +94,10 @@ const Index = (props: Props) => {
       clear()
     }
     if (option && barRef.current && chartRef.current) {
-      chartRef.current.setOption(option)
+      chartRef.current.setOption(option, {
+        replaceMerge: replaceMerge ? ['series'] : [],
+      })
+      setReplaceMerge(false)
     }
   }, [option])
 

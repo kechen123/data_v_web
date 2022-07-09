@@ -467,9 +467,9 @@ export const defaultOption = {
   ],
 }
 
-const defaultRuler: Ruler = {
+export const defaultRuler: Ruler = {
   x: '月份',
-  y: ['降雨量', '蒸发量'],
+  y: ['降雨量'],
 }
 
 export const getOption = (config: BasicBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
