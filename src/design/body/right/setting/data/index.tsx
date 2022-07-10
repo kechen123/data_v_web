@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { Select, Modal, Button, Form } from 'antd'
 import update from 'immutability-helper'
-import { DataSheetGrid, textColumn, keyColumn } from 'react-datasheet-grid'
+import { DynamicDataSheetGrid, DataSheetGrid, textColumn, keyColumn } from 'react-datasheet-grid'
 import eventBus from '@utils/eventBus'
 import { WidgetObj } from '@_types/Plugin'
 import ContextMenu from './components/contextMenu'
@@ -52,6 +52,23 @@ const Data = (widgetObj: WidgetObj) => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const insertColumn = () => {
+    setRowData((data) => {
+      return data?.map((item) => {
+        return {
+          ...item,
+          未命名: '',
+        }
+      })
+    })
+    setColumnDefs((data) => {
+      return data?.concat({
+        ...keyColumn('未命名', textColumn),
+        title: '未命名',
+      })
+    })
   }
 
   useEffect(() => {
@@ -131,20 +148,37 @@ const Data = (widgetObj: WidgetObj) => {
   }
 
   const ShowData = () => {
-    if (dataConfig?.displayForm === 'table') {
-      return (
-        <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
-          <DataSheetGrid value={rowData} onChange={setRowData} columns={columnDefs} contextMenuComponent={ContextMenu} />
-        </div>
-      )
-    }
+    // if (dataConfig?.displayForm === 'table') {
     return (
-      <div style={{ width: '100%', height: '446px' }}>
-        <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
+      <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
+        <DynamicDataSheetGrid
+          value={rowData}
+          // onChange={(data) => console.log(data)}
+          onChange={setRowData}
+          columns={columnDefs}
+          contextMenuComponent={(props) => {
+            const param = {
+              propsMenu: props,
+              otherMenu: [
+                {
+                  type: 'INSERT_COLUMN',
+                  action: insertColumn,
+                },
+              ],
+            }
+            return <ContextMenu {...param} />
+          }}
+        />
       </div>
     )
+    // }
+    // return (
+    // <div style={{ width: '100%', height: '446px' }}>
+    //   <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
+    // </div>
+    // )
   }
-
+  console.log(rowData)
   return (
     <>
       <Form {...layout}>
@@ -179,7 +213,31 @@ const Data = (widgetObj: WidgetObj) => {
           </div>
         }
       >
-        <ShowData />
+        {/* <ShowData /> */}
+
+        <div className="sheetGrid" style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'table' ? 'block' : 'none' }}>
+          <DynamicDataSheetGrid
+            value={rowData}
+            // onChange={(data) => console.log(data)}
+            onChange={setRowData}
+            columns={columnDefs}
+            contextMenuComponent={(props) => {
+              const param = {
+                propsMenu: props,
+                otherMenu: [
+                  {
+                    type: 'INSERT_COLUMN',
+                    action: insertColumn,
+                  },
+                ],
+              }
+              return <ContextMenu {...param} />
+            }}
+          />
+        </div>
+        <div style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'codeEdit' ? 'block' : 'none' }}>
+          <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
+        </div>
       </Modal>
     </>
   )

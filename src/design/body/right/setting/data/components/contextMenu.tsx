@@ -3,6 +3,14 @@ import { useDocumentEventListener } from 'react-datasheet-grid/dist/hooks/useDoc
 import { ContextMenuItem, ContextMenuComponentProps } from 'react-datasheet-grid/dist/types'
 import './contextMenu.less'
 
+interface OtherMenu {
+  type: string
+  action: () => void
+}
+interface Props {
+  propsMenu: ContextMenuComponentProps
+  otherMenu?: OtherMenu[]
+}
 const renderItem = (item: ContextMenuItem) => {
   if (item.type === 'DELETE_ROW') {
     return '删除行'
@@ -35,7 +43,16 @@ const renderItem = (item: ContextMenuItem) => {
   return item.type
 }
 
-const ContextMenu = ({ clientX, clientY, items, close }: ContextMenuComponentProps) => {
+const renderOtherItem = (item: OtherMenu) => {
+  if (item.type === 'INSERT_COLUMN') {
+    return '插入列'
+  }
+  return item.type
+}
+
+const ContextMenu = (props: Props) => {
+  const { propsMenu, otherMenu } = props
+  const { clientX, clientY, items, close } = propsMenu
   const containerRef = useRef<HTMLDivElement>(null)
 
   const onClickOutside = useCallback(
@@ -49,6 +66,10 @@ const ContextMenu = ({ clientX, clientY, items, close }: ContextMenuComponentPro
     [close]
   )
   useDocumentEventListener('mousedown', onClickOutside)
+  let menus = items
+  if (otherMenu) {
+    menus = items.concat(otherMenu as any)
+  }
 
   return (
     <div className="dsg-context-menu" style={{ left: clientX + 'px', top: clientY + 'px' }} ref={containerRef}>
@@ -57,6 +78,13 @@ const ContextMenu = ({ clientX, clientY, items, close }: ContextMenuComponentPro
           {renderItem(item)}
         </div>
       ))}
+      {otherMenu
+        ? otherMenu.map((item) => (
+            <div key={item.type} onClick={item.action} className="dsg-context-menu-item">
+              {renderOtherItem(item)}
+            </div>
+          ))
+        : ''}
     </div>
   )
 }
