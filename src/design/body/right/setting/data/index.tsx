@@ -45,6 +45,15 @@ const Data = (widgetObj: WidgetObj) => {
     })
   }
 
+  const codeChange = (val: any) => {
+    try {
+      const data = JSON.parse(val)
+      setRowData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     const data = dataConfig?.staticData
     const ruler = dataConfig?.ruler
@@ -82,20 +91,36 @@ const Data = (widgetObj: WidgetObj) => {
           {Object.keys(ruler).map((rulerItem, rIndex) => {
             return (
               <Form.Item key={rIndex} label={rulerItem}>
-                <Select
-                  mode="tags"
-                  defaultValue={ruler[rulerItem]}
-                  style={{ width: '100%' }}
-                  onChange={(value: string | string[]) => {
-                    chengeRuler(value, rulerItem)
-                  }}
-                >
-                  {rulerOption.map((oItem, oIndex) => (
-                    <Option key={oIndex} value={oItem}>
-                      {oItem}
-                    </Option>
-                  ))}
-                </Select>
+                {Array.isArray(ruler[rulerItem]) ? (
+                  <Select
+                    mode="tags"
+                    defaultValue={ruler[rulerItem]}
+                    style={{ width: '100%' }}
+                    onChange={(value: string | string[]) => {
+                      chengeRuler(value, rulerItem)
+                    }}
+                  >
+                    {rulerOption.map((oItem, oIndex) => (
+                      <Option key={oIndex} value={oItem}>
+                        {oItem}
+                      </Option>
+                    ))}
+                  </Select>
+                ) : (
+                  <Select
+                    defaultValue={ruler[rulerItem]}
+                    style={{ width: '100%' }}
+                    onChange={(value: string | string[]) => {
+                      chengeRuler(value, rulerItem)
+                    }}
+                  >
+                    {rulerOption.map((oItem, oIndex) => (
+                      <Option key={oIndex} value={oItem}>
+                        {oItem}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </Form.Item>
             )
           })}
@@ -104,8 +129,6 @@ const Data = (widgetObj: WidgetObj) => {
     }
     return <></>
   }
-
-  const codeChange = (val: any) => {}
 
   const ShowData = () => {
     if (dataConfig?.displayForm === 'table') {
@@ -117,7 +140,7 @@ const Data = (widgetObj: WidgetObj) => {
     }
     return (
       <div style={{ width: '100%', height: '446px' }}>
-        <Code onChange={codeChange} code={JSON.stringify(dataConfig?.staticData, null, 2)} />
+        <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
       </div>
     )
   }

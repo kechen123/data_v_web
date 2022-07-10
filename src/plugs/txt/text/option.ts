@@ -24,11 +24,11 @@ export const defaultConfig: TextType = {
 }
 
 export const defaultRuler: Ruler = {
-  x: 'txt',
+  文本: 'txt',
 }
 
 export const getOption = (config: TextType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
-  const text = data.map((item) => item[ruler.x])[0]
+  const text = data.map((item) => item[ruler.文本])[0]
   const option = Object.assign(JSON.parse(JSON.stringify(config)), { txt: text })
   return option
 }

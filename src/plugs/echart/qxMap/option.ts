@@ -100,8 +100,8 @@ export const defaultConfig: QXMAPType = {
 }
 
 export const defaultRuler: Ruler = {
-  线: '线',
-  点: '点',
+  线: 'line',
+  点: 'dot',
 }
 export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { map, label, itemStyle, emphasis, line, dot } = config

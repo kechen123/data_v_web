@@ -21,5 +21,5 @@ export type Text = {
 }
 
 export type Ruler = {
-  x: string
+  文本: string
 }

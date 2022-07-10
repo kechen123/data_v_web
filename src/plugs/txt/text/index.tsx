@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import { useGetState } from 'ahooks'
 import useWidgetBus from '@hooks/useWigetBus'
 import { Text as TextType } from './_types'
 import { getOption } from './option'
@@ -17,14 +18,27 @@ const justifyContent = {
 }
 
 const Index = (props: any) => {
-  const { id, widget } = props
-  const [config, setConfig] = useState(widget.config)
+  const {
+    id,
+    widget: {
+      plugin: { url },
+      config,
+      dataConfig,
+    },
+  } = props
+
+  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig?.staticData, dataConfig?.ruler))
+
   useWidgetBus(id, (data) => {
-    setConfig(data.widget.config)
+    console.log(data)
+    const { widget } = data
+    const oldOption = getNowOption()
+    const newOption = getOption(widget.config, widget.dataConfig?.staticData, widget.dataConfig?.ruler)
+    if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
+      setOption(newOption)
+    }
   })
-  const option = useMemo(() => {
-    return getOption(config)
-  }, [config])
+
   let baseStyle = {
     fontFamily: option.fontFamily,
     fontSize: option.fontSize,

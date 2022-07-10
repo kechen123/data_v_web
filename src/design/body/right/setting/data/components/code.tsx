@@ -8,18 +8,17 @@ interface Props {
 
 const Code = (props: Props) => {
   const { code } = props
-  console.log(code)
   const editorRef = useRef(null)
 
   const editorDidMount = (editor, monaco) => {
     editorRef.current = editor
   }
   const onChange = (value: string | undefined) => {
-    console.log('onChange', value)
+    props.onChange(value)
   }
   const options = {
     selectOnLineNumbers: true,
   }
-  return <Editor language="javascript" theme="vs-dark" value={code} options={options} onChange={onChange} onMount={editorDidMount} />
+  return <Editor language="json" theme="vs-dark" value={code} options={options} onChange={onChange} onMount={editorDidMount} />
 }
 export default Code
