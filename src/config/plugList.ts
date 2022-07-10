@@ -14,8 +14,6 @@ import {
   QxData,
   QxRuler,
   ImageConfig,
-  ImageData,
-  ImageRuler,
   LineConfig,
   LineData,
   LineRuler,
@@ -28,13 +26,6 @@ import {
   RadarConfig,
   RadarData,
   RadarRuler,
-  // LineConfig,
-  // LineBarConfig,
-  // PieConfig,
-  // RadarConfig,
-  // textConfig,
-  // QxConfig,
-  // ImageConfig,
 } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
@@ -54,6 +45,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: BasicBarData,
       ruler: BasicBarRuler,
+      displayForm: 'table',
     },
   },
   {
@@ -72,6 +64,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: ColorBarData,
       ruler: ColorBarRuler,
+      displayForm: 'table',
     },
   },
   {
@@ -90,6 +83,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: LineData,
       ruler: LineRuler,
+      displayForm: 'table',
     },
   },
   {
@@ -108,6 +102,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: LineBarData,
       ruler: LineBarRuler,
+      displayForm: 'table',
     },
   },
   {
@@ -126,6 +121,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: PieData,
       ruler: PieRuler,
+      displayForm: 'table',
     },
   },
   {
@@ -144,6 +140,7 @@ export const Echarts: Array<Widget> = [
       type: 'static',
       staticData: RadarData,
       ruler: RadarRuler,
+      displayForm: 'table',
     },
   },
 ]
@@ -165,6 +162,7 @@ export const Map: Array<Widget> = [
       type: 'static',
       staticData: QxData,
       ruler: QxRuler,
+      displayForm: 'codeEdit',
     },
   },
 ]
@@ -181,11 +179,6 @@ export const Media: Array<Widget> = [
     },
     img: 'datavImage/txt/text.png',
     config: ImageConfig,
-    dataConfig: {
-      type: 'static',
-      staticData: ImageData,
-      ruler: ImageRuler,
-    },
   },
 ]
 export const Texts: Array<Widget> = [
@@ -205,6 +198,7 @@ export const Texts: Array<Widget> = [
       type: 'static',
       staticData: TextData,
       ruler: TextRuler,
+      displayForm: 'codeEdit',
     },
   },
 ]

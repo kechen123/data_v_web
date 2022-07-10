@@ -1,13 +1,9 @@
 import defaultData from './data.json'
-import { Image as ImageType, Ruler } from './_types'
+import { Image as ImageType } from './_types'
 
 export const defaultConfig: ImageType = {
   type: 'cover',
   url: '',
-}
-
-export const defaultRuler: Ruler = {
-  url: 'txt',
 }
 
 export const getOption = (config: ImageType) => {

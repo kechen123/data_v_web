@@ -5,6 +5,7 @@ import { DataSheetGrid, textColumn, keyColumn } from 'react-datasheet-grid'
 import eventBus from '@utils/eventBus'
 import { WidgetObj } from '@_types/Plugin'
 import ContextMenu from './components/contextMenu'
+import Code from './components/code'
 
 import 'react-datasheet-grid/dist/style.css'
 import './index.less'
@@ -104,6 +105,23 @@ const Data = (widgetObj: WidgetObj) => {
     return <></>
   }
 
+  const codeChange = (val: any) => {}
+
+  const ShowData = () => {
+    if (dataConfig?.displayForm === 'table') {
+      return (
+        <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
+          <DataSheetGrid value={rowData} onChange={setRowData} columns={columnDefs} contextMenuComponent={ContextMenu} />
+        </div>
+      )
+    }
+    return (
+      <div style={{ width: '100%', height: '446px' }}>
+        <Code onChange={codeChange} code={JSON.stringify(dataConfig?.staticData, null, 2)} />
+      </div>
+    )
+  }
+
   return (
     <>
       <Form {...layout}>
@@ -138,9 +156,7 @@ const Data = (widgetObj: WidgetObj) => {
           </div>
         }
       >
-        <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
-          <DataSheetGrid value={rowData} onChange={setRowData} columns={columnDefs} contextMenuComponent={ContextMenu} />
-        </div>
+        <ShowData />
       </Modal>
     </>
   )

@@ -16,6 +16,7 @@ export interface Data {
   apiUrl?: string
   loop?: number //s
   ruler?: any //数据规则
+  displayForm: 'table' | 'codeEdit' //数据展示插件 表格，代码编辑器
 }
 
 export interface Widget {

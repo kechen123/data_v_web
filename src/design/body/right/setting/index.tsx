@@ -67,7 +67,7 @@ const Setting = () => {
             Content of Tab Pane 2
           </TabPane>
           <TabPane tab="数据" key="3">
-            <Data {...widgetObj} />
+            {widgetObj.widget.dataConfig ? <Data {...widgetObj} /> : <div>当前组件不可设置数据</div>}
           </TabPane>
         </Tabs>
       )
