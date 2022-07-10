@@ -99,9 +99,9 @@ export const defaultConfig: QXMAPType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  line: '线',
-  dot: '点',
+export const defaultRuler: Ruler = {
+  线: '线',
+  点: '点',
 }
 export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { map, label, itemStyle, emphasis, line, dot } = config
@@ -128,7 +128,7 @@ export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Rul
     series: [],
   }
   if (line.show) {
-    const linesData = data[ruler['line']].map((item) => {
+    const linesData = data[ruler['线']].map((item) => {
       return {
         coords: item,
       }
@@ -160,7 +160,7 @@ export const getOption = (config: QXMAPType, data: any = defaultData, ruler: Rul
       itemStyle: {
         color: dot.color,
       },
-      data: data[ruler['dot']],
+      data: data[ruler['点']],
     }
     if (boo) {
       dotSeries['rippleEffect'] = {

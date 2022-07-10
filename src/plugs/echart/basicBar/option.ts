@@ -468,8 +468,8 @@ export const defaultOption = {
 }
 
 export const defaultRuler: Ruler = {
-  x: '月份',
-  y: ['降雨量'],
+  维度: '月份',
+  值: ['降雨量', '蒸发量'],
 }
 
 export const getOption = (config: BasicBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
@@ -507,7 +507,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     containLabel: true,
   }
 
-  const seriesOption = ruler.y.map((y_item, index) => {
+  const seriesOption = ruler.值.map((y_item, index) => {
     const s_data = data.map((d_item) => d_item[y_item])
     const configItem = bar.bars[index]
     const option = {
@@ -552,7 +552,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
-    data: ruler.y,
+    data: ruler.值,
     show: legend.show,
     orient: orient,
     top: top,
@@ -596,7 +596,7 @@ export const getOption = (config: BasicBarType, data: any = defaultData, ruler: 
     extraCssText: '',
   }
 
-  const xAxisData = data.map((item) => item[ruler.x])
+  const xAxisData = data.map((item) => item[ruler.维度])
 
   const xAxisOption = {
     type: 'category',

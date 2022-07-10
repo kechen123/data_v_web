@@ -143,7 +143,7 @@ export type BarLine = {
 }
 
 export type Ruler = {
-  x: string
-  y: string[]
-  z: string[]
+  维度: string
+  值1: string[]
+  值2: string[]
 }

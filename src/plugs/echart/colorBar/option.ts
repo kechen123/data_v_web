@@ -815,9 +815,9 @@ export const defaultConfig: ColorBarType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  x: '月份',
-  y: ['生产量'],
+export const defaultRuler: Ruler = {
+  维度: '月份',
+  值: '生产量',
 }
 export const getOption = (config: ColorBarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { grid, bar, numberText, x, y, tooltip } = config
@@ -869,7 +869,7 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
     },
     extraCssText: 'text-shadow: 0px 0px 20px rgba(74,146,236,1)',
   }
-  const xAxisData = data.map((item) => item[ruler.x])
+  const xAxisData = data.map((item) => item[ruler.维度])
   const xAxisOption = [
     {
       type: 'category',
@@ -966,7 +966,7 @@ export const getOption = (config: ColorBarType, data: any = defaultData, ruler: 
   const seriesData = data.map((item: any, index: number) => {
     return {
       name: '0' + (index + 1),
-      value: item[ruler.y[0]],
+      value: item[ruler.值],
       itemStyle: {
         color: getColor(bar.colorArr[index].color),
         borderColor: getColor(bar.colorArr[index].border),

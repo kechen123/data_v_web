@@ -6,7 +6,7 @@ export const defaultConfig: ImageType = {
   url: '',
 }
 
-const defaultRuler: Ruler = {
+export const defaultRuler: Ruler = {
   url: 'txt',
 }
 

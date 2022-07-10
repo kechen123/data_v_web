@@ -55,15 +55,15 @@ export const defaultConfig: PieType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  x: '月份',
-  y: '降雨量',
+export const defaultRuler: Ruler = {
+  维度: '月份',
+  值: '降雨量',
 }
 
 export const getOption = (config: PieType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { label, labelLine, legend, tooltip } = config
 
-  const x = data.map((item) => item[ruler.x])
+  const x = data.map((item) => item[ruler.维度])
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
@@ -112,8 +112,8 @@ export const getOption = (config: PieType, data: any = defaultData, ruler: Ruler
   }
 
   const seriesData = data.map((item) => {
-    const name = item[ruler.x]
-    const value = item[ruler.y]
+    const name = item[ruler.维度]
+    const value = item[ruler.值]
     const data = {
       name: name,
       value: value,

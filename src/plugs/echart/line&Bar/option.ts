@@ -326,10 +326,10 @@ export const defaultConfig: BarLineType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  x: '月份',
-  y: ['降雨量', '蒸发量'],
-  z: ['温度'],
+export const defaultRuler: Ruler = {
+  维度: '月份',
+  值1: ['降雨量', '蒸发量'],
+  值2: ['温度'],
 }
 
 export const getOption = (config: BarLineType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
@@ -370,7 +370,7 @@ export const getOption = (config: BarLineType, data: any = defaultData, ruler: R
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
-    data: ruler.y,
+    data: ruler.值1,
     show: legend.show,
     orient: orient,
     top: top,
@@ -414,7 +414,7 @@ export const getOption = (config: BarLineType, data: any = defaultData, ruler: R
     extraCssText: '',
   }
 
-  const xAxisData = data.map((item) => item[ruler.x])
+  const xAxisData = data.map((item) => item[ruler.维度])
 
   const xAxisOption = {
     type: 'category',
@@ -554,7 +554,7 @@ export const getOption = (config: BarLineType, data: any = defaultData, ruler: R
   }
   const yAxis = [barYAxisOption, lineYAxisOption]
 
-  const barSeries = ruler.y.map((y_item, index) => {
+  const barSeries = ruler.值1.map((y_item, index) => {
     const s_data = data.map((d_item) => d_item[y_item])
     const barInfo = bar.baseBar
     const barItem = barInfo.bars[index]
@@ -598,7 +598,7 @@ export const getOption = (config: BarLineType, data: any = defaultData, ruler: R
     return option
   })
 
-  const lineSeries = ruler.z.map((y_item, index) => {
+  const lineSeries = ruler.值2.map((y_item, index) => {
     const s_data = data.map((d_item) => d_item[y_item])
     const lineInfo = line
     const lineLabel = line.label
@@ -666,6 +666,5 @@ export const getOption = (config: BarLineType, data: any = defaultData, ruler: R
     },
     series: [...barSeries, ...lineSeries],
   }
-  console.log(JSON.stringify(option, null, 2))
   return option
 }

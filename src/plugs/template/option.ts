@@ -21,7 +21,7 @@ export const defaultConfig: TextType = {
   shadowOffsetY: 0,
 }
 
-const defaultRuler: Ruler = {
+export const defaultRuler: Ruler = {
   x: 'txt',
 }
 

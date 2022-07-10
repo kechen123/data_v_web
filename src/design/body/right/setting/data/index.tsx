@@ -44,25 +44,15 @@ const Data = (widgetObj: WidgetObj) => {
     })
   }
 
-  const changeData = useCallback(
-    (key: string, value: any, rowIndex: number) => {
-      let newData = update(rowData, {
-        [rowIndex]: {
-          [key]: {
-            $set: value,
-          },
-        },
-      })
-      setRowData(newData)
-    },
-    [rowData]
-  )
-
   useEffect(() => {
     const data = dataConfig?.staticData
     const ruler = dataConfig?.ruler
     if (data) {
-      const keys = Object.keys(data[0])
+      let keys = Object.keys(data)
+      if (Array.isArray(data)) {
+        keys = Object.keys(data[0])
+      }
+      // const keys = Object.keys(data[0])
       const column = keys.map((item) => {
         return {
           ...keyColumn(item, textColumn),
@@ -92,7 +82,7 @@ const Data = (widgetObj: WidgetObj) => {
             return (
               <Form.Item key={rIndex} label={rulerItem}>
                 <Select
-                  mode="multiple"
+                  mode="tags"
                   defaultValue={ruler[rulerItem]}
                   style={{ width: '100%' }}
                   onChange={(value: string | string[]) => {
@@ -121,7 +111,7 @@ const Data = (widgetObj: WidgetObj) => {
           <Form.Item style={{ display: 'inline-block', width: 'calc(100% - 60px)', marginRight: '10px' }}>
             <Select defaultValue="static" style={{ width: '100%' }} onChange={handleChange}>
               <Option value="static">静态数据</Option>
-              <Option value="api">API接入</Option>
+              {/* <Option value="api">API接入</Option> */}
             </Select>
           </Form.Item>
           <Form.Item style={{ display: 'inline-block' }}>

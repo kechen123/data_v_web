@@ -65,8 +65,8 @@ export type QXMAP = {
 }
 
 export type Ruler = {
-  line: string
-  dot: string
+  线: string
+  点: string
 }
 
 export type Option = {

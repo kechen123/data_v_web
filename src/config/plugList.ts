@@ -1,17 +1,40 @@
 import { plugin } from './../_types/Plugin'
 import { Widget } from '@_types/Plugin'
 import {
-  basicBarConfig,
-  basicBarData,
-  basicBarRuler,
-  colorBarConfig,
-  LineConfig,
-  LineBarConfig,
-  PieConfig,
-  RadarConfig,
-  textConfig,
+  BasicBarConfig,
+  BasicBarData,
+  BasicBarRuler,
+  ColorBarConfig,
+  ColorBarData,
+  ColorBarRuler,
+  TextConfig,
+  TextData,
+  TextRuler,
   QxConfig,
+  QxData,
+  QxRuler,
   ImageConfig,
+  ImageData,
+  ImageRuler,
+  LineConfig,
+  LineData,
+  LineRuler,
+  LineBarConfig,
+  LineBarData,
+  LineBarRuler,
+  PieConfig,
+  PieData,
+  PieRuler,
+  RadarConfig,
+  RadarData,
+  RadarRuler,
+  // LineConfig,
+  // LineBarConfig,
+  // PieConfig,
+  // RadarConfig,
+  // textConfig,
+  // QxConfig,
+  // ImageConfig,
 } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
@@ -26,11 +49,11 @@ export const Echarts: Array<Widget> = [
       height: 312,
     },
     img: 'datavImage/echart/baseBar.png',
-    config: basicBarConfig,
+    config: BasicBarConfig,
     dataConfig: {
       type: 'static',
-      staticData: basicBarData,
-      ruler: basicBarRuler,
+      staticData: BasicBarData,
+      ruler: BasicBarRuler,
     },
   },
   {
@@ -44,7 +67,12 @@ export const Echarts: Array<Widget> = [
       height: 312,
     },
     img: 'datavImage/echart/colorBar.png',
-    config: colorBarConfig,
+    config: ColorBarConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: ColorBarData,
+      ruler: ColorBarRuler,
+    },
   },
   {
     name: '折线图',
@@ -58,6 +86,11 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/line.png',
     config: LineConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: LineData,
+      ruler: LineRuler,
+    },
   },
   {
     name: '双轴图',
@@ -71,6 +104,11 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/line&bar.png',
     config: LineBarConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: LineBarData,
+      ruler: LineBarRuler,
+    },
   },
   {
     name: '饼图',
@@ -84,6 +122,11 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/pie.png',
     config: PieConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: PieData,
+      ruler: PieRuler,
+    },
   },
   {
     name: '雷达图',
@@ -97,6 +140,11 @@ export const Echarts: Array<Widget> = [
     },
     img: 'datavImage/echart/radar.png',
     config: RadarConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: RadarData,
+      ruler: RadarRuler,
+    },
   },
 ]
 
@@ -113,6 +161,11 @@ export const Map: Array<Widget> = [
     },
     img: 'datavImage/txt/text.png',
     config: QxConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: QxData,
+      ruler: QxRuler,
+    },
   },
 ]
 export const Media: Array<Widget> = [
@@ -128,6 +181,11 @@ export const Media: Array<Widget> = [
     },
     img: 'datavImage/txt/text.png',
     config: ImageConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: ImageData,
+      ruler: ImageRuler,
+    },
   },
 ]
 export const Texts: Array<Widget> = [
@@ -142,7 +200,12 @@ export const Texts: Array<Widget> = [
       height: 130,
     },
     img: 'datavImage/txt/text.png',
-    config: textConfig,
+    config: TextConfig,
+    dataConfig: {
+      type: 'static',
+      staticData: TextData,
+      ruler: TextRuler,
+    },
   },
 ]
 export const MENU: Array<any> = [

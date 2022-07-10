@@ -198,9 +198,9 @@ export const defaultConfig: LineType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  x: '月份',
-  y: ['降雨量', '蒸发量'],
+export const defaultRuler: Ruler = {
+  维度: '月份',
+  值: ['降雨量', '蒸发量'],
 }
 
 export const getOption = (config: LineType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
@@ -215,7 +215,7 @@ export const getOption = (config: LineType, data: any = defaultData, ruler: Rule
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
-    data: ruler.y,
+    data: ruler.值,
     show: legend.show,
     orient: orient,
     top: top,
@@ -259,7 +259,7 @@ export const getOption = (config: LineType, data: any = defaultData, ruler: Rule
     extraCssText: '',
   }
 
-  const xAxisData = data.map((item) => item[ruler.x])
+  const xAxisData = data.map((item) => item[ruler.维度])
 
   const xAxisOption = {
     type: 'category',
@@ -352,7 +352,7 @@ export const getOption = (config: LineType, data: any = defaultData, ruler: Rule
     },
   }
 
-  const series = ruler.y.map((y_item, index) => {
+  const series = ruler.值.map((y_item, index) => {
     const s_data = data.map((d_item) => d_item[y_item])
 
     let series = {

@@ -45,10 +45,10 @@ const Index = (props: BarLineType) => {
       <Panel header="折线Y轴" key="6" className="panel">
         <LineY {...barLine.lineY} />
       </Panel>
-      <Panel header="图例" key="5" className="panel">
+      <Panel header="图例" key="7" className="panel">
         <Legend {...barLine.legend} />
       </Panel>
-      <Panel header="提示层" key="7" className="panel">
+      <Panel header="提示层" key="8" className="panel">
         <Tooltip {...barLine.tooltip} />
       </Panel>
     </Collapse>

@@ -164,14 +164,14 @@ export const defaultConfig: RadarType = {
   },
 }
 
-const defaultRuler: Ruler = {
-  x: '月份',
-  y: ['降雨量', '蒸发量'],
+export const defaultRuler: Ruler = {
+  维度: '月份',
+  值: ['降雨量', '蒸发量'],
 }
 
 export const getOption = (config: RadarType, data: any = defaultData, ruler: Ruler = defaultRuler) => {
   const { radar, dataItem, legend, tooltip } = config
-  const x = data.map((item) => item[ruler.x])
+  const x = data.map((item) => item[ruler.维度])
   const { top, right, bottom, left, orient } = legendPosition(legend.position)
   const legendOption = {
     type: 'plain',
@@ -192,7 +192,7 @@ export const getOption = (config: RadarType, data: any = defaultData, ruler: Rul
       textShadowOffsetX: 0,
       textShadowOffsetY: 0,
     },
-    data: ruler.y,
+    data: ruler.值,
   }
 
   const tooltipOption = {
@@ -219,7 +219,7 @@ export const getOption = (config: RadarType, data: any = defaultData, ruler: Rul
     extraCssText: '',
   }
 
-  const seriesData = ruler.y.map((y_item, i) => {
+  const seriesData = ruler.值.map((y_item, i) => {
     const s_data = data.map((d_item) => d_item[y_item])
     const item: DataItem = dataItem[i]
     return {

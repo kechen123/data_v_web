@@ -61,6 +61,6 @@ export type Pie = {
 }
 
 export type Ruler = {
-  x: string
-  y: string
+  维度: string
+  值: string
 }
