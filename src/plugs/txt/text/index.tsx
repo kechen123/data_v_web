@@ -30,7 +30,6 @@ const Index = (props: any) => {
   const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig?.staticData, dataConfig?.ruler))
 
   useWidgetBus(id, (data) => {
-    console.log(data)
     const { widget } = data
     const oldOption = getNowOption()
     const newOption = getOption(widget.config, widget.dataConfig?.staticData, widget.dataConfig?.ruler)

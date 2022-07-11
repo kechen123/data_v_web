@@ -4,7 +4,7 @@ import { Form, Tooltip, Row, Col, Space, Input, InputNumber } from 'antd'
 import eventBus from '@utils/eventBus'
 import { getObjByPath } from '@utils/common'
 import style from './index.module.less'
-const margin = { marginBottom: '8px', paddingRight: '20px', paddingLeft: '20px' }
+const margin = { marginBottom: '8px' }
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 22 },
@@ -114,7 +114,7 @@ const Rect = React.memo((props: any) => {
   }
 
   return (
-    <Form {...layout}>
+    <Form {...layout} labelAlign="right">
       <Form.Item label="尺寸" style={{ marginBottom: 0 }}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 6px)', marginRight: '6px' }}>
           <InputNumber value={frame.width} onChange={(value) => change('width', value)} />

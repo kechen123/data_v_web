@@ -5,6 +5,7 @@ import update from 'immutability-helper'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { screen } from '@features/screenSlice'
 import { widget as widgetSotre, setWidget } from '@features/widgetSlice'
+import styled from 'styled-components'
 import useActiveWidget from '@hooks/useActiveWidget'
 import eventBus from '@utils/eventBus'
 import { WidgetObj } from '@_types/Plugin'
@@ -18,6 +19,13 @@ const style: React.CSSProperties = {
   overflow: 'auto',
   paddingBottom: '20px',
 }
+
+const Line = styled.ul`
+  width: calc(100% - 12px * 2);
+  height: 1px;
+  margin: 12px;
+  background-color: rgb(218 205 205 / 19%);
+`
 
 const { TabPane } = Tabs
 
@@ -58,16 +66,17 @@ const Setting = () => {
     } else {
       return (
         <Tabs defaultActiveKey="1">
-          <TabPane tab="外观" key="1">
+          <TabPane tab="基础配置" key="1">
             <div style={style}>
-              <Style widgetObj={widgetObj} />
+              <div className="style">
+                <Style widgetObj={widgetObj} />
+              </div>
+              <Line></Line>
+              <div className="data">{widgetObj.widget.dataConfig ? <Data {...widgetObj} /> : <div>当前组件不可设置数据</div>}</div>
             </div>
           </TabPane>
-          <TabPane tab="事件" key="2">
+          <TabPane tab="交互事件" key="2">
             Content of Tab Pane 2
-          </TabPane>
-          <TabPane tab="数据" key="3">
-            {widgetObj.widget.dataConfig ? <Data {...widgetObj} /> : <div>当前组件不可设置数据</div>}
           </TabPane>
         </Tabs>
       )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { Select, Modal, Button, Form } from 'antd'
+import { Collapse, Select, Modal, Button, Form } from 'antd'
 import update from 'immutability-helper'
 import { DynamicDataSheetGrid, DataSheetGrid, textColumn, keyColumn } from 'react-datasheet-grid'
 import eventBus from '@utils/eventBus'
@@ -10,6 +10,7 @@ import Code from './components/code'
 import 'react-datasheet-grid/dist/style.css'
 import './index.less'
 
+const { Panel } = Collapse
 const { Option } = Select
 
 const layout = {
@@ -21,6 +22,7 @@ const Data = (widgetObj: WidgetObj) => {
   const {
     widget: { dataConfig },
   } = widgetObj
+  const [active, setActive] = useState<string | string[]>([''])
   const [visible, setVisible] = useState(false)
   const [rowData, setRowData] = useState<any[]>()
   const [columnDefs, setColumnDefs] = useState<any[]>()
@@ -148,74 +150,9 @@ const Data = (widgetObj: WidgetObj) => {
   }
 
   const ShowData = () => {
-    // if (dataConfig?.displayForm === 'table') {
-    return (
-      <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
-        <DynamicDataSheetGrid
-          value={rowData}
-          // onChange={(data) => console.log(data)}
-          onChange={setRowData}
-          columns={columnDefs}
-          contextMenuComponent={(props) => {
-            const param = {
-              propsMenu: props,
-              otherMenu: [
-                {
-                  type: 'INSERT_COLUMN',
-                  action: insertColumn,
-                },
-              ],
-            }
-            return <ContextMenu {...param} />
-          }}
-        />
-      </div>
-    )
-    // }
-    // return (
-    // <div style={{ width: '100%', height: '446px' }}>
-    //   <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
-    // </div>
-    // )
-  }
-  console.log(rowData)
-  return (
-    <>
-      <Form {...layout}>
-        <Form.Item label="数据类型" style={{ marginBottom: 0 }}>
-          <Form.Item style={{ display: 'inline-block', width: 'calc(100% - 60px)', marginRight: '10px' }}>
-            <Select defaultValue="static" style={{ width: '100%' }} onChange={handleChange}>
-              <Option value="static">静态数据</Option>
-              {/* <Option value="api">API接入</Option> */}
-            </Select>
-          </Form.Item>
-          <Form.Item style={{ display: 'inline-block' }}>
-            <Button type="primary" style={{ background: 'var(--lightest-navy)', border: '1px solid var(--dark-slate)', lineHeight: '20px' }} onClick={() => setVisible(true)}>
-              <i className="icon iconfont icon-bianji"></i>
-            </Button>
-          </Form.Item>
-        </Form.Item>
-        <Ruler />
-      </Form>
-      <Modal
-        title="静态数据"
-        maskClosable={false}
-        closable={false}
-        keyboard={false}
-        visible={visible}
-        centered
-        width={760}
-        footer={
-          <div style={{ padding: '10px 0', textAlign: 'center' }}>
-            <Button type="primary" onClick={okModal}>
-              完成
-            </Button>
-          </div>
-        }
-      >
-        {/* <ShowData /> */}
-
-        <div className="sheetGrid" style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'table' ? 'block' : 'none' }}>
+    if (dataConfig?.displayForm === 'table') {
+      return (
+        <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
           <DynamicDataSheetGrid
             value={rowData}
             // onChange={(data) => console.log(data)}
@@ -235,11 +172,88 @@ const Data = (widgetObj: WidgetObj) => {
             }}
           />
         </div>
-        <div style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'codeEdit' ? 'block' : 'none' }}>
-          <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
-        </div>
-      </Modal>
-    </>
+      )
+    }
+    return (
+      <div style={{ width: '100%', height: '446px' }}>
+        <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
+      </div>
+    )
+  }
+
+  return (
+    <Collapse
+      bordered={false}
+      activeKey={active}
+      expandIcon={({ isActive }) => (
+        <span>
+          <i className="icon iconfont icon-shouqijiantouxiao " style={{ transform: `rotate(${isActive ? 180 : 90}deg)` }} />
+        </span>
+      )}
+      onChange={(key) => setActive(key)}
+      className="collapse-1"
+    >
+      <Panel header="数据配置" key="1" className="panel">
+        <Form {...layout}>
+          <Form.Item label="数据类型" style={{ marginBottom: 0 }}>
+            <Form.Item style={{ display: 'inline-block', width: 'calc(100% - 60px)', marginRight: '10px' }}>
+              <Select defaultValue="static" style={{ width: '100%' }} onChange={handleChange}>
+                <Option value="static">静态数据</Option>
+                {/* <Option value="api">API接入</Option> */}
+              </Select>
+            </Form.Item>
+            <Form.Item style={{ display: 'inline-block' }}>
+              <Button type="primary" style={{ background: 'var(--lightest-navy)', border: '1px solid var(--dark-slate)', lineHeight: '20px' }} onClick={() => setVisible(true)}>
+                <i className="icon iconfont icon-bianji"></i>
+              </Button>
+            </Form.Item>
+          </Form.Item>
+          <Ruler />
+        </Form>
+        <Modal
+          title="静态数据"
+          maskClosable={false}
+          closable={false}
+          keyboard={false}
+          visible={visible}
+          centered
+          width={760}
+          footer={
+            <div style={{ padding: '10px 0', textAlign: 'center' }}>
+              <Button type="primary" onClick={okModal}>
+                完成
+              </Button>
+            </div>
+          }
+        >
+          {/* <ShowData /> */}
+
+          <div className="sheetGrid" style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'table' ? 'block' : 'none' }}>
+            <DynamicDataSheetGrid
+              value={rowData}
+              // onChange={(data) => console.log(data)}
+              onChange={setRowData}
+              columns={columnDefs}
+              contextMenuComponent={(props) => {
+                const param = {
+                  propsMenu: props,
+                  otherMenu: [
+                    {
+                      type: 'INSERT_COLUMN',
+                      action: insertColumn,
+                    },
+                  ],
+                }
+                return <ContextMenu {...param} />
+              }}
+            />
+          </div>
+          <div style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'codeEdit' ? 'block' : 'none' }}>
+            <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
+          </div>
+        </Modal>
+      </Panel>
+    </Collapse>
   )
 }
 
