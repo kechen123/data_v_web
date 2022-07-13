@@ -33,7 +33,7 @@ const Index = (props: PieBarType) => {
       <Panel header="标签线" key="3" className="panel">
         <LabelLine {...pie.labelLine} />
       </Panel>
-      <Panel header="图例" key="5" className="panel">
+      <Panel header="图例" key="4" className="panel">
         <Legend {...pie.legend} />
       </Panel>
       <Panel header="提示层" key="5" className="panel">

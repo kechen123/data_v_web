@@ -10,7 +10,7 @@ import useActiveWidget from '@hooks/useActiveWidget'
 import eventBus from '@utils/eventBus'
 import { WidgetObj } from '@_types/Plugin'
 import Style from './style'
-import Data from './data'
+import Data from './data/index'
 import ScreenSetting from './screenSetting'
 
 const style: React.CSSProperties = {

@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Collapse, Select, Modal, Button, Form } from 'antd'
 import update from 'immutability-helper'
-import { DynamicDataSheetGrid, DataSheetGrid, textColumn, keyColumn } from 'react-datasheet-grid'
+import jspreadsheet from 'jspreadsheet-ce'
 import eventBus from '@utils/eventBus'
-import { WidgetObj } from '@_types/Plugin'
-import ContextMenu from './components/contextMenu'
 import Code from './components/code'
+import { WidgetObj } from '@_types/Plugin'
 
-import 'react-datasheet-grid/dist/style.css'
+import 'jsuites/dist/jsuites.css'
+import 'jspreadsheet-ce/dist/jspreadsheet.css'
+import 'jspreadsheet-ce/dist/jspreadsheet.theme.css'
 import './index.less'
 
 const { Panel } = Collapse
@@ -16,6 +17,26 @@ const { Option } = Select
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
+}
+const options = {
+  // minDimensions: [10, 10],
+  columnSorting: false,
+  allowExport: false,
+  about: false,
+  // defaultColWidth: 100,
+  text: {
+    insertANewColumnBefore: '在左侧插入列',
+    insertANewColumnAfter: '在右侧插入列',
+    deleteSelectedColumns: '删除选中列',
+    renameThisColumn: '重命名列',
+    insertANewRowBefore: '向上插入行',
+    insertANewRowAfter: '向下插入行',
+    deleteSelectedRows: '删除选中行',
+    copy: '复制',
+    paste: '粘贴',
+    saveAs: '下载',
+    about: '关于',
+  },
 }
 
 const Data = (widgetObj: WidgetObj) => {
@@ -28,6 +49,7 @@ const Data = (widgetObj: WidgetObj) => {
   const [columnDefs, setColumnDefs] = useState<any[]>()
   const [ruler, setRuler] = useState<any>()
   const [rulerOption, setRulerOption] = useState<any[]>()
+  const jRef: any = useRef(null)
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`)
@@ -35,8 +57,48 @@ const Data = (widgetObj: WidgetObj) => {
 
   const okModal = useCallback(() => {
     setVisible(false)
-    eventBus.emit('changeSettingBase', 'dataConfig.staticData', rowData)
-  }, [rowData])
+    if (rowData && columnDefs) {
+      let row: any = []
+
+      for (let i = 0; i < rowData.length; i++) {
+        const itemI = rowData[i]
+        let b = false
+        for (let j = 0; j < itemI.length; j++) {
+          const itemJ = itemI[j]
+          if (j === 0) {
+            if (itemJ != '') {
+              row[i] = []
+            } else {
+              b = true
+              break
+            }
+          }
+          if (itemJ === '') {
+            break
+          }
+          row[i].push(itemJ)
+        }
+        if (b) {
+          break
+        }
+      }
+
+      let column = columnDefs.filter((item, index, array) => item.title !== '')
+      // console.log(row)
+      // console.log(column)
+      const data = row.map((r) => {
+        let obj = {}
+        column.forEach((c, i) => {
+          obj[c['title']] = r[i]
+        })
+        return obj
+      })
+      console.log(data)
+      eventBus.emit('changeSettingBase', 'dataConfig.staticData', data)
+    }
+    jRef.current.jexcel.destroy()
+    jRef.current.jspreadsheet = null
+  }, [rowData, columnDefs])
 
   const chengeRuler = (val: string | string[], key: string) => {
     setRuler((ruler) => {
@@ -56,23 +118,6 @@ const Data = (widgetObj: WidgetObj) => {
     }
   }
 
-  const insertColumn = () => {
-    setRowData((data) => {
-      return data?.map((item) => {
-        return {
-          ...item,
-          未命名: '',
-        }
-      })
-    })
-    setColumnDefs((data) => {
-      return data?.concat({
-        ...keyColumn('未命名', textColumn),
-        title: '未命名',
-      })
-    })
-  }
-
   useEffect(() => {
     const data = dataConfig?.staticData
     const ruler = dataConfig?.ruler
@@ -84,12 +129,15 @@ const Data = (widgetObj: WidgetObj) => {
       // const keys = Object.keys(data[0])
       const column = keys.map((item) => {
         return {
-          ...keyColumn(item, textColumn),
+          type: 'text',
           title: item,
         }
       })
+      const rows = data.map((dataI) => {
+        return keys.map((keyI) => dataI[keyI])
+      })
       setRulerOption(keys)
-      setRowData(data)
+      setRowData(rows)
       setColumnDefs(column)
     }
     if (ruler) {
@@ -102,6 +150,18 @@ const Data = (widgetObj: WidgetObj) => {
       eventBus.emit('changeSettingBase', 'dataConfig.ruler', ruler)
     }
   }, [ruler])
+
+  useEffect(() => {
+    if (visible) {
+      if (!jRef.current?.jspreadsheet) {
+        jspreadsheet(jRef.current, {
+          ...options,
+          data: rowData,
+          columns: columnDefs,
+        })
+      }
+    }
+  }, [visible])
 
   const Ruler = () => {
     if (ruler && rulerOption) {
@@ -149,38 +209,6 @@ const Data = (widgetObj: WidgetObj) => {
     return <></>
   }
 
-  const ShowData = () => {
-    if (dataConfig?.displayForm === 'table') {
-      return (
-        <div className="sheetGrid" style={{ width: '100%', height: '446px' }}>
-          <DynamicDataSheetGrid
-            value={rowData}
-            // onChange={(data) => console.log(data)}
-            onChange={setRowData}
-            columns={columnDefs}
-            contextMenuComponent={(props) => {
-              const param = {
-                propsMenu: props,
-                otherMenu: [
-                  {
-                    type: 'INSERT_COLUMN',
-                    action: insertColumn,
-                  },
-                ],
-              }
-              return <ContextMenu {...param} />
-            }}
-          />
-        </div>
-      )
-    }
-    return (
-      <div style={{ width: '100%', height: '446px' }}>
-        <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />
-      </div>
-    )
-  }
-
   return (
     <Collapse
       bordered={false}
@@ -226,27 +254,8 @@ const Data = (widgetObj: WidgetObj) => {
             </div>
           }
         >
-          {/* <ShowData /> */}
-
-          <div className="sheetGrid" style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'table' ? 'block' : 'none' }}>
-            <DynamicDataSheetGrid
-              value={rowData}
-              // onChange={(data) => console.log(data)}
-              onChange={setRowData}
-              columns={columnDefs}
-              contextMenuComponent={(props) => {
-                const param = {
-                  propsMenu: props,
-                  otherMenu: [
-                    {
-                      type: 'INSERT_COLUMN',
-                      action: insertColumn,
-                    },
-                  ],
-                }
-                return <ContextMenu {...param} />
-              }}
-            />
+          <div className="jspreadsheet" style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'table' ? 'block' : 'none' }}>
+            <div ref={jRef} />
           </div>
           <div style={{ width: '100%', height: '446px', display: dataConfig?.displayForm === 'codeEdit' ? 'block' : 'none' }}>
             <Code onChange={codeChange} code={JSON.stringify(rowData, null, 2)} />

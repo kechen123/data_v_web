@@ -28,3 +28,48 @@
     color: rgba(255, 255, 255, 0.8);
   }
 }
+
+.jspreadsheet {
+  --jexcel_header_color: rgba(255, 255, 255, 0.8);
+  --jexcel_header_color_highlighted: rgba(255, 255, 255, 1);
+  --jexcel_header_background: var(--light-navy);
+  --jexcel_header_background_highlighted: #213f72;
+  --jexcel_content_color: rgba(255, 255, 255, 0.8);
+  --jexcel_content_color_highlighted: rgba(255, 255, 255, 0.8);
+  --jexcel_content_background: var(--light-navy);
+  --jexcel_content_background_highlighted: var(--light-navy);
+  --jexcel_menu_background: #252526;
+  --jexcel_menu_background_highlighted: #0e639c;
+  --jexcel_menu_color: rgba(255, 255, 255, 0.8);
+  --jexcel_menu_color_highlighted: rgba(255, 255, 255, 1);
+  --jexcel_menu_box_shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+  --jexcel_border_color: rgba(255, 255, 255, 0.8);
+  --jexcel_border_color_highlighted: #1890ff;
+  --active_color: #007aff;
+  overflow: auto;
+  .jexcel_corner {
+    background-color: var(--jexcel_border_color_highlighted);
+    height: 1px;
+    width: 1px;
+    border: 1px solid #fff;
+  }
+  .jexcel {
+    border-top: none;
+    border-left: none;
+  }
+  .jexcel .selection {
+    background-color: #213f72;
+  }
+  .jexcel > thead > tr > td {
+    padding: 5px 2px;
+  }
+  .jexcel > tbody > tr > td {
+    line-height: 30px;
+  }
+  .jexcel_content table {
+    width: 100%;
+    colgroup col:first-child {
+      width: 10px;
+    }
+  }
+}
