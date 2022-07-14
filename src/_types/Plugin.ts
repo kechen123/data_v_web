@@ -12,7 +12,7 @@ export interface plugin {
 
 export interface Data {
   type: 'static' | 'api'
-  staticData?: any
+  widgetData?: any
   apiUrl?: string
   loop?: number //s
   ruler?: any //数据规则

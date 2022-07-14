@@ -1,9 +1,10 @@
-import { useRef } from 'react'
+import { useRef, useImperativeHandle } from 'react'
 import Editor from '@monaco-editor/react'
 
 interface Props {
   code: string
-  onChange: (value: string | undefined) => void
+  codeRef?: any
+  onChange?: (value: string | undefined) => void
 }
 
 const Code = (props: Props) => {
@@ -14,8 +15,16 @@ const Code = (props: Props) => {
     editorRef.current = editor
   }
   const onChange = (value: string | undefined) => {
-    props.onChange(value)
+    props.onChange && props.onChange(value)
   }
+  const getValue = () => {
+    return (editorRef?.current as any)?.getValue()
+  }
+  useImperativeHandle(props?.codeRef, () => {
+    return {
+      getValue,
+    }
+  })
   const options = {
     selectOnLineNumbers: true,
   }

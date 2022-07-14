@@ -27,12 +27,12 @@ const Index = (props: any) => {
     },
   } = props
 
-  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig?.staticData, dataConfig?.ruler))
+  const [option, setOption, getNowOption] = useGetState(() => getOption(config, dataConfig?.widgetData, dataConfig?.ruler))
 
   useWidgetBus(id, (data) => {
     const { widget } = data
     const oldOption = getNowOption()
-    const newOption = getOption(widget.config, widget.dataConfig?.staticData, widget.dataConfig?.ruler)
+    const newOption = getOption(widget.config, widget.dataConfig?.widgetData, widget.dataConfig?.ruler)
     if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
       setOption(newOption)
     }

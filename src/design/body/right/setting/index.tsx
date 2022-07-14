@@ -72,7 +72,7 @@ const Setting = () => {
                 <Style widgetObj={widgetObj} />
               </div>
               <Line></Line>
-              <div className="data">{widgetObj.widget.dataConfig ? <Data {...widgetObj} /> : <div>当前组件不可设置数据</div>}</div>
+              <div className="data">{widgetObj.widget.dataConfig ? <Data {...widgetObj.widget.dataConfig} /> : <div>当前组件不可设置数据</div>}</div>
             </div>
           </TabPane>
           <TabPane tab="交互事件" key="2">

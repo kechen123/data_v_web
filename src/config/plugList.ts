@@ -43,7 +43,7 @@ export const Echarts: Array<Widget> = [
     config: BasicBarConfig,
     dataConfig: {
       type: 'static',
-      staticData: BasicBarData,
+      widgetData: BasicBarData,
       ruler: BasicBarRuler,
       displayForm: 'table',
     },
@@ -62,7 +62,7 @@ export const Echarts: Array<Widget> = [
     config: ColorBarConfig,
     dataConfig: {
       type: 'static',
-      staticData: ColorBarData,
+      widgetData: ColorBarData,
       ruler: ColorBarRuler,
       displayForm: 'table',
     },
@@ -81,7 +81,7 @@ export const Echarts: Array<Widget> = [
     config: LineConfig,
     dataConfig: {
       type: 'static',
-      staticData: LineData,
+      widgetData: LineData,
       ruler: LineRuler,
       displayForm: 'table',
     },
@@ -100,7 +100,7 @@ export const Echarts: Array<Widget> = [
     config: LineBarConfig,
     dataConfig: {
       type: 'static',
-      staticData: LineBarData,
+      widgetData: LineBarData,
       ruler: LineBarRuler,
       displayForm: 'table',
     },
@@ -119,7 +119,7 @@ export const Echarts: Array<Widget> = [
     config: PieConfig,
     dataConfig: {
       type: 'static',
-      staticData: PieData,
+      widgetData: PieData,
       ruler: PieRuler,
       displayForm: 'table',
     },
@@ -138,7 +138,7 @@ export const Echarts: Array<Widget> = [
     config: RadarConfig,
     dataConfig: {
       type: 'static',
-      staticData: RadarData,
+      widgetData: RadarData,
       ruler: RadarRuler,
       displayForm: 'table',
     },
@@ -160,7 +160,7 @@ export const Map: Array<Widget> = [
     config: QxConfig,
     dataConfig: {
       type: 'static',
-      staticData: QxData,
+      widgetData: QxData,
       ruler: QxRuler,
       displayForm: 'codeEdit',
     },
@@ -196,7 +196,7 @@ export const Texts: Array<Widget> = [
     config: TextConfig,
     dataConfig: {
       type: 'static',
-      staticData: TextData,
+      widgetData: TextData,
       ruler: TextRuler,
       displayForm: 'codeEdit',
     },
