@@ -1,29 +1,29 @@
-## 预览
+<div align="center">
 
-<p align="center">
-  <img src="./2021-3-5.png">
-</p>
-## 项目用到的一些库
+<a href="http://datav.kedachen.com/" rel="nofollow"><img src="./2022-7-16.png" alt="Handsontable" width="300"></a>
 
-> 组件移动(https://github.com/daybrush/moveable)
+Data-Visualization 是一个 React 开发的大屏制作展示编辑器平台</br>
+提供了方便快捷的编辑器和丰富的可视化图表组件来制作可视化大屏
 
-> 组件多选(https://github.com/daybrush/selecto)
+</div>
 
-> 标尺(https://github.com/daybrush/guides)
+---
 
-> hook 库 [alibaba/hooks](https://github.com/alibaba/hooks)，
-> [官网](https://ahooks.gitee.io/zh-CN)
+## 编辑器
 
-> 图表库 [echarts](https://echarts.apache.org/zh/index.html)，
+&nbsp;&nbsp;✓&nbsp; 组件拖入、移动、缩放 </br>
+&nbsp;&nbsp;✓&nbsp; 辅助线 </br>
+&nbsp;&nbsp;✓&nbsp; 组件位置尺寸、组件样式参数配置功能 </br>
+&nbsp;&nbsp;✓&nbsp; 组件数据设置，静态数据编辑，动态 api 接口调用</br>
 
-> 颜色选择器(https://github.com/casesandberg/react-color),[官网](http://casesandberg.github.io/react-color/)
+## 组件
 
-## 使用
-
-```bash
-# 安装依赖
-$ yarn || npm install
-
-# 启动服务
-$ yarn start || npm run start  # visit http://localhost:3000
-```
+&nbsp;&nbsp;✓&nbsp; 柱状图（条形图） </br>
+&nbsp;&nbsp;✓&nbsp; 彩色柱状图（条形图） </br>
+&nbsp;&nbsp;✓&nbsp; 折线图 </br>
+&nbsp;&nbsp;✓&nbsp; 双轴图</br>
+&nbsp;&nbsp;✓&nbsp; 饼图</br>
+&nbsp;&nbsp;✓&nbsp; 雷达图</br>
+&nbsp;&nbsp;✓&nbsp; 地图(支持全国所有省市)</br>
+&nbsp;&nbsp;✓&nbsp; 图片组件</br>
+&nbsp;&nbsp;✓&nbsp; 文本组件</br>

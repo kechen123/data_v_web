@@ -156,7 +156,7 @@ export const Map: Array<Widget> = [
       width: 650,
       height: 500,
     },
-    img: 'datavImage/txt/text.png',
+    img: 'datavImage/echart/map.png',
     config: QxConfig,
     dataConfig: {
       type: 'static',
@@ -177,7 +177,7 @@ export const Media: Array<Widget> = [
       width: 270,
       height: 160,
     },
-    img: 'datavImage/txt/text.png',
+    img: 'datavImage/media/img.png',
     config: ImageConfig,
   },
 ]
