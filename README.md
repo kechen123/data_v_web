@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="http://datav.kedachen.com/" rel="nofollow"><img src="./2022-7-16.png" alt="Handsontable" width="300"></a>
+<a href="http://datav.kedachen.com/" rel="nofollow"><img src="./2022-7-16.png" alt="" width="300"></a>
 
 Data-Visualization 是一个 React 开发的大屏制作展示编辑器平台</br>
 提供了方便快捷的编辑器和丰富的可视化图表组件来制作可视化大屏
