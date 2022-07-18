@@ -10,8 +10,8 @@ const { TabPane } = Tabs
 const { Option } = Select
 const margin = { marginBottom: '8px' }
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 }
 const ScreenSetting = () => {
   const { width, height, screenZoom, backgroundColor, backgroundImage, coverImage } = useAppSelector(screen)
@@ -76,7 +76,7 @@ const ScreenSetting = () => {
   return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="大屏" key="1">
-        <Form {...layout}>
+        <Form {...layout} style={{ padding: '0 12px' }}>
           <Form.Item label="名称">
             <Input
               placeholder="大屏名称"

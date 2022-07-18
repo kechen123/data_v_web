@@ -10,7 +10,6 @@ import 'jsuites/dist/jsuites.css'
 import 'jspreadsheet-ce/dist/jspreadsheet.css'
 import 'jspreadsheet-ce/dist/jspreadsheet.theme.css'
 import './index.less'
-import { config } from 'process'
 
 const { Panel } = Collapse
 const { Option } = Select
