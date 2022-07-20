@@ -26,6 +26,9 @@ import {
   RadarConfig,
   RadarData,
   RadarRuler,
+  RotationTableConfig,
+  RotationTableData,
+  RotationTableRuler,
 } from '@plugs/defaultConfig'
 
 export const Echarts: Array<Widget> = [
@@ -198,6 +201,25 @@ export const Texts: Array<Widget> = [
       type: 'static',
       widgetData: TextData,
       ruler: TextRuler,
+      displayForm: 'codeEdit',
+    },
+  },
+  {
+    name: '轮播表格',
+    plugin: {
+      name: 'border',
+      url: 'table/rotation',
+    },
+    rect: {
+      width: 600,
+      height: 220,
+    },
+    img: 'datavImage/txt/text.png',
+    config: RotationTableConfig,
+    dataConfig: {
+      type: 'static',
+      widgetData: RotationTableData,
+      ruler: RotationTableRuler,
       displayForm: 'codeEdit',
     },
   },

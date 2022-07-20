@@ -1,0 +1,37 @@
+.table {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-size: 14px;
+  border-radius: 2px;
+  .container {
+    overflow: hidden;
+    .header {
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .body {
+      overflow: auto;
+      // overflow: inherit;
+    }
+    .table {
+      width: 100%;
+      text-align: left;
+      border-radius: 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      .th,
+      .td {
+        padding: 0 10px;
+      }
+      .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+      }
+    }
+  }
+}

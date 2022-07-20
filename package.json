@@ -17,6 +17,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "ahooks": "^3.3.10",
+    "animejs": "^3.2.1",
     "antd": "^4.20.4",
     "craco-antd": "^2.0.0",
     "craco-less": "^2.0.0",
@@ -62,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "worker-plugin": "^5.0.1"
   }
 }

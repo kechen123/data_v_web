@@ -8,6 +8,7 @@ export const LineConfig = require('./echart/line/option').defaultConfig
 export const LineBarConfig = require('./echart/line&Bar/option').defaultConfig
 export const PieConfig = require('./echart/pie/option').defaultConfig
 export const RadarConfig = require('./echart/radar/option').defaultConfig
+export const RotationTableConfig = require('./table/rotation/option').defaultConfig
 
 //data
 export const BasicBarData = require('./echart/basicBar/data.json')
@@ -19,6 +20,7 @@ export const LineData = require('./echart/line/data.json')
 export const LineBarData = require('./echart/line&Bar/data.json')
 export const PieData = require('./echart/pie/data.json')
 export const RadarData = require('./echart/radar/data.json')
+export const RotationTableData = require('./table/rotation/data.json')
 
 //ruler
 export const BasicBarRuler = require('./echart/basicBar/option').defaultRuler
@@ -30,3 +32,4 @@ export const LineRuler = require('./echart/line/option').defaultRuler
 export const LineBarRuler = require('./echart/line&Bar/option').defaultRuler
 export const PieRuler = require('./echart/pie/option').defaultRuler
 export const RadarRuler = require('./echart/radar/option').defaultRuler
+export const RotationTableRuler = require('./table/rotation/option').defaultRuler

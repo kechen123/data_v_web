@@ -4,6 +4,7 @@ const CracoAntDesignPlugin = require('craco-antd')
 // Don't open the browser during development
 process.env.BROWSER = 'none'
 const path = require('path')
+const WorkerPlugin = require('worker-plugin')
 module.exports = {
   //class-name
   // style: {
@@ -51,9 +52,11 @@ module.exports = {
       '@page': path.resolve(__dirname, './src/page'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
     },
-    configure: {
+    configure: function (webpackConfig) {
       /* Any webpack configuration options: https://webpack.js.org/configuration */
+      return webpackConfig
     },
+    plugins: [new WorkerPlugin()],
     // 打包文件名 https://github.com/gsoft-inc/craco/issues/382
     // configure: (webpackConfig, { env, paths }) => {
     //

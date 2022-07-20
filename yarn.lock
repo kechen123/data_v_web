@@ -2650,6 +2650,11 @@ ajv@^8.0.0, ajv@^8.6.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+animejs@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/animejs/-/animejs-3.2.1.tgz#de9fe2e792f44a777a7fdf6ae160e26604b0cdda"
+  integrity sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==
+
 ansi-escapes@^4.2.1, ansi-escapes@^4.3.1:
   version "4.3.2"
   resolved "https://registry.npmmirror.com/ansi-escapes/-/ansi-escapes-4.3.2.tgz#6b2291d1db7d98b6521d5f1efa42d0f3a9feb65e"
@@ -6373,6 +6378,15 @@ loader-runner@^4.2.0:
   version "4.3.0"
   resolved "https://registry.npmmirror.com/loader-runner/-/loader-runner-4.3.0.tgz#c1b4a163b99f614830353b16755e7149ac2314e1"
   integrity sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==
+
+loader-utils@^1.1.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
+  integrity sha512-qH0WSMBtn/oHuwjy/NucEgbx5dbxxnxup9s4PVXJUDHZBQY+s0NWA9rJf53RBnQZxfch7euUui7hpoAPvALZdA==
+  dependencies:
+    big.js "^5.2.2"
+    emojis-list "^3.0.0"
+    json5 "^1.0.1"
 
 loader-utils@^2.0.0:
   version "2.0.2"
@@ -10107,6 +10121,13 @@ workbox-window@6.5.3:
   dependencies:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.5.3"
+
+worker-plugin@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/worker-plugin/-/worker-plugin-5.0.1.tgz#bd76d66216a637a893c6a2f6a530f6bbb2bb8016"
+  integrity sha512-Pn7+19jIiANcGuTSGdy+vrzyF+SGH03A5wV8iu4jRTMAOfAC9bNeiHo4+l5tPS7F0uvICMBv+h8UCvL7lunxcA==
+  dependencies:
+    loader-utils "^1.1.0"
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
