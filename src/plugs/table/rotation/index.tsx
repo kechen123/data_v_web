@@ -257,8 +257,9 @@ const Index = (widgetObj: WidgetObj) => {
       if (pageNum >= data.length) {
         nextPageNum = 1
       }
-      // !hover && animate(nextPageNum)
-      animate(nextPageNum)
+      if (!hover && !document.hidden) {
+        animate(nextPageNum)
+      }
     }, [hover, pageNum, bodyDataList.length, option.config.pageSize]),
     option.config.waitTime
   )
