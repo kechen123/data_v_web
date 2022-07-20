@@ -178,6 +178,7 @@ const Index = (widgetObj: WidgetObj) => {
     const newOption = getOption(widget.config, widget.dataConfig?.widgetData, widget.dataConfig?.ruler)
     if (JSON.stringify(oldOption) !== JSON.stringify(newOption)) {
       setOption(newOption)
+      setPageNum(1)
     }
   })
 
