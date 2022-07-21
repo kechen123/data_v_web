@@ -153,6 +153,7 @@ const Index = (props: Props) => {
       onChange={(e) => {
         onChange(e.target.value)
       }}
+      className="color"
       addonBefore={<Color {...params} />}
     />
   )

@@ -52,24 +52,27 @@ const Bar = (props: Props) => {
         <Form.Item label="柱子占比">
           <InputNumberUnit value={bar.width} unit={['px', '%']} onChange={(value) => change('width', value)} style={{ width: '100px' }} />
         </Form.Item>
-        <Form.Item label="柱子颜色">
-          {bar.colorArr.map((item, index) => {
-            return (
-              <div key={index} style={{ height: '20px', display: 'flex', alignItems: 'center' }}>
+
+        {bar.colorArr.map((item, index) => {
+          return (
+            <Form.Item label={`柱子${index + 1}`}>
+              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                 <EchartColor color={item.color} onChange={(value) => change(`colorArr.${index}.color`, value)} />
               </div>
-            )
-          })}
-        </Form.Item>
-        <Form.Item label="边框颜色">
-          {bar.colorArr.map((item, index) => {
-            return (
-              <div key={index} style={{ height: '20px', display: 'flex', alignItems: 'center' }}>
+            </Form.Item>
+          )
+        })}
+
+        {bar.colorArr.map((item, index) => {
+          return (
+            <Form.Item label={`边框${index + 1}`}>
+              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                 <EchartColor color={item.border} onChange={(value) => change(`colorArr.${index}.border`, value)} />
               </div>
-            )
-          })}
-        </Form.Item>
+            </Form.Item>
+          )
+        })}
+
         <Form.Item label="柱子方向">
           <Select value={bar.direction} onChange={(value) => change(`direction`, value)}>
             <Option value="horizontally">水平</Option>
