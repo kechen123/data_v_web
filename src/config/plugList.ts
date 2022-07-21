@@ -214,13 +214,13 @@ export const Texts: Array<Widget> = [
       width: 600,
       height: 220,
     },
-    img: 'datavImage/txt/text.png',
+    img: 'datavImage/txt/rotationTable.png',
     config: RotationTableConfig,
     dataConfig: {
       type: 'static',
       widgetData: RotationTableData,
       ruler: RotationTableRuler,
-      displayForm: 'codeEdit',
+      displayForm: 'table',
     },
   },
 ]
