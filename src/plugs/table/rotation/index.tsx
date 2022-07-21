@@ -22,6 +22,7 @@ interface HeaderProps {
 
 interface BodyProps {
   id: string
+  pageNum: number
   data: any[]
   columns: string[]
   config: TableType
@@ -88,9 +89,8 @@ const Header = (props: HeaderProps) => {
 }
 
 const Body = (props: BodyProps) => {
-  const { id, columns, data, config } = props
+  const { id, pageNum, columns, data, config } = props
   const tableRef = useRef<HTMLDivElement>(null)
-
   const widthArr = useMemo(() => {
     return columns.map((item, index) => {
       const w = config.head.width[index] || 100
@@ -124,13 +124,13 @@ const Body = (props: BodyProps) => {
   const rowCss = useMemo(() => {
     return `
     [data-id="${id}"] .data_v_tr:nth-child(odd){
-      background-color: ${config.body.oddBackgroundColor};
+      background-color: ${pageNum % 2 === 0 ? config.body.oddBackgroundColor : config.body.evenBackgroundColor};
     }
     [data-id="${id}"] .data_v_tr:nth-child(even){
-      background-color: ${config.body.oddBackgroundColor};
+      background-color: ${pageNum % 2 === 0 ? config.body.evenBackgroundColor : config.body.oddBackgroundColor};
     }
     `
-  }, [config.body.oddBackgroundColor, config.body.evenBackgroundColor])
+  }, [pageNum, config.body.oddBackgroundColor, config.body.evenBackgroundColor])
 
   useEffect(() => {
     if (tableRef.current) {
@@ -228,10 +228,11 @@ const Index = (widgetObj: WidgetObj) => {
     return {
       id,
       columns: option.column,
+      pageNum,
       data: bodyDataList,
       config: option.config,
     }
-  }, [bodyDataList, column, option.config])
+  }, [bodyDataList, pageNum, column, option.config])
 
   const animate = useCallback(
     (pageNum) => {

@@ -19,8 +19,8 @@ export const defaultConfig: TableType = {
     ellipsis: true,
   },
   body: {
-    oddBackgroundColor: '#003B51',
-    evenBackgroundColor: '#0A2732',
+    oddBackgroundColor: '#0A2732',
+    evenBackgroundColor: '#003B51',
     outLineStyle: {
       borderColor: '#396bd7',
       borderStyle: 'solid',
