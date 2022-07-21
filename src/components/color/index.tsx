@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { SketchPicker } from 'react-color'
+import { Input } from 'antd'
 import { Color as ColorType, BaseColor as BaseColorType, RgbaColor as RgbaColorType } from '@/_types/Color'
 import styles from './index.module.less'
 
 interface Props {
-  color: BaseColorType | RgbaColorType
-  onChange: (color: ColorType) => void
+  color: BaseColorType | RgbaColorType | string
+  onChange: (color: string) => void
 }
 
 const customStyles = {
@@ -38,20 +39,33 @@ const colorStyle: React.CSSProperties = {
   position: 'absolute',
 }
 
+// const getColor = (color) => {
+//   if (typeof color === 'object') {
+//     return `rgba(${color.r},${color.g},${color.b},${color.a})`
+//   } else {
+//     return color
+//   }
+// }
+
 const getColor = (color) => {
   if (typeof color === 'object') {
-    return `rgba(${color.r},${color.g},${color.b},${color.a})`
+    if (color.rgb.a === 1) {
+      return color.hex
+    } else {
+      return `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`
+    }
   } else {
     return color
   }
 }
 
-const Color = ({ color, onChange }: Props) => {
+const Color = React.memo(({ color, onChange }: Props) => {
   const colorRef = useRef<HTMLDivElement | null>(null)
   const [selfColor, setSelfColor] = useState<any>(color)
   const [isOpen, setIsOpen] = useState(false)
   const [rect, setRect] = useState([0, 0])
   const colorPanlSize = [220, 313]
+
   const handleClick = (e) => {
     const {
       nativeEvent: { clientX, clientY, offsetX, offsetY },
@@ -71,15 +85,20 @@ const Color = ({ color, onChange }: Props) => {
   }
 
   const handleChange = (color) => {
-    const { r, g, b, a } = color.rgb
-    setSelfColor(color.rgb)
-    onChange(color)
+    const c = getColor(color)
+    setSelfColor(c)
+    onChange(c)
   }
+
   const handleBodyClick = (e) => {
     if (e.target.className.indexOf('colorModal') > -1) {
       setIsOpen(false)
     }
   }
+
+  useEffect(() => {
+    setSelfColor(color)
+  }, [color])
 
   return (
     <div className={styles.colorBody}>
@@ -87,7 +106,7 @@ const Color = ({ color, onChange }: Props) => {
         <div
           className={styles.color}
           style={{
-            background: getColor(selfColor),
+            background: selfColor,
           }}
         ></div>
       </div>
@@ -98,7 +117,45 @@ const Color = ({ color, onChange }: Props) => {
       </div>
     </div>
   )
+})
+
+const Index = (props: Props) => {
+  const color = () => {
+    if (typeof props.color === 'string') {
+      return props.color
+    }
+    return `rgba(${props.color.r},${props.color.g},${props.color.b},${props.color.a})`
+  }
+  const [selfColor, setSelfColor] = useState<any>(color())
+  const onChange = (value) => {
+    setSelfColor(value)
+    if (CSS.supports('color', value)) {
+      props.onChange(value)
+    }
+  }
+
+  const params = useMemo(() => {
+    if (CSS.supports('color', selfColor)) {
+      return {
+        color: selfColor,
+        onChange,
+      }
+    }
+    return {
+      color: props.color,
+      onChange,
+    }
+  }, [selfColor])
+
+  return (
+    <Input
+      value={selfColor}
+      onChange={(e) => {
+        onChange(e.target.value)
+      }}
+      addonBefore={<Color {...params} />}
+    />
+  )
 }
 
-export default React.memo(Color)
-export { getColor }
+export default React.memo(Index)

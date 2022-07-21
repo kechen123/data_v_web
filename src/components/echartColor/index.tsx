@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react'
 import update, { extend } from 'immutability-helper'
-import Color, { getColor } from '@components/color'
+import Color from '@components/color'
 import { Color as ColorType, BaseColor as BaseColorType, LinearColor as LinearColorType, RadialColor as RadialColorType } from '@/_types/Color'
 import styles from './index.module.less'
 
@@ -42,8 +42,9 @@ const EchartColor = (props: Props) => {
     setSelfColors(colors)
   }
 
-  const handleChange = (color: ColorType, index?: number) => {
-    const colorStr = getColor(color.rgb)
+  const handleChange = (color: string, index?: number) => {
+    const colorStr = color
+    console.log(color)
     setColor(colorStr, index)
     if (onChange) {
       let propsColor = JSON.parse(JSON.stringify(props.color))

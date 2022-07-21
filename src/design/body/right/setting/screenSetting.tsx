@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Popconfirm, Select, Tabs, Form, Row, Col, Input, InputNumber, Button } from 'antd'
 import html2canvas from 'html2canvas'
-import Color, { getColor } from '@components/color'
+import Color from '@components/color'
 import { ImageBox } from '@components/upload/image'
 import { useAppSelector, useAppDispatch } from '@storeApp/hooks'
 import { screen, setScreen } from '@features/screenSlice'
@@ -17,7 +17,7 @@ const ScreenSetting = () => {
   const { width, height, screenZoom, backgroundColor, backgroundImage, coverImage } = useAppSelector(screen)
   const dispatch = useAppDispatch()
   const colorChange = (e) => {
-    let color = getColor(e.rgb)
+    let color = e
     dispatch(setScreen(['backgroundColor', color]))
   }
   const screenshot = () => {
