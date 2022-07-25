@@ -36,7 +36,7 @@ const App = () => {
   return (
     <Routes>
       {/* <Route path="/" element={<Login />} /> */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<ScreenList />} />
       {/* <Route path="/" element={<Design />} /> */}
       {/* <Route path="/" element={<Loading />} /> */}
 

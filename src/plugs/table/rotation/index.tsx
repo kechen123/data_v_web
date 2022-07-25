@@ -258,7 +258,8 @@ const Index = (widgetObj: WidgetObj) => {
       if (pageNum >= data.length) {
         nextPageNum = 1
       }
-      if (!hover && !document.hidden) {
+      // !hover &&
+      if (!document.hidden) {
         animate(nextPageNum)
       }
     }, [hover, pageNum, bodyDataList.length, option.config.pageSize]),
